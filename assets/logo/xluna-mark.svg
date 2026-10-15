@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 132 132" width="132" height="132">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 128 128" width="128" height="128">
   <title>XLUNA mark</title>
   <defs>
     <linearGradient id="moonlit" x1="0.15" y1="0.1" x2="0.6" y2="1">
@@ -8,16 +8,16 @@
       <stop offset="0" stop-color="#d6f6ff"/><stop offset="0.5" stop-color="#8fe6ff"/><stop offset="1" stop-color="#5cc8f0"/>
     </linearGradient>
     <mask id="crescent">
-      <circle cx="60" cy="60" r="44" fill="#fff"/>
-      <circle cx="74" cy="46" r="41" fill="#000"/>
+      <circle cx="60" cy="60" r="52" fill="#fff"/>
+      <circle cx="67" cy="53" r="50.5" fill="#000"/>
     </mask>
     <mask id="gap">
       <rect x="-10" y="-10" width="140" height="140" fill="#fff"/>
-      <g mask="url(#crescentWide)"><circle cx="60" cy="60" r="48" fill="#000"/></g>
+      <g mask="url(#crescentWide)"><circle cx="60" cy="60" r="56" fill="#000"/></g>
     </mask>
     <mask id="crescentWide">
-      <circle cx="60" cy="60" r="48" fill="#fff"/>
-      <circle cx="74" cy="46" r="37" fill="#000"/>
+      <circle cx="60" cy="60" r="56" fill="#fff"/>
+      <circle cx="67" cy="53" r="46" fill="#000"/>
     </mask>
     <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="2.2" result="b"/>
@@ -25,6 +25,6 @@
       <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <g mask="url(#gap)" filter="url(#glow)"><path d="M110 10 L64 52 L14 106 Q12 108 10 110 L56 68 L106 14 Q108 12 110 10 Z" fill="url(#blade)"/></g>
-  <circle cx="60" cy="60" r="44" fill="url(#moonlit)" mask="url(#crescent)" filter="url(#glow)"/>
+  <g mask="url(#gap)" filter="url(#glow)"><path d="M118 2 L65 52 L8 112 Q5 115 2 118 L55 68 L112 8 Q115 5 118 2 Z" fill="url(#blade)"/></g>
+  <circle cx="60" cy="60" r="52" fill="url(#moonlit)" mask="url(#crescent)" filter="url(#glow)"/>
 </svg>

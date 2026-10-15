@@ -1,7 +1,9 @@
 """Stamps the shared head, header and footer around each page body in tools/pages and writes the site's HTML files.
 Run: python tools/build_pages.py
 """
+import json
 import os
+from datetime import date
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SRC = os.path.join(ROOT, "tools", "pages")
@@ -13,6 +15,16 @@ PAGES = [
     ("contact.html", "Contact", "Contact XLUNA Studio", "Reach XLUNA Studio at contact@xlunastudio.com for app ideas, support, partnerships and press.", "contact"),
     ("privacy.html", "Privacy", "XLUNA Privacy Policy", "How XLUNA Studio handles information on xlunastudio.com and in its apps.", "privacy"),
 ]
+SITE = "https://xlunastudio.com/"
+JSONLD = '<script type="application/ld+json">' + json.dumps({
+    "@context": "https://schema.org",
+    "@graph": [
+        {"@type": "Organization", "@id": SITE + "#org", "name": "XLUNA Studio", "url": SITE,
+         "logo": SITE + "assets/logo/xluna-mark-512.png", "email": "contact@xlunastudio.com",
+         "founder": {"@type": "Person", "name": "Hasnain Butt Akhtar"}},
+        {"@type": "WebSite", "@id": SITE + "#site", "name": "XLUNA Studio", "url": SITE, "publisher": {"@id": SITE + "#org"}},
+    ],
+}) + "</script>\n"
 NAV = ("index.html", "store.html", "about.html", "contact.html")
 
 HEAD = """<!doctype html>
@@ -22,6 +34,11 @@ HEAD = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+<link rel="canonical" href="{canonical}">
+<meta property="og:url" content="{canonical}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="XLUNA Studio">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://xlunastudio.com/assets/logo/xluna-mark-1024.png">
@@ -33,7 +50,7 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Manrope:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="assets/site.css">
-</head>
+{jsonld}</head>
 <body data-scene="{scene}">
 <canvas id="universe" aria-hidden="true"></canvas>
 <div class="veil" aria-hidden="true"></div>
@@ -79,9 +96,16 @@ def build():
         body = open(os.path.join(SRC, scene + ".body.html"), encoding="utf-8").read()
         script_path = os.path.join(SRC, scene + ".script.html")
         scripts = open(script_path, encoding="utf-8").read() if os.path.exists(script_path) else ""
-        html = HEAD.format(title=title, desc=desc, scene=scene, nav=nav) + body + FOOT.format(scripts=scripts)
+        canonical = SITE + ("" if file == "index.html" else file)
+        jsonld = JSONLD if file == "index.html" else ""
+        html = HEAD.format(title=title, desc=desc, scene=scene, nav=nav, canonical=canonical, jsonld=jsonld) + body + FOOT.format(scripts=scripts)
         open(os.path.join(ROOT, file), "w", encoding="utf-8", newline="\n").write(html)
         print("wrote", file)
+    urls = "\n".join(f"  <url><loc>{SITE + ('' if f == 'index.html' else f)}</loc><lastmod>{date.today().isoformat()}</lastmod></url>" for f, *_ in PAGES)
+    sitemap = f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n'
+    open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8", newline="\n").write(sitemap)
+    open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8", newline="\n").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}sitemap.xml\n")
+    print("wrote sitemap.xml, robots.txt")
 
 
 if __name__ == "__main__":
