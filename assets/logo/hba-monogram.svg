@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-14 -14 332 128" width="332" height="128">
+  <title>HBA</title>
+  <defs>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.6" stop-color="#e3e8f0"/>
+      <stop offset="1" stop-color="#b9c2d0"/>
+    </linearGradient>
+    <linearGradient id="ice" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d6f6ff"/>
+      <stop offset="1" stop-color="#8fe6ff"/>
+    </linearGradient>
+    <filter id="glow" x="-10%" y="-30%" width="120%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+      <feColorMatrix in="b" type="matrix" values="0 0 0 0 0.56  0 0 0 0 0.9  0 0 0 0 1  0 0 0 0.45 0" result="g"/>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g fill="none" stroke-width="10" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="1.5" filter="url(#glow)">
+    <path d="M0 0 V100 M80 0 V100 M0 50 H80" stroke="url(#ice)"/>
+    <path d="M112 0 V100 H164 A25 25 0 0 0 164 50 H112 M112 50 H158 A25 25 0 0 0 158 0 H112" stroke="url(#silver)"/>
+    <path d="M224 100 L264 0 L304 100" stroke="url(#silver)"/>
+  </g>
+</svg>
