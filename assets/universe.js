@@ -1,13 +1,12 @@
-// XLUNA particle universe. Every page opens on the XLUNA title, which then folds into tonight's real moon
-// circled by two crossing orbits; scrolling carries the particles out into a galaxy.
+// XLUNA particle universe. Every page opens on the XLUNA title, which then folds into the XLUNA mark
+// (a thin new-moon crescent crossed by a beam of light); scrolling carries the particles out into a galaxy.
 (function () {
   const SYNODIC = 29.530588853;
   const REF_NEW_MOON = Date.UTC(2000, 0, 6, 18, 14);
   const PHASES = [[1.84, "New moon"], [5.53, "Waxing crescent"], [9.22, "First quarter"], [12.91, "Waxing gibbous"],
     [16.61, "Full moon"], [20.3, "Waning gibbous"], [23.99, "Last quarter"], [27.68, "Waning crescent"], [99, "New moon"]];
   const age = (((Date.now() - REF_NEW_MOON) / 864e5) % SYNODIC + SYNODIC) % SYNODIC;
-  const elong = age / SYNODIC * Math.PI * 2;
-  const lit = (1 - Math.cos(elong)) / 2;
+  const lit = (1 - Math.cos(age / SYNODIC * Math.PI * 2)) / 2;
   const phaseName = PHASES.find(p => age < p[0])[1];
   document.querySelectorAll("[data-moon-phase]").forEach(el => {
     el.textContent = `Tonight's moon · ${phaseName} · ${Math.round(lit * 100)}% lit · day ${age.toFixed(1)} of ${SYNODIC.toFixed(1)}`;
@@ -19,7 +18,7 @@
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const small = innerWidth < 760;
   const N = small ? 8000 : 17000;
-  const order = ["dust", "word", "moonOrbit", "galaxy"];
+  const order = ["dust", "word", "mark", "galaxy"];
   const INTRO_STEPS = 2;
   const HOLD = [0, 1.7];
   const MORPH = 2.3;
@@ -32,27 +31,7 @@
 
   const rnd = (a, b) => a + Math.random() * (b - a);
   const WHITE = [0.93, 0.95, 0.98], ICE = [0.56, 0.9, 1.0], AMBER = [1.0, 0.69, 0.29];
-
-  // Near-side lunar features in selenographic degrees: lat, lon, lat radius, lon radius, darkness.
-  const MARIA = [[10, -56, 30, 21, .55], [33, -16, 16, 18, .62], [28, 17, 10, 11, .6], [8, 30, 11, 13, .6], [17, 59, 7, 9, .62],
-    [-7, 51, 10, 8, .55], [-15, 35, 6, 6, .55], [-21, -17, 11, 12, .5], [-24, -39, 6, 6, .55], [56, 0, 5, 38, .45],
-    [13, 4, 4, 5, .5], [-10, -23, 5, 5, .45], [7, -31, 7, 8, .45]];
-  const CRATERS = [[-43, -11, 3.2, .9], [9.6, -20, 3, .55], [8, -38, 1.6, .5], [23.7, -47.4, 1.3, 1]];
-  function albedo(la, lo) {
-    let a = 0.8;
-    for (const [mla, mlo, rla, rlo, dark] of MARIA) {
-      const d = ((la - mla) / rla) ** 2 + ((lo - mlo) / rlo) ** 2;
-      a -= dark * 0.6 * Math.pow(Math.max(0, Math.min(1, 1.2 - d)), 1.4);
-    }
-    for (const [cla, clo, r, glow] of CRATERS) {
-      const d = Math.hypot(la - cla, (lo - clo) * Math.cos(cla * Math.PI / 180));
-      a += glow * 0.4 * Math.exp(-((d / r) ** 2));
-    }
-    // Tycho's ray system across the southern highlands.
-    const ang = Math.atan2(la + 43, (lo + 11) * 0.73), dist = Math.hypot(la + 43, lo + 11);
-    a += 0.14 * Math.min(1, Math.pow(Math.cos(ang * 9 + .7), 40) + Math.pow(Math.cos(ang * 13 + 2.1), 60)) * Math.exp(-dist / 45);
-    return Math.max(0.12, Math.min(1, a * (0.9 + Math.random() * 0.2)));
-  }
+  const BEAM_HI = [0.84, 0.96, 1.0], BEAM_LO = [0.36, 0.78, 0.94];
 
   function dust() {
     const p = new Float32Array(N * 3), c = new Float32Array(N * 3);
@@ -85,51 +64,56 @@
     return { p, c };
   }
 
-  // Tonight's moon, lit from the sun's real direction, plus two orbits crossing in front of it like the logo.
-  const MOON_R = small ? 1.45 : 1.75, RING_R = MOON_R * 1.95, RING_SHARE = 0.36;
-  const ringStart = Math.floor(N * (1 - RING_SHARE));
-  const ringA0 = new Float32Array(N), ringId = new Uint8Array(N), ringJit = new Float32Array(N);
-  function moonOrbit() {
+  // The XLUNA mark, in the logo's own 120-unit coordinates: crescent = circle (60,60) r52 minus circle (67,53) r50.5;
+  // the beam runs from (118,2) to (2,118) and stops short of the crescent, as the logo's gap mask does.
+  const UNIT = (small ? 1.55 : 1.9) / 52;
+  const toWorld = (x, y) => [(x - 60) * UNIT, (60 - y) * UNIT];
+  const inCrescent = (x, y, ro, ri) => Math.hypot(x - 60, y - 60) < ro && Math.hypot(x - 67, y - 53) > ri;
+  const beamStart = Math.floor(N * 0.7), haloStart = Math.floor(N * 0.58);
+  const beamU = new Float32Array(N), beamBase = new Float32Array(N);
+  function mark() {
     const p = new Float32Array(N * 3), c = new Float32Array(N * 3);
-    const L = new THREE.Vector3(Math.sin(elong), 0.12, -Math.cos(elong)).normalize();
-    for (let i = 0; i < ringStart; i++) {
-      let nx, ny, nz;
+    const crescentPt = () => {
+      let x, y;
+      do { x = rnd(8, 112); y = rnd(8, 112); } while (!inCrescent(x, y, 52, 50.5));
+      return [x, y];
+    };
+    for (let i = 0; i < haloStart; i++) {
+      const [x, y] = crescentPt(), [wx, wy] = toWorld(x, y);
+      const dome = Math.sqrt(Math.max(0, 52 * 52 - (x - 60) ** 2 - (y - 60) ** 2)) * UNIT * 0.25;
+      p[i*3] = wx; p[i*3+1] = wy; p[i*3+2] = dome + rnd(-0.03, 0.03);
+      const t = Math.min(1, Math.max(0, (x + y - 40) / 170)), b = rnd(0.75, 1);
+      for (let k = 0; k < 3; k++) c[i*3+k] = (WHITE[k] * (1 - t) + ICE[k] * t) * b;
+    }
+    // A faint glow that hugs the outside of the crescent.
+    for (let i = haloStart; i < beamStart; i++) {
+      const [x, y] = crescentPt(), ang = Math.atan2(y - 60, x - 60), push = rnd(0.5, 5);
+      const [wx, wy] = toWorld(x + Math.cos(ang) * push, y + Math.sin(ang) * push);
+      p[i*3] = wx; p[i*3+1] = wy; p[i*3+2] = rnd(-0.1, 0.1);
+      const b = rnd(0.08, 0.28) * (1 - push / 6);
+      for (let k = 0; k < 3; k++) c[i*3+k] = ICE[k] * b;
+    }
+    for (let i = beamStart; i < N; i++) {
+      let u, x, y;
       do {
-        const u = Math.random() * 2 - 1, t = Math.random() * Math.PI * 2, s = Math.sqrt(1 - u * u);
-        nx = s * Math.cos(t); ny = u; nz = s * Math.sin(t);
-      } while (nz < -0.1);
-      const la = Math.asin(ny) * 180 / Math.PI, lo = Math.atan2(nx, nz) * 180 / Math.PI;
-      const alb = albedo(la, lo);
-      const lam = Math.max(0, nx * L.x + ny * L.y + nz * L.z);
-      const light = Math.pow(Math.min(1, lam * 1.6), 0.75);
-      const earthshine = 0.1 * (1 - light);
-      p[i*3] = nx * MOON_R; p[i*3+1] = ny * MOON_R; p[i*3+2] = nz * MOON_R;
-      const v = alb * (light * 1.15 + earthshine);
-      const rim = light * Math.pow(1 - nz, 2) * 0.25;
-      c[i*3] = v * 0.96; c[i*3+1] = v * 0.99 + rim * 0.6; c[i*3+2] = v * 1.05 + rim + (1 - light) * 0.03;
+        u = Math.random();
+        const width = 4.4 * Math.pow(1 - Math.abs(2 * u - 1), 1.1), off = rnd(-0.5, 0.5) * width;
+        x = 118 - 116 * u + off * 0.7071; y = 2 + 116 * u + off * 0.7071;
+      } while (inCrescent(x, y, 56, 46));
+      const [wx, wy] = toWorld(x, y);
+      p[i*3] = wx; p[i*3+1] = wy; p[i*3+2] = rnd(-0.04, 0.04) + 0.08;
+      beamU[i] = u; beamBase[i] = rnd(0.55, 1);
     }
-    for (let i = ringStart; i < N; i++) {
-      ringId[i] = i & 1; ringA0[i] = Math.random() * Math.PI * 2; ringJit[i] = rnd(-0.03, 0.03);
-    }
-    placeRings(p, c, 0);
+    shineBeam(c, 0);
     return { p, c };
   }
-  // TILT opens each ring from edge-on to the same thin ellipse as the logo (minor/major about 0.22).
-  const TILT = 0.24, ROLL = 34 * Math.PI / 180;
-  function placeRings(p, c, time) {
-    const cz = Math.cos(TILT), sz = Math.sin(TILT);
-    for (let i = ringStart; i < N; i++) {
-      const a = ringA0[i] + time * 0.35, r = RING_R + ringJit[i];
-      const x = Math.cos(a) * r, z = Math.sin(a) * r;
-      const y2 = -z * sz, z2 = z * cz;
-      const roll = ringId[i] ? ROLL : -ROLL, cr = Math.cos(roll), sr = Math.sin(roll);
-      const x3 = x * cr - y2 * sr, y3 = x * sr + y2 * cr;
-      p[i*3] = x3; p[i*3+1] = y3; p[i*3+2] = z2;
-      // Ring particles passing behind the moon disc are hidden so the moon reads as solid.
-      const hidden = z2 < 0 && Math.hypot(x3, y3) < MOON_R * 0.98;
-      const b = hidden ? 0 : z2 > 0 ? 1 : 0.45;
-      const t = (Math.sin(a * 2) + 1) / 2;
-      c[i*3] = (WHITE[0] * t + ICE[0] * (1 - t)) * b; c[i*3+1] = (WHITE[1] * t + ICE[1] * (1 - t)) * b; c[i*3+2] = b;
+  // Light travels down the beam from the top-right, like the logo's glow catching the blade.
+  function shineBeam(c, time) {
+    const head = (time * 0.32) % 1.4 - 0.2;
+    for (let i = beamStart; i < N; i++) {
+      const u = beamU[i], pulse = Math.exp(-((u - head) ** 2) / 0.006);
+      const b = beamBase[i] * (0.55 + 0.9 * pulse);
+      for (let k = 0; k < 3; k++) c[i*3+k] = (BEAM_HI[k] * (1 - u) + BEAM_LO[k] * u) * b;
     }
   }
 
@@ -144,10 +128,10 @@
     return { p, c };
   }
 
-  const BUILD = { dust, word, moonOrbit, galaxy };
+  const BUILD = { dust, word, mark, galaxy };
   const states = order.map(n => BUILD[n]());
   const POSE = { dust: { spin: 0.02, tilt: 0, cam: 11 }, word: { spin: 0, tilt: 0, cam: small ? 10 : 9 },
-    moonOrbit: { spin: 0, tilt: 0, cam: 9.5 }, galaxy: { spin: 0.05, tilt: 0.55, cam: 11 } };
+    mark: { spin: 0, tilt: 0, cam: 9.5 }, galaxy: { spin: 0.05, tilt: 0.55, cam: 11 } };
   // Hero copy sits in the lower half, so formations rise into the space above it.
   const LIFT = document.body.dataset.scene === "home" ? 1.7 : 1.25;
 
@@ -158,11 +142,11 @@
   geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
   const dot = document.createElement("canvas"); dot.width = dot.height = 64;
   const dg = dot.getContext("2d"), grd = dg.createRadialGradient(32, 32, 0, 32, 32, 32);
-  grd.addColorStop(0, "rgba(255,255,255,1)"); grd.addColorStop(0.35, "rgba(255,255,255,0.4)"); grd.addColorStop(1, "rgba(255,255,255,0)");
+  grd.addColorStop(0, "rgba(255,255,255,1)"); grd.addColorStop(0.45, "rgba(255,255,255,0.85)"); grd.addColorStop(0.7, "rgba(255,255,255,0.3)"); grd.addColorStop(1, "rgba(255,255,255,0)");
   dg.fillStyle = grd; dg.fillRect(0, 0, 64, 64);
-  const mat = new THREE.PointsMaterial({ size: small ? 0.085 : 0.072, map: new THREE.CanvasTexture(dot), vertexColors: true,
+  const mat = new THREE.PointsMaterial({ size: small ? 0.09 : 0.078, map: new THREE.CanvasTexture(dot), vertexColors: true,
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
-  mat.color.setScalar(2.6);
+  mat.color.setScalar(1.5);
   const cloud = new THREE.Points(geo, mat);
   world.add(cloud);
 
@@ -193,7 +177,7 @@
   }
   const t0 = performance.now();
   let k = reduce ? INTRO_STEPS : 0, last = t0, spin = 0;
-  const moonState = states[2];
+  const markState = states[2];
 
   function frame(now) {
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
@@ -201,7 +185,7 @@
     const scrollK = Math.min(1, (scrollY / max) * 1.6);
     const target = (reduce ? INTRO_STEPS : introAt((now - t0) / 1000)) + scrollK;
     k += (target - k) * Math.min(1, dt * 5);
-    if (!reduce) placeRings(moonState.p, moonState.c, (now - t0) / 1000);
+    if (!reduce) shineBeam(markState.c, (now - t0) / 1000);
 
     const i = Math.min(states.length - 1, Math.floor(k)), j = Math.min(states.length - 1, i + 1), f = ease(k - i);
     const A = states[i], B = states[j];
@@ -214,11 +198,13 @@
 
     const pa = POSE[order[i]], pb = POSE[order[j]];
     const spinRate = pa.spin + (pb.spin - pa.spin) * f, tilt = pa.tilt + (pb.tilt - pa.tilt) * f;
-    // The title and the moon face the viewer, so any spin unwinds before they settle.
+    // The title and the mark face the viewer, so any spin unwinds before they settle.
     spin = spinRate > 0.001 ? spin + dt * spinRate * 6 : spin * (1 - Math.min(1, dt * 2.5));
     cloud.rotation.y = spin + mx * 0.18;
     cloud.rotation.x += ((tilt + my * 0.12) - cloud.rotation.x) * 0.05;
     camera.position.z += ((pa.cam + (pb.cam - pa.cam) * f) - camera.position.z) * 0.05;
+    // Past the opening screen the particles become a dim backdrop so body text stays readable.
+    canvas.style.opacity = Math.max(0.22, 1 - Math.max(0, scrollY - innerHeight * 0.3) / (innerHeight * 0.6)).toFixed(3);
     const lift = Math.max(0, 1 - scrollY / innerHeight) * LIFT;
     cloud.position.y += (lift - cloud.position.y) * 0.08;
     renderer.render(world, camera);

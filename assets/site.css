@@ -28,7 +28,7 @@ body {
 }
 #universe { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
 .veil { position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(110% 70% at 50% 115%, rgba(4,6,12,0) 35%, rgba(4,6,12,0.88) 100%); }
+  background: radial-gradient(120% 95% at 50% 42%, rgba(4,6,12,0) 55%, rgba(4,6,12,0.7) 100%); }
 main, .site-head, .site-foot { position: relative; z-index: 1; max-width: 1160px; margin-inline: auto; }
 
 .site-head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-block: 14px;
@@ -182,3 +182,31 @@ textarea { min-height: 140px; resize: vertical; }
 .policy-body ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
 .policy-body b { color: #fff; }
 .mail-inline { font-family: var(--font-data); color: #fff; user-select: all; }
+
+/* About */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.facts div { padding: 18px 18px 18px 0; display: grid; gap: 4px; min-width: 0; }
+.facts dt { font: 400 11px var(--font-data); letter-spacing: 0.14em; text-transform: uppercase; color: var(--dust); }
+.facts dd { margin: 0; color: #fff; font-weight: 600; overflow-wrap: anywhere; }
+.story { list-style: none; margin: 36px 0 0; padding: 0 0 0 30px; display: grid; gap: 34px; border-left: 1px solid var(--line); max-width: 820px; }
+.story li { position: relative; display: grid; gap: 6px; }
+.story .mark-dot { position: absolute; left: -38px; top: 2px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 65% 35%, #fff 0 30%, #8fe6ff 55%, #13203a 80%); box-shadow: 0 0 14px rgba(143,230,255,0.6); }
+.story .next .mark-dot { background: transparent; border: 1px dashed var(--ice); box-shadow: none; }
+.story .when { font: 400 11.5px var(--font-data); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ice); }
+.story p { color: var(--regolith); max-width: 66ch; }
+.concepts { display: grid; gap: 14px; }
+.concept { padding: 20px 22px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); display: grid; gap: 6px; }
+.concept p { color: var(--dust); font-size: 14.5px; }
+.concept-mark { justify-items: center; position: sticky; top: 110px; }
+.founder { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 34px; align-items: center; padding: 30px; border-radius: 22px; background: var(--glass); border: 1px solid var(--line); }
+.monogram { aspect-ratio: 1; width: 100%; max-width: 180px; border-radius: 50%; display: grid; place-items: center; font: 700 38px var(--font-display); color: #fff; letter-spacing: 0.04em;
+  background: radial-gradient(circle at 35% 30%, rgba(143,230,255,0.35), rgba(13,20,34,0.95) 65%); border: 1px solid rgba(143,230,255,0.4); box-shadow: 0 0 40px rgba(143,230,255,0.18); }
+.studios { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 30px; }
+.studio { padding: 26px; border-radius: 20px; background: var(--glass); border: 1px solid var(--line); display: grid; gap: 12px; align-content: start; min-width: 0; }
+.studio ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; color: var(--dust); font-size: 14.5px; }
+.ownership p { color: var(--regolith); font-size: 14.5px; max-width: 80ch; }
+@media (max-width: 760px) {
+  .founder { grid-template-columns: minmax(0, 1fr); }
+  .monogram { max-width: 120px; font-size: 28px; }
+  .concept-mark { position: static; }
+}
