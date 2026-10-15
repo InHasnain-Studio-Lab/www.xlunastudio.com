@@ -1,10 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-12 -12 544 124" width="544" height="124">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-14 -14 548 128" width="548" height="128">
   <title>XLUNA</title>
-  <g fill="none" stroke-width="10" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="1.5">
-    <path d="M0 0 L80 100 M80 0 L0 100" stroke="#8fe6ff"/>
-    <path d="M112 0 V100 H180" stroke="#ffffff"/>
-    <path d="M212 0 V58 A40 40 0 0 0 292 58 V0" stroke="#ffffff"/>
-    <path d="M324 100 V0 L404 100 V0" stroke="#ffffff"/>
-    <path d="M436 100 L476 0 L516 100" stroke="#ffffff"/>
+  <defs>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.6" stop-color="#e3e8f0"/>
+      <stop offset="1" stop-color="#b9c2d0"/>
+    </linearGradient>
+    <linearGradient id="ice" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d6f6ff"/>
+      <stop offset="1" stop-color="#8fe6ff"/>
+    </linearGradient>
+    <filter id="glow" x="-10%" y="-30%" width="120%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+      <feColorMatrix in="b" type="matrix" values="0 0 0 0 0.56  0 0 0 0 0.9  0 0 0 0 1  0 0 0 0.45 0" result="g"/>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g fill="none" stroke-width="10" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="1.5" filter="url(#glow)">
+    <path d="M0 0 L80 100 M80 0 L0 100" stroke="url(#ice)"/>
+    <path d="M112 0 V100 H180" stroke="url(#silver)"/>
+    <path d="M212 0 V58 A40 40 0 0 0 292 58 V0" stroke="url(#silver)"/>
+    <path d="M324 100 V0 L404 100 V0" stroke="url(#silver)"/>
+    <path d="M436 100 L476 0 L516 100" stroke="url(#silver)"/>
   </g>
 </svg>
