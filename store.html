@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>XLUNA Store</title>
+<meta name="description" content="The XLUNA Store: seven orbits of apps you pay for once and keep for life. First apps in development.">
+<meta name="theme-color" content="#04060c">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/logo/xluna-mark-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Sora:wght@300;600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-scene="store">
+<canvas id="universe" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+
+<header class="site-head">
+  <a class="brand" href="index.html" aria-label="XLUNA Studio home"><img src="assets/logo/xluna-lockup.svg" alt="XLUNA" width="152" height="34"></a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="store.html" aria-current="page">Store</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero short" aria-labelledby="store-h">
+    <span class="eyebrow">XLUNA Store</span>
+    <h1 id="store-h">Seven orbits. First apps in development.</h1>
+    <p class="lede">Every XLUNA app will sit on one of seven orbits, grouped by what it helps you do. The orbits are open; the first apps are being built now.</p>
+  </section>
+
+  <section aria-labelledby="orbits-h" style="padding-top:20px">
+    <span class="eyebrow">The orbits</span>
+    <h2 id="orbits-h">Where each app will live</h2>
+    <div class="orbit-list" id="orbits"></div>
+  </section>
+
+  <section aria-labelledby="buy-h">
+    <span class="eyebrow">How buying works</span>
+    <h2 id="buy-h">Try for a day. Own for life.</h2>
+    <div class="timeline">
+      <div class="tl"><span class="t">T+00:00</span><div><h3>Install and start the trial</h3><p>Every feature is unlocked for a full day, with a clear countdown inside the app.</p></div></div>
+      <div class="tl"><span class="t">T+24:00</span><div><h3>Decide with real work done</h3><p>Keep what you made during the trial. Buy only if the app earned it.</p></div></div>
+      <div class="tl"><span class="t">T+&infin;</span><div><h3>Pay once, keep it</h3><p>One payment. Updates are included, with no renewals and no subscription.</p></div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="notify-h">
+    <div class="panel" style="max-width:640px">
+      <span class="eyebrow">Launch alerts</span>
+      <h2 id="notify-h" style="margin:0">Hear when an orbit opens</h2>
+      <p class="sub">Write to us and we'll reply when the first apps are ready.</p>
+      <form id="notify" novalidate>
+        <label for="n-orbit">Orbit you're most interested in
+          <select id="n-orbit"></select>
+        </label>
+        <button class="btn primary" type="submit" style="justify-self:start">Write to XLUNA</button>
+        <p class="note">Opens your email app with a message to <span style="color:#fff">contact@xlunastudio.com</span>.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div style="display:grid;gap:8px">
+    <img src="assets/logo/xluna-lockup.svg" alt="XLUNA" width="140" height="32">
+    <p>&copy; 2026 XLUNA Studio. Developed by Hasnain Butt Akhtar.</p>
+    <p>This site sets no cookies and runs no analytics.</p>
+  </div>
+  <nav class="links" aria-label="Footer">
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </nav>
+</footer>
+
+<script>
+const ORBITS = [
+  ["Create", "Tools for video, photo, sound and design."],
+  ["Think", "Private AI for writing, research and study."],
+  ["Power", "Utilities that tune, protect and speed up your device."],
+  ["Connect", "Your phone and computer working as one."],
+  ["Play", "Games and playful experiments."],
+  ["Build", "Make your own apps, sites and games."],
+  ["Explore", "Worlds, maps and the night sky."]
+];
+const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII"];
+const list = document.getElementById("orbits"), sel = document.getElementById("n-orbit");
+ORBITS.forEach(([name, desc], i) => {
+  const tilt = 14 + i * 6;
+  const el = document.createElement("article");
+  el.className = "orbit";
+  el.innerHTML = `<span class="num" aria-hidden="true">${ROMAN[i]}</span>
+    <div class="ring-art" aria-hidden="true"><svg viewBox="0 0 240 74"><ellipse cx="120" cy="37" rx="${70 + i * 6}" ry="${10 + i}" transform="rotate(-${tilt / 3} 120 37)" fill="none" stroke="rgba(143,230,255,0.55)" stroke-width="1.4"/><circle cx="120" cy="37" r="9" fill="#0d1422" stroke="rgba(201,208,220,0.45)"/><circle cx="${120 + 70 + i * 6}" cy="${37 - (70 + i * 6) * Math.sin(tilt / 3 * Math.PI / 180)}" r="3" fill="#ffb04a"/></svg></div>
+    <h3>Orbit ${ROMAN[i]} · ${name}</h3><p>${desc}</p><span class="state">IN DEVELOPMENT</span>`;
+  el.addEventListener("pointermove", e => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    el.style.transform = `perspective(700px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+  });
+  el.addEventListener("pointerleave", () => el.style.transform = "");
+  list.appendChild(el);
+  const o = document.createElement("option"); o.textContent = `Orbit ${ROMAN[i]} · ${name}`; sel.appendChild(o);
+});
+document.getElementById("notify").addEventListener("submit", e => {
+  e.preventDefault();
+  const subject = encodeURIComponent(`Launch alert: ${sel.value}`);
+  const body = encodeURIComponent(`Please let me know when ${sel.value} opens on the XLUNA Store.`);
+  location.href = `mailto:contact@xlunastudio.com?subject=${subject}&body=${body}`;
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="assets/universe.js"></script>
+</body>
+</html>

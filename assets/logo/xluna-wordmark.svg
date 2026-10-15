@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-12 -12 544 124" width="544" height="124">
+  <title>XLUNA</title>
+  <g fill="none" stroke-width="10" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="1.5">
+    <path d="M0 0 L80 100 M80 0 L0 100" stroke="#8fe6ff"/>
+    <path d="M112 0 V100 H180" stroke="#ffffff"/>
+    <path d="M212 0 V58 A40 40 0 0 0 292 58 V0" stroke="#ffffff"/>
+    <path d="M324 100 V0 L404 100 V0" stroke="#ffffff"/>
+    <path d="M436 100 L476 0 L516 100" stroke="#ffffff"/>
+  </g>
+</svg>

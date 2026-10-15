@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About XLUNA Studio</title>
+<meta name="description" content="XLUNA Studio is an independent software studio founded by Hasnain Butt Akhtar, named after the new moon.">
+<meta name="theme-color" content="#04060c">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/logo/xluna-mark-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Sora:wght@300;600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-scene="about">
+<canvas id="universe" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+
+<header class="site-head">
+  <a class="brand" href="index.html" aria-label="XLUNA Studio home"><img src="assets/logo/xluna-lockup.svg" alt="XLUNA" width="152" height="34"></a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="store.html">Store</a>
+    <a href="about.html" aria-current="page">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero short" aria-labelledby="about-h">
+    <span class="eyebrow">About</span>
+    <h1 id="about-h">A studio named after a new moon</h1>
+    <p class="lede">A new moon is the start of every cycle: dark at first, then brighter each night. XLUNA begins the same way, with a small catalogue that grows one careful release at a time.</p>
+  </section>
+
+  <section aria-labelledby="name-h" style="padding-top:20px">
+    <div class="split">
+      <div style="display:grid;gap:14px">
+        <span class="eyebrow">The name</span>
+        <h2 id="name-h" style="margin:0">X marks the orbit. Luna is the moon.</h2>
+        <p class="sub">The mark is a new moon with two orbits crossing in front of it. Together they draw the X. Each orbit stands for an app moving around the studio, and the moon is the promise at the centre: you own what you buy.</p>
+      </div>
+      <div class="panel" style="justify-items:center">
+        <img src="assets/logo/xluna-mark.svg" alt="The XLUNA mark: a new moon crossed by two orbits" width="220" height="220" style="max-width:100%;height:auto">
+        <span class="coord">XLUNA MARK · NEW MOON, TWO ORBITS</span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="founder-h">
+    <span class="eyebrow">Founder</span>
+    <h2 id="founder-h">Hasnain Butt Akhtar</h2>
+    <p class="sub">XLUNA is an independent studio, designed and developed by Hasnain Butt Akhtar. Every app is planned, built, tested and shipped in-house, with no investors steering it towards subscriptions or data collection.</p>
+  </section>
+
+  <section aria-labelledby="principles-h">
+    <span class="eyebrow">How we build</span>
+    <h2 id="principles-h">Four rules for every app</h2>
+    <div class="pillars">
+      <div class="pillar"><span class="k">OWNED</span><p>Pay once. The app keeps working and keeps getting updates.</p></div>
+      <div class="pillar"><span class="k">PRIVATE</span><p>No telemetry, no accounts. Your work stays on your device.</p></div>
+      <div class="pillar"><span class="k">HONEST</span><p>A real trial, a clear price, and no dark patterns at checkout.</p></div>
+      <div class="pillar"><span class="k">CRAFTED</span><p>Fewer apps, finished properly, rather than many half-built ones.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div style="display:grid;gap:8px">
+    <img src="assets/logo/xluna-lockup.svg" alt="XLUNA" width="140" height="32">
+    <p>&copy; 2026 XLUNA Studio. Developed by Hasnain Butt Akhtar.</p>
+    <p>This site sets no cookies and runs no analytics.</p>
+  </div>
+  <nav class="links" aria-label="Footer">
+    <a href="index.html">Home</a><a href="store.html">Store</a><a href="contact.html">Contact</a>
+  </nav>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="assets/universe.js"></script>
+</body>
+</html>
