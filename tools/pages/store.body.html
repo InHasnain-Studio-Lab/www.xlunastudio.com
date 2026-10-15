@@ -1,26 +1,48 @@
   <section class="hero short" aria-labelledby="store-h">
     <span class="eyebrow phase-line" data-moon-phase>Tonight's moon</span>
-    <h1 id="store-h">The <em>launch bay</em></h1>
-    <p class="lede">Seven orbits are charted and their first apps are being built. Each one will dock here with a full dossier: live preview, what runs offline, what it needs, and one price.</p>
+    <h1 id="store-h">The XLUNA&trade; <em>launch bay</em></h1>
+    <p class="lede">Seven orbits are charted and their first apps are in development. Explore each docking slot to see what it will do, how it will run and what it will cost you: once.</p>
+    <dl class="bay-stats">
+      <div><dt>Orbits charted</dt><dd>7</dd></div>
+      <div><dt>Apps in development</dt><dd>7</dd></div>
+      <div><dt>Subscriptions</dt><dd>0</dd></div>
+      <div><dt>Free trial</dt><dd>24h</dd></div>
+    </dl>
   </section>
 
-  <section aria-labelledby="bay-h" style="padding-top:10px">
+  <section aria-labelledby="spot-h" style="padding-top:10px">
+    <span class="eyebrow">Spotlight</span>
+    <h2 id="spot-h" class="visually-quiet">Featured docking slot</h2>
+    <div class="spotlight" id="spotlight">
+      <div class="spot-viz"><canvas id="spot-canvas" aria-hidden="true"></canvas><span class="coord spot-code" id="spot-code"></span></div>
+      <div class="spot-body">
+        <span class="eyebrow" id="spot-orbit"></span>
+        <h3 class="spot-title" id="spot-title"></h3>
+        <p class="sub" id="spot-brief"></p>
+        <ul class="spot-tags" id="spot-tags"></ul>
+        <div class="cta"><button class="btn primary" type="button" id="spot-open">View app details</button><button class="btn ghost" type="button" id="spot-next">Next slot</button></div>
+        <div class="spot-dots" id="spot-dots" role="tablist" aria-label="Choose a featured slot"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="bay-h">
     <span class="eyebrow">Docking slots</span>
-    <h2 id="bay-h">Seven designations, all in development</h2>
+    <h2 id="bay-h">Every app in the bay</h2>
     <div class="rail" role="toolbar" aria-label="Filter by orbit" id="rail"></div>
     <div class="bay" id="bay"></div>
   </section>
 
   <section aria-labelledby="manifest-h">
     <span class="eyebrow">Dossier manifest</span>
-    <h2 id="manifest-h">What every app page will carry</h2>
+    <h2 id="manifest-h">What every app page will carry at launch</h2>
     <div class="manifest">
       <div><b>Live preview loop</b><span>The real interface in motion, not a static screenshot.</span></div>
       <div><b>Offline map</b><span>Exactly which features run without a connection.</span></div>
       <div><b>System needs</b><span>Processor, memory and graphics, stated plainly.</span></div>
       <div><b>Orbit log</b><span>Every release and fix, on a timeline you can scrub.</span></div>
       <div><b>One price</b><span>The single figure you pay, with nothing recurring.</span></div>
-      <div><b>Trial clock</b><span>How the 24-hour test drive works for that app.</span></div>
+      <div><b>Privacy label</b><span>What the app stores, where, and what never leaves your device.</span></div>
     </div>
   </section>
 
@@ -35,28 +57,60 @@
   </section>
 
   <div class="dossier" id="dossier" hidden role="dialog" aria-modal="true" aria-labelledby="d-title">
-    <div class="dossier-card">
-      <div class="dossier-in">
-        <div class="dossier-viz"><canvas id="d-canvas" aria-hidden="true"></canvas>
-          <div class="hud"><span class="coord" id="d-code"></span><span class="coord">HOLOGRAM · PRE-RELEASE</span></div>
-        </div>
-        <div class="dossier-body">
-          <div class="dossier-head">
-            <div><span class="eyebrow" id="d-orbit"></span><h2 id="d-title" style="margin:6px 0 0;font-size:clamp(24px,3.4vw,36px)"></h2></div>
-            <button class="close" id="d-close" aria-label="Close dossier">&times;</button>
+    <div class="dossier-card wide">
+      <div class="app-page">
+        <header class="app-hero">
+          <div class="app-viz"><canvas id="d-canvas" aria-hidden="true"></canvas></div>
+          <div class="app-head">
+            <div class="app-id">
+              <img src="/assets/logo/xluna-mark.svg" alt="" width="64" height="64">
+              <div><span class="eyebrow" id="d-orbit"></span><h2 id="d-title"></h2><span class="coord">XLUNA&trade; Studio · In development</span></div>
+            </div>
+            <p class="sub" id="d-brief"></p>
+            <div class="app-badges"><span>Pay once</span><span>24h trial</span><span>No account</span><span>On-device</span></div>
+            <div class="cta"><a class="btn primary" id="d-alert">Alert me at launch</a><button class="btn ghost" type="button" id="d-close">Close</button></div>
           </div>
-          <p class="sub" id="d-brief"></p>
-          <div style="display:grid;gap:8px"><span class="coord">BUILD IN PROGRESS</span><div class="meter"><i id="d-meter"></i></div></div>
-          <dl class="ledger" style="margin:0">
-            <div><dt>Designation</dt><dd id="d-des"></dd></div>
-            <div><dt>Status</dt><dd>In development · details classified until launch</dd></div>
-            <div><dt>Pricing</dt><dd>Single purchase, lifetime licence</dd></div>
-            <div><dt>Trial</dt><dd>24 hours with every feature</dd></div>
-            <div><dt>Account</dt><dd>Not required</dd></div>
-            <div><dt>Your data</dt><dd>Stays on your device</dd></div>
-            <div><dt>Platforms</dt><dd>Announced at launch</dd></div>
-          </dl>
-          <div class="cta"><a class="btn primary" id="d-alert">Alert me at launch</a><button class="btn ghost" type="button" id="d-back">Back to the bay</button></div>
+        </header>
+        <nav class="app-tabs" role="tablist" aria-label="App details" id="d-tabs">
+          <button role="tab" type="button" data-tab="overview" aria-selected="true">Overview</button>
+          <button role="tab" type="button" data-tab="highlights" aria-selected="false">Highlights</button>
+          <button role="tab" type="button" data-tab="specs" aria-selected="false">Specs</button>
+          <button role="tab" type="button" data-tab="privacy" aria-selected="false">Privacy</button>
+        </nav>
+        <div class="app-panels">
+          <div role="tabpanel" data-panel="overview">
+            <p id="d-overview"></p>
+            <div class="preview-frames" aria-label="Preview frames">
+              <div class="frame"><span class="coord">PREVIEW 01</span><b>Arrives at launch</b></div>
+              <div class="frame"><span class="coord">PREVIEW 02</span><b>Arrives at launch</b></div>
+              <div class="frame"><span class="coord">PREVIEW 03</span><b>Arrives at launch</b></div>
+            </div>
+          </div>
+          <div role="tabpanel" data-panel="highlights" hidden>
+            <p class="note" style="margin-bottom:12px">Planned focus for this orbit. Final features are confirmed on launch day.</p>
+            <ul class="highlights" id="d-highlights"></ul>
+          </div>
+          <div role="tabpanel" data-panel="specs" hidden>
+            <dl class="ledger" style="margin:0">
+              <div><dt>Designation</dt><dd id="d-des"></dd></div>
+              <div><dt>Status</dt><dd>In development · details classified until launch</dd></div>
+              <div><dt>Pricing</dt><dd>Single purchase, lifetime licence · price announced at launch</dd></div>
+              <div><dt>Trial</dt><dd>24 hours with every feature</dd></div>
+              <div><dt>Updates</dt><dd>Included</dd></div>
+              <div><dt>Account</dt><dd>Not required</dd></div>
+              <div><dt>Platforms</dt><dd>Announced at launch</dd></div>
+              <div><dt>Developer</dt><dd>XLUNA&trade; Studio</dd></div>
+            </dl>
+          </div>
+          <div role="tabpanel" data-panel="privacy" hidden>
+            <div class="privacy-label">
+              <div><b>Data collected</b><span>None. XLUNA apps carry no telemetry or analytics.</span></div>
+              <div><b>Account</b><span>None. Nothing to sign up for or sign in to.</span></div>
+              <div><b>Your files</b><span>Stay on your device. Processing happens locally.</span></div>
+              <div><b>Internet use</b><span>Listed per feature at launch, so you know exactly when an app goes online.</span></div>
+            </div>
+            <p class="note" style="margin-top:12px">Each app will publish its own privacy page before release. See the <a href="/privacy">XLUNA privacy policy</a>.</p>
+          </div>
         </div>
       </div>
     </div>

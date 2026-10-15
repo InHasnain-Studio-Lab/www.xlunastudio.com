@@ -75,6 +75,7 @@ FOOT = """</main>
   <div style="display:grid;gap:10px">
     <a class="brand" href="/" aria-label="XLUNA Studio home"><img class="badge" src="/assets/logo/xluna-mark.svg" alt="" width="38" height="38"><img class="word" src="/assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18"></a>
     <p>&copy; 2026 XLUNA Studio. Developed by Hasnain Butt Akhtar.</p>
+    <p>XLUNA&trade; and Hasnain Studio X&trade; are trademarks of Hasnain Butt Akhtar.</p>
     <p>No cookies. No analytics. Nothing tracked.</p>
   </div>
   <nav class="links" aria-label="Footer">

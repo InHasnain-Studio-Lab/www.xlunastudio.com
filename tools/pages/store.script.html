@@ -1,66 +1,116 @@
 <script>
 (function () {
   const ORBITS = [
-    ["Create", "Studios for video, photo, sound and design that run on your own graphics card."],
-    ["Think", "Private AI for writing, research and study, with no cloud anywhere in the loop."],
-    ["Power", "Utilities that tune, protect and accelerate the machine you already own."],
-    ["Connect", "Your phone and computer acting as one device, without a middleman server."],
-    ["Play", "Games and playful experiments, built to be finished rather than farmed."],
-    ["Build", "Make your own apps, sites and games without renting a toolchain."],
-    ["Explore", "Worlds, maps and the night sky, rendered on your own desk."]
+    { name: "Create", brief: "Studios for video, photo, sound and design that run on your own graphics card.",
+      overview: "The Create orbit is for making things: cutting video, editing photos, shaping sound and designing visuals. Its first app is being built to do heavy creative work locally, so your projects and raw files never leave your machine.",
+      tags: ["Video", "Photo", "Audio", "Design"],
+      highlights: ["Editing tools that run on your own hardware", "AI-assisted effects processed on-device", "Export to common, open file formats", "No watermarks, no cloud rendering queue"] },
+    { name: "Think", brief: "Private AI for writing, research and study, with no cloud anywhere in the loop.",
+      overview: "The Think orbit brings AI help for words and ideas without sending them anywhere. Its first app is being built around a local model, so drafts, notes and documents stay private by design.",
+      tags: ["Writing", "Research", "Study", "Local AI"],
+      highlights: ["An on-device language model, no per-use fees", "Ask questions about your own documents", "Rewrite, summarise and explain text privately", "Works offline once installed"] },
+    { name: "Power", brief: "Utilities that tune, protect and accelerate the machine you already own.",
+      overview: "The Power orbit is about the device itself: keeping it fast, tidy and private. Its first app is being built to give clear control over performance and privacy, with every change explained and reversible.",
+      tags: ["Performance", "Privacy", "Cleanup", "Control"],
+      highlights: ["Clear explanations before anything changes", "One-click undo for every adjustment", "Live readings of what your machine is doing", "No background telemetry of its own"] },
+    { name: "Connect", brief: "Your phone and computer acting as one device, without a middleman server.",
+      overview: "The Connect orbit links your devices directly. Its first app is being built to move files and screens between phone and computer over your own network, with no account and no relay server in between.",
+      tags: ["Transfer", "Casting", "Remote", "Local network"],
+      highlights: ["Direct device-to-device connections", "Encrypted transfers on your own network", "No sign-up and no cloud relay", "Pair once, connect instantly after"] },
+    { name: "Play", brief: "Games and playful experiments, built to be finished rather than farmed.",
+      overview: "The Play orbit is for fun that respects your time. Its first release is being designed as a complete experience you buy once, with no energy timers, loot boxes or pay-to-win shortcuts.",
+      tags: ["Games", "Offline", "Complete", "No ads"],
+      highlights: ["Buy once, play everything", "No ads, timers or in-game currency", "Plays fully offline", "Saves kept on your device"] },
+    { name: "Build", brief: "Make your own apps, sites and games without renting a toolchain.",
+      overview: "The Build orbit is for makers. Its first app is being built to turn ideas into working software visually, then hand you real files you own, with no hosting lock-in or monthly seat fee.",
+      tags: ["No-code", "Web", "Apps", "Export"],
+      highlights: ["Visual building with real output files", "Your projects stay on your machine", "Export without platform lock-in", "Clear upgrade path from simple to advanced"] },
+    { name: "Explore", brief: "Worlds, maps and the night sky, rendered on your own desk.",
+      overview: "The Explore orbit is about curiosity: the planet, the sky and places you have never been. Its first app is being built to render rich 3D worlds on your own graphics card, with data you can keep using offline.",
+      tags: ["3D", "Space", "Maps", "Learning"],
+      highlights: ["Real-time 3D rendered locally", "Offline-ready data sets", "Built for learning and wonder", "Smooth on everyday hardware"] }
   ];
+  const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII"];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const code = i => `XL-${String(i + 1).padStart(2, "0")}`;
 
-  // A small hologram: a particle sphere with its own orbit ring, varied per designation.
-  function hologram(canvas, seed, big) {
+  // A hologram of the XLUNA mark (crescent and beam), slightly varied per designation.
+  function hologram(canvas, seed, density) {
     const g = canvas.getContext("2d");
-    const pts = [], n = big ? 900 : 360;
-    let s = seed * 9301 + 49297;
-    const rand = () => (s = (s * 9301 + 49297) % 233280) / 233280;
-    for (let i = 0; i < n; i++) {
-      const u = rand() * 2 - 1, t = rand() * Math.PI * 2, r = Math.sqrt(1 - u * u);
-      pts.push([r * Math.cos(t), u, r * Math.sin(t), rand() < 0.12]);
+    let s = seed * 7919 + 104729;
+    const rand = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    const pts = [];
+    while (pts.length < density) {
+      const x = rand() * 104 + 8, y = rand() * 104 + 8;
+      if (Math.hypot(x - 60, y - 60) < 52 && Math.hypot(x - 67, y - 53) > 50.5) pts.push([x, y, 0]);
     }
-    const tilt = 0.35 + seed * 0.07, ringN = big ? 260 : 120;
-    let raf = 0, visible = true, start = performance.now();
+    const beam = [];
+    while (beam.length < density * 0.45) {
+      const u = rand(), w = 4.4 * Math.pow(1 - Math.abs(2 * u - 1), 1.1), off = (rand() - 0.5) * w;
+      const x = 118 - 116 * u + off * 0.7071, y = 2 + 116 * u + off * 0.7071;
+      if (!(Math.hypot(x - 60, y - 60) < 56 && Math.hypot(x - 67, y - 53) > 46)) beam.push([x, y, u]);
+    }
+    let raf = 0, visible = true;
+    const start = performance.now();
     function draw(now) {
       const w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(devicePixelRatio, 2);
-      if (canvas.width !== w * dpr) { canvas.width = w * dpr; canvas.height = h * dpr; }
+      if (canvas.width !== Math.round(w * dpr)) { canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); }
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.clearRect(0, 0, w, h);
-      const t = (now - start) / 1000, R = Math.min(w * 0.22, h * 0.3), cx = w / 2, cy = h / 2;
-      const a = t * 0.4, ca = Math.cos(a), sa = Math.sin(a);
-      g.globalCompositeOperation = "lighter";
-      for (const [x, y, z, hot] of pts) {
-        const x2 = x * ca + z * sa, z2 = -x * sa + z * ca;
-        const depth = (z2 + 1.6) / 2.6;
-        g.fillStyle = hot ? `rgba(255,176,74,${0.5 * depth})` : `rgba(143,230,255,${0.55 * depth})`;
-        g.fillRect(cx + x2 * R, cy + y * R, big ? 1.8 : 1.4, big ? 1.8 : 1.4);
+      const t = (now - start) / 1000, scale = Math.min(w, h) / 150, cx = w / 2, cy = h / 2;
+      const sway = Math.sin(t * 0.6 + seed) * 0.08, ca = Math.cos(sway);
+      for (const [x, y] of pts) {
+        const k = Math.min(1, Math.max(0, (x + y - 60) / 120));
+        g.fillStyle = `rgba(${Math.round(230 - 140 * k)},${Math.round(242 - 30 * k)},255,0.9)`;
+        g.fillRect(cx + (x - 60) * scale * ca, cy + (y - 60) * scale, 1.5, 1.5);
       }
-      for (let i = 0; i < ringN; i++) {
-        const q = i / ringN * Math.PI * 2 + t * 0.6, rx = Math.cos(q) * R * 1.65, rz = Math.sin(q) * R * 1.65;
-        const ry = rz * Math.sin(tilt), front = rz > 0;
-        if (!front && Math.hypot(rx, ry) < R) continue;
-        g.fillStyle = `rgba(255,255,255,${front ? 0.85 : 0.3})`;
-        g.fillRect(cx + rx, cy + ry, 1.6, 1.6);
+      const head = (t * 0.35) % 1.4 - 0.2;
+      for (const [x, y, u] of beam) {
+        const pulse = Math.exp(-((u - head) ** 2) / 0.006);
+        g.fillStyle = `rgba(${Math.round(120 + 100 * pulse)},${Math.round(210 + 40 * pulse)},255,${0.55 + 0.45 * pulse})`;
+        g.fillRect(cx + (x - 60) * scale * ca, cy + (y - 60) * scale, 1.4, 1.4);
       }
-      g.globalCompositeOperation = "source-over";
-      const scan = (t * 0.35 % 1) * h;
-      const grad = g.createLinearGradient(0, scan - 30, 0, scan);
-      grad.addColorStop(0, "rgba(143,230,255,0)"); grad.addColorStop(1, "rgba(143,230,255,0.12)");
-      g.fillStyle = grad; g.fillRect(0, scan - 30, w, 30);
+      const scan = (t * 0.3 % 1) * h, grad = g.createLinearGradient(0, scan - 40, 0, scan);
+      grad.addColorStop(0, "rgba(143,230,255,0)"); grad.addColorStop(1, "rgba(143,230,255,0.1)");
+      g.fillStyle = grad; g.fillRect(0, scan - 40, w, 40);
       if (!reduce && visible) raf = requestAnimationFrame(draw);
     }
     const io = new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting;
-      cancelAnimationFrame(raf);
+      visible = e.isIntersecting; cancelAnimationFrame(raf);
       if (visible) raf = requestAnimationFrame(draw);
     });
     io.observe(canvas);
     requestAnimationFrame(draw);
     return () => { visible = false; cancelAnimationFrame(raf); io.disconnect(); };
   }
+
+  // Spotlight: rotates through the slots until the visitor takes over.
+  let spot = 0, spotTimer = 0;
+  const dots = document.getElementById("spot-dots");
+  ORBITS.forEach((o, i) => {
+    const d = document.createElement("button");
+    d.type = "button"; d.setAttribute("role", "tab"); d.setAttribute("aria-label", `${code(i)} ${o.name}`);
+    d.onclick = () => { showSpot(i); stopAuto(); };
+    dots.appendChild(d);
+  });
+  function showSpot(i) {
+    spot = (i + ORBITS.length) % ORBITS.length;
+    const o = ORBITS[spot];
+    document.getElementById("spot-orbit").textContent = `Orbit ${ROMAN[spot]} · ${o.name}`;
+    document.getElementById("spot-title").textContent = `${code(spot)} · First ${o.name} app`;
+    document.getElementById("spot-brief").textContent = o.overview;
+    document.getElementById("spot-code").textContent = `${code(spot)} · IN DEVELOPMENT`;
+    document.getElementById("spot-tags").innerHTML = o.tags.map(t => `<li>${t}</li>`).join("");
+    [...dots.children].forEach((d, k) => d.setAttribute("aria-selected", k === spot));
+    const card = document.getElementById("spotlight");
+    card.classList.remove("swap"); void card.offsetWidth; card.classList.add("swap");
+  }
+  function stopAuto() { clearInterval(spotTimer); spotTimer = 0; }
+  document.getElementById("spot-next").onclick = () => { showSpot(spot + 1); stopAuto(); };
+  document.getElementById("spot-open").onclick = () => openDossier(spot);
+  hologram(document.getElementById("spot-canvas"), 3, 1600);
+  showSpot(0);
+  if (!reduce) spotTimer = setInterval(() => showSpot(spot + 1), 6500);
 
   const bay = document.getElementById("bay"), rail = document.getElementById("rail");
   let filter = "All";
@@ -70,21 +120,23 @@
     b.onclick = () => { filter = name; [...rail.children].forEach(c => c.setAttribute("aria-pressed", c.textContent === name)); render(); };
     rail.appendChild(b);
   }
-  chip("All"); ORBITS.forEach(([n]) => chip(n));
+  chip("All"); ORBITS.forEach(o => chip(o.name));
 
   function render() {
     bay.innerHTML = "";
-    ORBITS.forEach(([name, brief], i) => {
-      if (filter !== "All" && filter !== name) return;
+    ORBITS.forEach((o, i) => {
+      if (filter !== "All" && filter !== o.name) return;
       const slot = document.createElement("button");
       slot.type = "button"; slot.className = "slot";
-      slot.setAttribute("aria-label", `${code(i)}, orbit ${name}, open dossier`);
+      slot.setAttribute("aria-label", `${code(i)}, ${o.name} orbit, view app details`);
       slot.innerHTML = `<div class="slot-in">
         <div class="top"><span class="code">${code(i)}</span><span class="status">In development</span></div>
         <div class="holo"><canvas></canvas></div>
-        <div style="display:grid;gap:8px"><span class="orbit-name">Orbit · ${name}</span><span class="redact" aria-hidden="true"></span></div>
-        <p>${brief}</p>
+        <div style="display:grid;gap:8px"><span class="orbit-name">Orbit ${ROMAN[i]} · ${o.name}</span><span class="redact" aria-hidden="true"></span></div>
+        <p>${o.brief}</p>
+        <ul class="slot-tags">${o.tags.map(t => `<li>${t}</li>`).join("")}</ul>
         <div class="specs"><div class="spec"><b>1&times;</b><span>Payment</span></div><div class="spec"><b>24h</b><span>Trial</span></div><div class="spec"><b>0</b><span>Accounts</span></div></div>
+        <span class="slot-more">View app details &rarr;</span>
       </div>`;
       slot.addEventListener("pointermove", e => {
         if (reduce) return;
@@ -94,29 +146,36 @@
       slot.addEventListener("pointerleave", () => slot.style.transform = "");
       slot.onclick = () => openDossier(i);
       bay.appendChild(slot);
-      hologram(slot.querySelector("canvas"), i + 1, false);
+      hologram(slot.querySelector("canvas"), i + 1, 700);
     });
   }
   render();
 
   const dossier = document.getElementById("dossier");
   let stopViz = null, lastFocus = null;
+  function selectTab(name) {
+    document.querySelectorAll("#d-tabs [role=tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === name));
+    document.querySelectorAll("[data-panel]").forEach(p => p.hidden = p.dataset.panel !== name);
+  }
+  document.querySelectorAll("#d-tabs [role=tab]").forEach(b => b.onclick = () => selectTab(b.dataset.tab));
   function openDossier(i) {
-    const [name, brief] = ORBITS[i];
+    const o = ORBITS[i];
+    stopAuto();
     lastFocus = document.activeElement;
-    document.getElementById("d-orbit").textContent = `Orbit ${["I","II","III","IV","V","VI","VII"][i]} · ${name}`;
-    document.getElementById("d-title").textContent = `Dossier ${code(i)}`;
-    document.getElementById("d-code").textContent = `${code(i)} · ${name.toUpperCase()}`;
-    document.getElementById("d-des").textContent = `${code(i)}, first app in the ${name} orbit`;
-    document.getElementById("d-brief").textContent = brief;
-    document.getElementById("d-alert").href = `mailto:contact@xlunastudio.com?subject=${encodeURIComponent(`Launch alert: ${code(i)} ${name}`)}&body=${encodeURIComponent(`Please tell me when ${code(i)} in the ${name} orbit launches.`)}`;
+    document.getElementById("d-orbit").textContent = `Orbit ${ROMAN[i]} · ${o.name}`;
+    document.getElementById("d-title").textContent = `${code(i)} · First ${o.name} app`;
+    document.getElementById("d-brief").textContent = o.brief;
+    document.getElementById("d-overview").textContent = o.overview;
+    document.getElementById("d-highlights").innerHTML = o.highlights.map(h => `<li>${h}</li>`).join("");
+    document.getElementById("d-des").textContent = `${code(i)}, first app in the ${o.name} orbit`;
+    document.getElementById("d-alert").href = `mailto:contact@xlunastudio.com?subject=${encodeURIComponent(`Launch alert: ${code(i)} ${o.name}`)}&body=${encodeURIComponent(`Please tell me when ${code(i)} in the ${o.name} orbit launches.`)}`;
+    selectTab("overview");
     dossier.hidden = false;
-    stopViz = hologram(document.getElementById("d-canvas"), i + 1, true);
+    stopViz = hologram(document.getElementById("d-canvas"), i + 1, 1800);
     document.getElementById("d-close").focus();
   }
   function closeDossier() { dossier.hidden = true; stopViz && stopViz(); lastFocus && lastFocus.focus(); }
   document.getElementById("d-close").onclick = closeDossier;
-  document.getElementById("d-back").onclick = closeDossier;
   dossier.addEventListener("click", e => { if (e.target === dossier) closeDossier(); });
   addEventListener("keydown", e => { if (e.key === "Escape" && !dossier.hidden) closeDossier(); });
 })();
