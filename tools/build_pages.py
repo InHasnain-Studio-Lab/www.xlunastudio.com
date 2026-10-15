@@ -14,6 +14,8 @@ PAGES = [
     ("about.html", "About", "About XLUNA™ | Founder, story and concept", "XLUNA™ is an independent software studio founded by Hasnain Butt Akhtar in England, named for the new moon and the orbits around it.", "about"),
     ("contact.html", "Contact", "Contact XLUNA™", "Reach XLUNA™ at contact@xlunastudio.com for app ideas, support, partnerships and press.", "contact"),
     ("privacy.html", "Privacy", "XLUNA™ Privacy Policy", "How XLUNA™ handles information on xlunastudio.com and in its apps.", "privacy"),
+    ("privacy/xluna-os.html", "Privacy", "XLUNA OS Privacy Policy | XLUNA™", "How XLUNA OS keeps your desk, settings and readings on your own PC.", "privacy-xluna-os"),
+    ("privacy/xfidelity-audio-ultra.html", "Privacy", "XFidelity Audio Ultra Privacy Policy | XLUNA™", "How XFidelity Audio Ultra processes your sound on your own PC and keeps nothing but its settings.", "privacy-xfidelity-audio-ultra"),
 ]
 SITE = "https://xlunastudio.com/"
 JSONLD = '<script type="application/ld+json">' + json.dumps({
@@ -25,7 +27,7 @@ JSONLD = '<script type="application/ld+json">' + json.dumps({
         {"@type": "WebSite", "@id": SITE + "#site", "name": "XLUNA", "alternateName": "XLUNA™", "url": SITE, "publisher": {"@id": SITE + "#org"}},
     ],
 }) + "</script>\n"
-CLEAN = {"index.html": "/", "store.html": "/store", "about.html": "/about", "contact.html": "/contact", "privacy.html": "/privacy"}
+CLEAN = {"index.html": "/", "store.html": "/store", "about.html": "/about", "contact.html": "/contact", "privacy.html": "/privacy", "privacy/xluna-os.html": "/privacy/xluna-os", "privacy/xfidelity-audio-ultra.html": "/privacy/xfidelity-audio-ultra"}
 NAV = ("index.html", "store.html", "about.html", "contact.html")
 
 HEAD = """<!doctype html>
