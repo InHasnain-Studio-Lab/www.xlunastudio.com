@@ -165,6 +165,7 @@ textarea { min-height: 140px; resize: vertical; }
   section { padding-block: 66px; }
 }
 @media (max-width: 560px) {
+  .facts { grid-template-columns: minmax(0, 1fr); }
   .brand .word { display: none; }
   .site-nav a { padding: 7px 10px; font-size: 11px; }
   .ledger div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
@@ -184,10 +185,11 @@ textarea { min-height: 140px; resize: vertical; }
 .mail-inline { font-family: var(--font-data); color: #fff; user-select: all; }
 
 /* About */
-.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .facts div { padding: 18px 18px 18px 0; display: grid; gap: 4px; min-width: 0; }
 .facts dt { font: 400 11px var(--font-data); letter-spacing: 0.14em; text-transform: uppercase; color: var(--dust); }
-.facts dd { margin: 0; color: #fff; font-weight: 600; overflow-wrap: anywhere; }
+.facts dd { margin: 0; color: #fff; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.facts dd.mail-inline { font: 600 15px var(--font-body); }
 .story { list-style: none; margin: 36px 0 0; padding: 0 0 0 30px; display: grid; gap: 34px; border-left: 1px solid var(--line); max-width: 820px; }
 .story li { position: relative; display: grid; gap: 6px; }
 .story .mark-dot { position: absolute; left: -38px; top: 2px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle at 65% 35%, #fff 0 30%, #8fe6ff 55%, #13203a 80%); box-shadow: 0 0 14px rgba(143,230,255,0.6); }
@@ -207,6 +209,10 @@ textarea { min-height: 140px; resize: vertical; }
 .ownership p { color: var(--regolith); font-size: 14.5px; max-width: 80ch; }
 @media (max-width: 760px) {
   .founder { grid-template-columns: minmax(0, 1fr); }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .monogram { max-width: 120px; font-size: 28px; }
   .concept-mark { position: static; }
 }
+.pull { margin: 44px 0 0; max-width: 760px; padding: 26px 30px; border-left: 2px solid var(--ice); background: linear-gradient(90deg, rgba(143,230,255,0.08), transparent);
+  font: 600 clamp(20px, 2.6vw, 28px) / 1.35 var(--font-display); color: #fff; text-wrap: balance; }
+.pull cite { display: block; margin-top: 12px; font: 400 11.5px var(--font-data); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ice); font-style: normal; }

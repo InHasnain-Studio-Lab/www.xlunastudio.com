@@ -17,7 +17,7 @@
 
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const small = innerWidth < 760;
-  const N = small ? 8000 : 17000;
+  const N = small ? 6000 : 11000;
   const order = ["dust", "word", "mark", "galaxy"];
   const INTRO_STEPS = 2;
   const HOLD = [0, 1.7];
@@ -30,8 +30,8 @@
   const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 120);
 
   const rnd = (a, b) => a + Math.random() * (b - a);
-  const WHITE = [0.93, 0.95, 0.98], ICE = [0.56, 0.9, 1.0], AMBER = [1.0, 0.69, 0.29];
-  const BEAM_HI = [0.84, 0.96, 1.0], BEAM_LO = [0.36, 0.78, 0.94];
+  const WHITE = [0.9, 0.95, 1.0], ICE = [0.36, 0.82, 1.0], AMBER = [1.0, 0.66, 0.24];
+  const BEAM_HI = [0.72, 0.93, 1.0], BEAM_LO = [0.22, 0.68, 0.95];
 
   function dust() {
     const p = new Float32Array(N * 3), c = new Float32Array(N * 3);
@@ -82,7 +82,7 @@
       const [x, y] = crescentPt(), [wx, wy] = toWorld(x, y);
       const dome = Math.sqrt(Math.max(0, 52 * 52 - (x - 60) ** 2 - (y - 60) ** 2)) * UNIT * 0.25;
       p[i*3] = wx; p[i*3+1] = wy; p[i*3+2] = dome + rnd(-0.03, 0.03);
-      const t = Math.min(1, Math.max(0, (x + y - 40) / 170)), b = rnd(0.75, 1);
+      const t = Math.min(1, Math.max(0, (x + y - 60) / 120)), b = rnd(0.7, 1);
       for (let k = 0; k < 3; k++) c[i*3+k] = (WHITE[k] * (1 - t) + ICE[k] * t) * b;
     }
     // A faint glow that hugs the outside of the crescent.
@@ -102,7 +102,7 @@
       } while (inCrescent(x, y, 56, 46));
       const [wx, wy] = toWorld(x, y);
       p[i*3] = wx; p[i*3+1] = wy; p[i*3+2] = rnd(-0.04, 0.04) + 0.08;
-      beamU[i] = u; beamBase[i] = rnd(0.55, 1);
+      beamU[i] = u; beamBase[i] = rnd(0.7, 1);
     }
     shineBeam(c, 0);
     return { p, c };
@@ -112,7 +112,7 @@
     const head = (time * 0.32) % 1.4 - 0.2;
     for (let i = beamStart; i < N; i++) {
       const u = beamU[i], pulse = Math.exp(-((u - head) ** 2) / 0.006);
-      const b = beamBase[i] * (0.55 + 0.9 * pulse);
+      const b = Math.min(1, beamBase[i] * (0.85 + 0.7 * pulse));
       for (let k = 0; k < 3; k++) c[i*3+k] = (BEAM_HI[k] * (1 - u) + BEAM_LO[k] * u) * b;
     }
   }
@@ -132,9 +132,6 @@
   const states = order.map(n => BUILD[n]());
   const POSE = { dust: { spin: 0.02, tilt: 0, cam: 11 }, word: { spin: 0, tilt: 0, cam: small ? 10 : 9 },
     mark: { spin: 0, tilt: 0, cam: 9.5 }, galaxy: { spin: 0.05, tilt: 0.55, cam: 11 } };
-  // Hero copy sits in the lower half, so formations rise into the space above it.
-  const LIFT = document.body.dataset.scene === "home" ? 1.7 : 1.25;
-
   const pos = new Float32Array(N * 3), col = new Float32Array(N * 3);
   pos.set(states[0].p); col.set(states[0].c);
   const geo = new THREE.BufferGeometry();
@@ -142,13 +139,19 @@
   geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
   const dot = document.createElement("canvas"); dot.width = dot.height = 64;
   const dg = dot.getContext("2d"), grd = dg.createRadialGradient(32, 32, 0, 32, 32, 32);
-  grd.addColorStop(0, "rgba(255,255,255,1)"); grd.addColorStop(0.45, "rgba(255,255,255,0.85)"); grd.addColorStop(0.7, "rgba(255,255,255,0.3)"); grd.addColorStop(1, "rgba(255,255,255,0)");
+  grd.addColorStop(0, "rgba(255,255,255,1)"); grd.addColorStop(0.5, "rgba(255,255,255,0.9)"); grd.addColorStop(0.75, "rgba(255,255,255,0.25)"); grd.addColorStop(1, "rgba(255,255,255,0)");
   dg.fillStyle = grd; dg.fillRect(0, 0, 64, 64);
-  const mat = new THREE.PointsMaterial({ size: small ? 0.09 : 0.078, map: new THREE.CanvasTexture(dot), vertexColors: true,
-    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
-  mat.color.setScalar(1.5);
+  const mat = new THREE.PointsMaterial({ size: small ? 0.07 : 0.06, map: new THREE.CanvasTexture(dot), vertexColors: true,
+    transparent: true, opacity: 0.92, depthWrite: false, blending: THREE.NormalBlending });
   const cloud = new THREE.Points(geo, mat);
   world.add(cloud);
+  // Hero copy sits in the lower half, so formations rise into the space above it.
+  const HOME = document.body.dataset.scene === "home";
+  const LIFT = HOME ? 1.7 : 1.1;
+  // Inner pages have their headline on the left, so the formation sits smaller on the right.
+  const SIDE = !HOME && innerWidth > 900;
+  if (!HOME) cloud.scale.setScalar(SIDE ? 0.72 : 0.6);
+
 
   const sg = new THREE.BufferGeometry(), sp = new Float32Array(1800 * 3);
   for (let i = 0; i < sp.length; i += 3) { sp[i] = rnd(-50, 50); sp[i+1] = rnd(-30, 30); sp[i+2] = rnd(-50, -12); }
@@ -207,6 +210,7 @@
     canvas.style.opacity = Math.max(0.22, 1 - Math.max(0, scrollY - innerHeight * 0.3) / (innerHeight * 0.6)).toFixed(3);
     const lift = Math.max(0, 1 - scrollY / innerHeight) * LIFT;
     cloud.position.y += (lift - cloud.position.y) * 0.08;
+    cloud.position.x += ((SIDE ? 4.3 * Math.max(0, 1 - scrollY / innerHeight) : 0) - cloud.position.x) * 0.08;
     renderer.render(world, camera);
     if (!reduce) requestAnimationFrame(frame);
   }
