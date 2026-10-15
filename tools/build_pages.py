@@ -9,20 +9,20 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SRC = os.path.join(ROOT, "tools", "pages")
 
 PAGES = [
-    ("index.html", "Home", "XLUNA Studio", "XLUNA Studio designs apps that run on your own machine and belong to you from the first purchase.", "home"),
-    ("store.html", "Store", "XLUNA Store", "The XLUNA launch bay: seven charted orbits, their first apps in development, each docking with a full dossier.", "store"),
-    ("about.html", "About", "About XLUNA Studio", "XLUNA is an independent studio founded by Hasnain Butt Akhtar, named for the moon and the orbits around it.", "about"),
-    ("contact.html", "Contact", "Contact XLUNA Studio", "Reach XLUNA Studio at contact@xlunastudio.com for app ideas, support, partnerships and press.", "contact"),
-    ("privacy.html", "Privacy", "XLUNA Privacy Policy", "How XLUNA Studio handles information on xlunastudio.com and in its apps.", "privacy"),
+    ("index.html", "Home", "XLUNA™ | Apps you own, AI on your device", "XLUNA™ builds apps that run on your own machine, need no account and are yours from the first purchase. Pay once, try free for 24 hours.", "home"),
+    ("store.html", "Store", "XLUNA™ Store | The launch bay", "The XLUNA launch bay: seven charted orbits, their first apps in development, each docking with a full dossier.", "store"),
+    ("about.html", "About", "About XLUNA™ | Founder, story and concept", "XLUNA™ is an independent software studio founded by Hasnain Butt Akhtar in England, named for the new moon and the orbits around it.", "about"),
+    ("contact.html", "Contact", "Contact XLUNA™", "Reach XLUNA™ at contact@xlunastudio.com for app ideas, support, partnerships and press.", "contact"),
+    ("privacy.html", "Privacy", "XLUNA™ Privacy Policy", "How XLUNA™ handles information on xlunastudio.com and in its apps.", "privacy"),
 ]
 SITE = "https://xlunastudio.com/"
 JSONLD = '<script type="application/ld+json">' + json.dumps({
     "@context": "https://schema.org",
     "@graph": [
-        {"@type": "Organization", "@id": SITE + "#org", "name": "XLUNA Studio", "url": SITE,
+        {"@type": "Organization", "@id": SITE + "#org", "name": "XLUNA", "alternateName": "XLUNA™", "url": SITE,
          "logo": SITE + "assets/logo/xluna-mark-512.png", "email": "contact@xlunastudio.com",
          "founder": {"@type": "Person", "name": "Hasnain Butt Akhtar"}},
-        {"@type": "WebSite", "@id": SITE + "#site", "name": "XLUNA Studio", "url": SITE, "publisher": {"@id": SITE + "#org"}},
+        {"@type": "WebSite", "@id": SITE + "#site", "name": "XLUNA", "alternateName": "XLUNA™", "url": SITE, "publisher": {"@id": SITE + "#org"}},
     ],
 }) + "</script>\n"
 CLEAN = {"index.html": "/", "store.html": "/store", "about.html": "/about", "contact.html": "/contact", "privacy.html": "/privacy"}
@@ -38,7 +38,9 @@ HEAD = """<!doctype html>
 <link rel="canonical" href="{canonical}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="XLUNA Studio">
+<meta property="og:site_name" content="XLUNA">
+<meta name="application-name" content="XLUNA">
+<meta name="apple-mobile-web-app-title" content="XLUNA">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
@@ -57,7 +59,7 @@ HEAD = """<!doctype html>
 <div class="veil" aria-hidden="true"></div>
 
 <header class="site-head">
-  <a class="brand" href="/" aria-label="XLUNA Studio home">
+  <a class="brand" href="/" aria-label="XLUNA home">
     <img class="badge" src="/assets/logo/xluna-mark.svg" alt="" width="38" height="38">
     <img class="word" src="/assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18">
   </a>
@@ -73,8 +75,8 @@ FOOT = """</main>
 
 <footer class="site-foot">
   <div style="display:grid;gap:10px">
-    <a class="brand" href="/" aria-label="XLUNA Studio home"><img class="badge" src="/assets/logo/xluna-mark.svg" alt="" width="38" height="38"><img class="word" src="/assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18"></a>
-    <p>&copy; 2026 XLUNA Studio. Developed by Hasnain Butt Akhtar.</p>
+    <a class="brand" href="/" aria-label="XLUNA home"><img class="badge" src="/assets/logo/xluna-mark.svg" alt="" width="38" height="38"><img class="word" src="/assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18"></a>
+    <p>&copy; 2026 XLUNA&trade;. Developed by Hasnain Butt Akhtar.</p>
     <p>XLUNA&trade; and Hasnain Studio X&trade; are trademarks of Hasnain Butt Akhtar.</p>
     <p>No cookies. No analytics. Nothing tracked.</p>
   </div>

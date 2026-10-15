@@ -264,3 +264,5 @@ textarea { min-height: 140px; resize: vertical; }
 }
 @media (prefers-reduced-motion: reduce) { .spotlight.swap .spot-body > * { animation: none; } }
 .app-panels a, .note a { color: var(--ice); }
+
+.h1-brand { display: block; font: 700 clamp(15px, 1.6vw, 18px) var(--font-display); letter-spacing: 0.32em; color: var(--ice); margin-bottom: 14px; }
