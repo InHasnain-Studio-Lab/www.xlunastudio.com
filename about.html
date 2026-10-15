@@ -4,14 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>About XLUNA Studio</title>
-<meta name="description" content="XLUNA Studio is an independent software studio founded by Hasnain Butt Akhtar, named after the new moon.">
+<meta name="description" content="XLUNA is an independent studio founded by Hasnain Butt Akhtar, named for the moon and the orbits around it.">
+<meta property="og:title" content="About XLUNA Studio">
+<meta property="og:description" content="XLUNA is an independent studio founded by Hasnain Butt Akhtar, named for the moon and the orbits around it.">
+<meta property="og:image" content="https://xlunastudio.com/assets/logo/xluna-badge-1024.png">
 <meta name="theme-color" content="#04060c">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="assets/logo/xluna-mark-180.png">
+<link rel="icon" href="assets/logo/xluna-badge-32.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/logo/xluna-badge-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Sora:wght@300;600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Manrope:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body data-scene="about">
@@ -19,7 +22,10 @@
 <div class="veil" aria-hidden="true"></div>
 
 <header class="site-head">
-  <a class="brand" href="index.html" aria-label="XLUNA Studio home"><img src="assets/logo/xluna-lockup.svg" alt="XLUNA" width="152" height="34"></a>
+  <a class="brand" href="index.html" aria-label="XLUNA Studio home">
+    <img class="badge" src="assets/logo/xluna-badge-192.png" alt="" width="38" height="38">
+    <img class="word" src="assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18">
+  </a>
   <nav class="site-nav" aria-label="Main">
     <a href="index.html">Home</a>
     <a href="store.html">Store</a>
@@ -30,21 +36,21 @@
 
 <main>
   <section class="hero short" aria-labelledby="about-h">
-    <span class="eyebrow">About</span>
-    <h1 id="about-h">A studio named after a new moon</h1>
-    <p class="lede">A new moon is the start of every cycle: dark at first, then brighter each night. XLUNA begins the same way, with a small catalogue that grows one careful release at a time.</p>
+    <span class="eyebrow phase-line" data-moon-phase>Tonight's moon</span>
+    <h1 id="about-h">Born on a <em>new moon</em></h1>
+    <p class="lede">Every lunar cycle starts in darkness and ends in full light. XLUNA starts the same way: a small studio, a short list of apps, and a sky that fills in one careful release at a time.</p>
   </section>
 
   <section aria-labelledby="name-h" style="padding-top:20px">
     <div class="split">
       <div style="display:grid;gap:14px">
-        <span class="eyebrow">The name</span>
-        <h2 id="name-h" style="margin:0">X marks the orbit. Luna is the moon.</h2>
-        <p class="sub">The mark is a new moon with two orbits crossing in front of it. Together they draw the X. Each orbit stands for an app moving around the studio, and the moon is the promise at the centre: you own what you buy.</p>
+        <span class="eyebrow">The mark</span>
+        <h2 id="name-h" style="margin:0">X is where two orbits cross. Luna is the moon they circle.</h2>
+        <p class="sub">The badge shows a real crescent moon with earthshine on its dark side, held by two orbits that meet in an X. The moon is the promise at the centre; the orbits are the apps that travel around it.</p>
       </div>
       <div class="panel" style="justify-items:center">
-        <img src="assets/logo/xluna-mark.svg" alt="The XLUNA mark: a new moon crossed by two orbits" width="220" height="220" style="max-width:100%;height:auto">
-        <span class="coord">XLUNA MARK · NEW MOON, TWO ORBITS</span>
+        <img src="assets/logo/xluna-badge-512.png" alt="The XLUNA badge: a crescent moon held by two crossing orbits" width="260" height="260" style="max-width:100%;height:auto;filter:drop-shadow(0 0 40px rgba(143,230,255,0.25))">
+        <span class="coord">XLUNA BADGE · CRESCENT, TWO ORBITS</span>
       </div>
     </div>
   </section>
@@ -52,29 +58,29 @@
   <section aria-labelledby="founder-h">
     <span class="eyebrow">Founder</span>
     <h2 id="founder-h">Hasnain Butt Akhtar</h2>
-    <p class="sub">XLUNA is an independent studio, designed and developed by Hasnain Butt Akhtar. Every app is planned, built, tested and shipped in-house, with no investors steering it towards subscriptions or data collection.</p>
+    <p class="sub">XLUNA is independent and self-built. Hasnain Butt Akhtar designs, codes, tests and ships every app in-house, answerable to the people who use them rather than to investors chasing subscriptions.</p>
   </section>
 
-  <section aria-labelledby="principles-h">
-    <span class="eyebrow">How we build</span>
-    <h2 id="principles-h">Four rules for every app</h2>
-    <div class="pillars">
-      <div class="pillar"><span class="k">OWNED</span><p>Pay once. The app keeps working and keeps getting updates.</p></div>
-      <div class="pillar"><span class="k">PRIVATE</span><p>No telemetry, no accounts. Your work stays on your device.</p></div>
-      <div class="pillar"><span class="k">HONEST</span><p>A real trial, a clear price, and no dark patterns at checkout.</p></div>
-      <div class="pillar"><span class="k">CRAFTED</span><p>Fewer apps, finished properly, rather than many half-built ones.</p></div>
+  <section aria-labelledby="code-h">
+    <span class="eyebrow">Studio code</span>
+    <h2 id="code-h">How an XLUNA app gets made</h2>
+    <div class="laws">
+      <div class="law"><span class="n">CODE 01</span><h3>Owned</h3><p>Pay once and the app keeps working, keeps improving and stays on your machine.</p></div>
+      <div class="law"><span class="n">CODE 02</span><h3>Private</h3><p>No telemetry and no accounts. What you make is nobody's business but yours.</p></div>
+      <div class="law"><span class="n">CODE 03</span><h3>Straight</h3><p>One clear price, a real trial and a checkout without tricks.</p></div>
+      <div class="law"><span class="n">CODE 04</span><h3>Finished</h3><p>Fewer apps, each completed properly, instead of a crowd of half-built ones.</p></div>
     </div>
   </section>
 </main>
 
 <footer class="site-foot">
-  <div style="display:grid;gap:8px">
-    <img src="assets/logo/xluna-lockup.svg" alt="XLUNA" width="140" height="32">
+  <div style="display:grid;gap:10px">
+    <a class="brand" href="index.html" aria-label="XLUNA Studio home"><img class="badge" src="assets/logo/xluna-badge-192.png" alt="" width="38" height="38"><img class="word" src="assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18"></a>
     <p>&copy; 2026 XLUNA Studio. Developed by Hasnain Butt Akhtar.</p>
-    <p>This site sets no cookies and runs no analytics.</p>
+    <p>No cookies. No analytics. Nothing tracked.</p>
   </div>
   <nav class="links" aria-label="Footer">
-    <a href="index.html">Home</a><a href="store.html">Store</a><a href="contact.html">Contact</a>
+    <a href="index.html">Home</a><a href="store.html">Store</a><a href="about.html">About</a><a href="contact.html">Contact</a>
   </nav>
 </footer>
 

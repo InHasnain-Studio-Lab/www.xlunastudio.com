@@ -1,0 +1,63 @@
+  <section class="hero short" aria-labelledby="store-h">
+    <span class="eyebrow phase-line" data-moon-phase>Tonight's moon</span>
+    <h1 id="store-h">The <em>launch bay</em></h1>
+    <p class="lede">Seven orbits are charted and their first apps are being built. Each one will dock here with a full dossier: live preview, what runs offline, what it needs, and one price.</p>
+  </section>
+
+  <section aria-labelledby="bay-h" style="padding-top:10px">
+    <span class="eyebrow">Docking slots</span>
+    <h2 id="bay-h">Seven designations, all in development</h2>
+    <div class="rail" role="toolbar" aria-label="Filter by orbit" id="rail"></div>
+    <div class="bay" id="bay"></div>
+  </section>
+
+  <section aria-labelledby="manifest-h">
+    <span class="eyebrow">Dossier manifest</span>
+    <h2 id="manifest-h">What every app page will carry</h2>
+    <div class="manifest">
+      <div><b>Live preview loop</b><span>The real interface in motion, not a static screenshot.</span></div>
+      <div><b>Offline map</b><span>Exactly which features run without a connection.</span></div>
+      <div><b>System needs</b><span>Processor, memory and graphics, stated plainly.</span></div>
+      <div><b>Orbit log</b><span>Every release and fix, on a timeline you can scrub.</span></div>
+      <div><b>One price</b><span>The single figure you pay, with nothing recurring.</span></div>
+      <div><b>Trial clock</b><span>How the 24-hour test drive works for that app.</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="protocol-h">
+    <span class="eyebrow">Purchase protocol</span>
+    <h2 id="protocol-h">From launch to lifetime in three steps</h2>
+    <div class="protocol">
+      <div class="step"><span class="t">T+00:00</span><div><h3>Dock and launch</h3><p>Install the app and every feature unlocks for a full day. A counter inside shows the time remaining.</p></div></div>
+      <div class="step"><span class="t">T+24:00</span><div><h3>Your call</h3><p>Decide with real work already done. Whatever you made during the trial stays yours.</p></div></div>
+      <div class="step"><span class="t">T+&infin;</span><div><h3>Keep it</h3><p>One payment and the licence is permanent, updates included. Nothing renews.</p></div></div>
+    </div>
+  </section>
+
+  <div class="dossier" id="dossier" hidden role="dialog" aria-modal="true" aria-labelledby="d-title">
+    <div class="dossier-card">
+      <div class="dossier-in">
+        <div class="dossier-viz"><canvas id="d-canvas" aria-hidden="true"></canvas>
+          <div class="hud"><span class="coord" id="d-code"></span><span class="coord">HOLOGRAM · PRE-RELEASE</span></div>
+        </div>
+        <div class="dossier-body">
+          <div class="dossier-head">
+            <div><span class="eyebrow" id="d-orbit"></span><h2 id="d-title" style="margin:6px 0 0;font-size:clamp(24px,3.4vw,36px)"></h2></div>
+            <button class="close" id="d-close" aria-label="Close dossier">&times;</button>
+          </div>
+          <p class="sub" id="d-brief"></p>
+          <div style="display:grid;gap:8px"><span class="coord">BUILD IN PROGRESS</span><div class="meter"><i id="d-meter"></i></div></div>
+          <dl class="ledger" style="margin:0">
+            <div><dt>Designation</dt><dd id="d-des"></dd></div>
+            <div><dt>Status</dt><dd>In development · details classified until launch</dd></div>
+            <div><dt>Pricing</dt><dd>Single purchase, lifetime licence</dd></div>
+            <div><dt>Trial</dt><dd>24 hours with every feature</dd></div>
+            <div><dt>Account</dt><dd>Not required</dd></div>
+            <div><dt>Your data</dt><dd>Stays on your device</dd></div>
+            <div><dt>Platforms</dt><dd>Announced at launch</dd></div>
+          </dl>
+          <div class="cta"><a class="btn primary" id="d-alert">Alert me at launch</a><button class="btn ghost" type="button" id="d-back">Back to the bay</button></div>
+        </div>
+      </div>
+    </div>
+  </div>

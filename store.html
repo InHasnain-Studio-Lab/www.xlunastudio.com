@@ -4,14 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>XLUNA Store</title>
-<meta name="description" content="The XLUNA Store: seven orbits of apps you pay for once and keep for life. First apps in development.">
+<meta name="description" content="The XLUNA launch bay: seven charted orbits, their first apps in development, each docking with a full dossier.">
+<meta property="og:title" content="XLUNA Store">
+<meta property="og:description" content="The XLUNA launch bay: seven charted orbits, their first apps in development, each docking with a full dossier.">
+<meta property="og:image" content="https://xlunastudio.com/assets/logo/xluna-badge-1024.png">
 <meta name="theme-color" content="#04060c">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="assets/logo/xluna-mark-180.png">
+<link rel="icon" href="assets/logo/xluna-badge-32.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/logo/xluna-badge-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Sora:wght@300;600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Manrope:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body data-scene="store">
@@ -19,7 +22,10 @@
 <div class="veil" aria-hidden="true"></div>
 
 <header class="site-head">
-  <a class="brand" href="index.html" aria-label="XLUNA Studio home"><img src="assets/logo/xluna-lockup.svg" alt="XLUNA" width="152" height="34"></a>
+  <a class="brand" href="index.html" aria-label="XLUNA Studio home">
+    <img class="badge" src="assets/logo/xluna-badge-192.png" alt="" width="38" height="38">
+    <img class="word" src="assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18">
+  </a>
   <nav class="site-nav" aria-label="Main">
     <a href="index.html">Home</a>
     <a href="store.html" aria-current="page">Store</a>
@@ -30,89 +36,204 @@
 
 <main>
   <section class="hero short" aria-labelledby="store-h">
-    <span class="eyebrow">XLUNA Store</span>
-    <h1 id="store-h">Seven orbits. First apps in development.</h1>
-    <p class="lede">Every XLUNA app will sit on one of seven orbits, grouped by what it helps you do. The orbits are open; the first apps are being built now.</p>
+    <span class="eyebrow phase-line" data-moon-phase>Tonight's moon</span>
+    <h1 id="store-h">The <em>launch bay</em></h1>
+    <p class="lede">Seven orbits are charted and their first apps are being built. Each one will dock here with a full dossier: live preview, what runs offline, what it needs, and one price.</p>
   </section>
 
-  <section aria-labelledby="orbits-h" style="padding-top:20px">
-    <span class="eyebrow">The orbits</span>
-    <h2 id="orbits-h">Where each app will live</h2>
-    <div class="orbit-list" id="orbits"></div>
+  <section aria-labelledby="bay-h" style="padding-top:10px">
+    <span class="eyebrow">Docking slots</span>
+    <h2 id="bay-h">Seven designations, all in development</h2>
+    <div class="rail" role="toolbar" aria-label="Filter by orbit" id="rail"></div>
+    <div class="bay" id="bay"></div>
   </section>
 
-  <section aria-labelledby="buy-h">
-    <span class="eyebrow">How buying works</span>
-    <h2 id="buy-h">Try for a day. Own for life.</h2>
-    <div class="timeline">
-      <div class="tl"><span class="t">T+00:00</span><div><h3>Install and start the trial</h3><p>Every feature is unlocked for a full day, with a clear countdown inside the app.</p></div></div>
-      <div class="tl"><span class="t">T+24:00</span><div><h3>Decide with real work done</h3><p>Keep what you made during the trial. Buy only if the app earned it.</p></div></div>
-      <div class="tl"><span class="t">T+&infin;</span><div><h3>Pay once, keep it</h3><p>One payment. Updates are included, with no renewals and no subscription.</p></div></div>
+  <section aria-labelledby="manifest-h">
+    <span class="eyebrow">Dossier manifest</span>
+    <h2 id="manifest-h">What every app page will carry</h2>
+    <div class="manifest">
+      <div><b>Live preview loop</b><span>The real interface in motion, not a static screenshot.</span></div>
+      <div><b>Offline map</b><span>Exactly which features run without a connection.</span></div>
+      <div><b>System needs</b><span>Processor, memory and graphics, stated plainly.</span></div>
+      <div><b>Orbit log</b><span>Every release and fix, on a timeline you can scrub.</span></div>
+      <div><b>One price</b><span>The single figure you pay, with nothing recurring.</span></div>
+      <div><b>Trial clock</b><span>How the 24-hour test drive works for that app.</span></div>
     </div>
   </section>
 
-  <section aria-labelledby="notify-h">
-    <div class="panel" style="max-width:640px">
-      <span class="eyebrow">Launch alerts</span>
-      <h2 id="notify-h" style="margin:0">Hear when an orbit opens</h2>
-      <p class="sub">Write to us and we'll reply when the first apps are ready.</p>
-      <form id="notify" novalidate>
-        <label for="n-orbit">Orbit you're most interested in
-          <select id="n-orbit"></select>
-        </label>
-        <button class="btn primary" type="submit" style="justify-self:start">Write to XLUNA</button>
-        <p class="note">Opens your email app with a message to <span style="color:#fff">contact@xlunastudio.com</span>.</p>
-      </form>
+  <section aria-labelledby="protocol-h">
+    <span class="eyebrow">Purchase protocol</span>
+    <h2 id="protocol-h">From launch to lifetime in three steps</h2>
+    <div class="protocol">
+      <div class="step"><span class="t">T+00:00</span><div><h3>Dock and launch</h3><p>Install the app and every feature unlocks for a full day. A counter inside shows the time remaining.</p></div></div>
+      <div class="step"><span class="t">T+24:00</span><div><h3>Your call</h3><p>Decide with real work already done. Whatever you made during the trial stays yours.</p></div></div>
+      <div class="step"><span class="t">T+&infin;</span><div><h3>Keep it</h3><p>One payment and the licence is permanent, updates included. Nothing renews.</p></div></div>
     </div>
   </section>
+
+  <div class="dossier" id="dossier" hidden role="dialog" aria-modal="true" aria-labelledby="d-title">
+    <div class="dossier-card">
+      <div class="dossier-in">
+        <div class="dossier-viz"><canvas id="d-canvas" aria-hidden="true"></canvas>
+          <div class="hud"><span class="coord" id="d-code"></span><span class="coord">HOLOGRAM · PRE-RELEASE</span></div>
+        </div>
+        <div class="dossier-body">
+          <div class="dossier-head">
+            <div><span class="eyebrow" id="d-orbit"></span><h2 id="d-title" style="margin:6px 0 0;font-size:clamp(24px,3.4vw,36px)"></h2></div>
+            <button class="close" id="d-close" aria-label="Close dossier">&times;</button>
+          </div>
+          <p class="sub" id="d-brief"></p>
+          <div style="display:grid;gap:8px"><span class="coord">BUILD IN PROGRESS</span><div class="meter"><i id="d-meter"></i></div></div>
+          <dl class="ledger" style="margin:0">
+            <div><dt>Designation</dt><dd id="d-des"></dd></div>
+            <div><dt>Status</dt><dd>In development · details classified until launch</dd></div>
+            <div><dt>Pricing</dt><dd>Single purchase, lifetime licence</dd></div>
+            <div><dt>Trial</dt><dd>24 hours with every feature</dd></div>
+            <div><dt>Account</dt><dd>Not required</dd></div>
+            <div><dt>Your data</dt><dd>Stays on your device</dd></div>
+            <div><dt>Platforms</dt><dd>Announced at launch</dd></div>
+          </dl>
+          <div class="cta"><a class="btn primary" id="d-alert">Alert me at launch</a><button class="btn ghost" type="button" id="d-back">Back to the bay</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
 <footer class="site-foot">
-  <div style="display:grid;gap:8px">
-    <img src="assets/logo/xluna-lockup.svg" alt="XLUNA" width="140" height="32">
+  <div style="display:grid;gap:10px">
+    <a class="brand" href="index.html" aria-label="XLUNA Studio home"><img class="badge" src="assets/logo/xluna-badge-192.png" alt="" width="38" height="38"><img class="word" src="assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18"></a>
     <p>&copy; 2026 XLUNA Studio. Developed by Hasnain Butt Akhtar.</p>
-    <p>This site sets no cookies and runs no analytics.</p>
+    <p>No cookies. No analytics. Nothing tracked.</p>
   </div>
   <nav class="links" aria-label="Footer">
-    <a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    <a href="index.html">Home</a><a href="store.html">Store</a><a href="about.html">About</a><a href="contact.html">Contact</a>
   </nav>
 </footer>
-
 <script>
-const ORBITS = [
-  ["Create", "Tools for video, photo, sound and design."],
-  ["Think", "Private AI for writing, research and study."],
-  ["Power", "Utilities that tune, protect and speed up your device."],
-  ["Connect", "Your phone and computer working as one."],
-  ["Play", "Games and playful experiments."],
-  ["Build", "Make your own apps, sites and games."],
-  ["Explore", "Worlds, maps and the night sky."]
-];
-const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII"];
-const list = document.getElementById("orbits"), sel = document.getElementById("n-orbit");
-ORBITS.forEach(([name, desc], i) => {
-  const tilt = 14 + i * 6;
-  const el = document.createElement("article");
-  el.className = "orbit";
-  el.innerHTML = `<span class="num" aria-hidden="true">${ROMAN[i]}</span>
-    <div class="ring-art" aria-hidden="true"><svg viewBox="0 0 240 74"><ellipse cx="120" cy="37" rx="${70 + i * 6}" ry="${10 + i}" transform="rotate(-${tilt / 3} 120 37)" fill="none" stroke="rgba(143,230,255,0.55)" stroke-width="1.4"/><circle cx="120" cy="37" r="9" fill="#0d1422" stroke="rgba(201,208,220,0.45)"/><circle cx="${120 + 70 + i * 6}" cy="${37 - (70 + i * 6) * Math.sin(tilt / 3 * Math.PI / 180)}" r="3" fill="#ffb04a"/></svg></div>
-    <h3>Orbit ${ROMAN[i]} · ${name}</h3><p>${desc}</p><span class="state">IN DEVELOPMENT</span>`;
-  el.addEventListener("pointermove", e => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    el.style.transform = `perspective(700px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
-  });
-  el.addEventListener("pointerleave", () => el.style.transform = "");
-  list.appendChild(el);
-  const o = document.createElement("option"); o.textContent = `Orbit ${ROMAN[i]} · ${name}`; sel.appendChild(o);
-});
-document.getElementById("notify").addEventListener("submit", e => {
-  e.preventDefault();
-  const subject = encodeURIComponent(`Launch alert: ${sel.value}`);
-  const body = encodeURIComponent(`Please let me know when ${sel.value} opens on the XLUNA Store.`);
-  location.href = `mailto:contact@xlunastudio.com?subject=${subject}&body=${body}`;
-});
+(function () {
+  const ORBITS = [
+    ["Create", "Studios for video, photo, sound and design that run on your own graphics card."],
+    ["Think", "Private AI for writing, research and study, with no cloud anywhere in the loop."],
+    ["Power", "Utilities that tune, protect and accelerate the machine you already own."],
+    ["Connect", "Your phone and computer acting as one device, without a middleman server."],
+    ["Play", "Games and playful experiments, built to be finished rather than farmed."],
+    ["Build", "Make your own apps, sites and games without renting a toolchain."],
+    ["Explore", "Worlds, maps and the night sky, rendered on your own desk."]
+  ];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const code = i => `XL-${String(i + 1).padStart(2, "0")}`;
+
+  // A small hologram: a particle sphere with its own orbit ring, varied per designation.
+  function hologram(canvas, seed, big) {
+    const g = canvas.getContext("2d");
+    const pts = [], n = big ? 900 : 360;
+    let s = seed * 9301 + 49297;
+    const rand = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    for (let i = 0; i < n; i++) {
+      const u = rand() * 2 - 1, t = rand() * Math.PI * 2, r = Math.sqrt(1 - u * u);
+      pts.push([r * Math.cos(t), u, r * Math.sin(t), rand() < 0.12]);
+    }
+    const tilt = 0.35 + seed * 0.07, ringN = big ? 260 : 120;
+    let raf = 0, visible = true, start = performance.now();
+    function draw(now) {
+      const w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(devicePixelRatio, 2);
+      if (canvas.width !== w * dpr) { canvas.width = w * dpr; canvas.height = h * dpr; }
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.clearRect(0, 0, w, h);
+      const t = (now - start) / 1000, R = Math.min(w * 0.22, h * 0.3), cx = w / 2, cy = h / 2;
+      const a = t * 0.4, ca = Math.cos(a), sa = Math.sin(a);
+      g.globalCompositeOperation = "lighter";
+      for (const [x, y, z, hot] of pts) {
+        const x2 = x * ca + z * sa, z2 = -x * sa + z * ca;
+        const depth = (z2 + 1.6) / 2.6;
+        g.fillStyle = hot ? `rgba(255,176,74,${0.5 * depth})` : `rgba(143,230,255,${0.55 * depth})`;
+        g.fillRect(cx + x2 * R, cy + y * R, big ? 1.8 : 1.4, big ? 1.8 : 1.4);
+      }
+      for (let i = 0; i < ringN; i++) {
+        const q = i / ringN * Math.PI * 2 + t * 0.6, rx = Math.cos(q) * R * 1.65, rz = Math.sin(q) * R * 1.65;
+        const ry = rz * Math.sin(tilt), front = rz > 0;
+        if (!front && Math.hypot(rx, ry) < R) continue;
+        g.fillStyle = `rgba(255,255,255,${front ? 0.85 : 0.3})`;
+        g.fillRect(cx + rx, cy + ry, 1.6, 1.6);
+      }
+      g.globalCompositeOperation = "source-over";
+      const scan = (t * 0.35 % 1) * h;
+      const grad = g.createLinearGradient(0, scan - 30, 0, scan);
+      grad.addColorStop(0, "rgba(143,230,255,0)"); grad.addColorStop(1, "rgba(143,230,255,0.12)");
+      g.fillStyle = grad; g.fillRect(0, scan - 30, w, 30);
+      if (!reduce && visible) raf = requestAnimationFrame(draw);
+    }
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      cancelAnimationFrame(raf);
+      if (visible) raf = requestAnimationFrame(draw);
+    });
+    io.observe(canvas);
+    requestAnimationFrame(draw);
+    return () => { visible = false; cancelAnimationFrame(raf); io.disconnect(); };
+  }
+
+  const bay = document.getElementById("bay"), rail = document.getElementById("rail");
+  let filter = "All";
+  function chip(name) {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = name; b.setAttribute("aria-pressed", name === filter);
+    b.onclick = () => { filter = name; [...rail.children].forEach(c => c.setAttribute("aria-pressed", c.textContent === name)); render(); };
+    rail.appendChild(b);
+  }
+  chip("All"); ORBITS.forEach(([n]) => chip(n));
+
+  function render() {
+    bay.innerHTML = "";
+    ORBITS.forEach(([name, brief], i) => {
+      if (filter !== "All" && filter !== name) return;
+      const slot = document.createElement("button");
+      slot.type = "button"; slot.className = "slot";
+      slot.setAttribute("aria-label", `${code(i)}, orbit ${name}, open dossier`);
+      slot.innerHTML = `<div class="slot-in">
+        <div class="top"><span class="code">${code(i)}</span><span class="status">In development</span></div>
+        <div class="holo"><canvas></canvas></div>
+        <div style="display:grid;gap:8px"><span class="orbit-name">Orbit · ${name}</span><span class="redact" aria-hidden="true"></span></div>
+        <p>${brief}</p>
+        <div class="specs"><div class="spec"><b>1&times;</b><span>Payment</span></div><div class="spec"><b>24h</b><span>Trial</span></div><div class="spec"><b>0</b><span>Accounts</span></div></div>
+      </div>`;
+      slot.addEventListener("pointermove", e => {
+        if (reduce) return;
+        const r = slot.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        slot.style.transform = `perspective(800px) rotateY(${x * 9}deg) rotateX(${-y * 9}deg) translateZ(4px)`;
+      });
+      slot.addEventListener("pointerleave", () => slot.style.transform = "");
+      slot.onclick = () => openDossier(i);
+      bay.appendChild(slot);
+      hologram(slot.querySelector("canvas"), i + 1, false);
+    });
+  }
+  render();
+
+  const dossier = document.getElementById("dossier");
+  let stopViz = null, lastFocus = null;
+  function openDossier(i) {
+    const [name, brief] = ORBITS[i];
+    lastFocus = document.activeElement;
+    document.getElementById("d-orbit").textContent = `Orbit ${["I","II","III","IV","V","VI","VII"][i]} · ${name}`;
+    document.getElementById("d-title").textContent = `Dossier ${code(i)}`;
+    document.getElementById("d-code").textContent = `${code(i)} · ${name.toUpperCase()}`;
+    document.getElementById("d-des").textContent = `${code(i)}, first app in the ${name} orbit`;
+    document.getElementById("d-brief").textContent = brief;
+    document.getElementById("d-alert").href = `mailto:contact@xlunastudio.com?subject=${encodeURIComponent(`Launch alert: ${code(i)} ${name}`)}&body=${encodeURIComponent(`Please tell me when ${code(i)} in the ${name} orbit launches.`)}`;
+    dossier.hidden = false;
+    stopViz = hologram(document.getElementById("d-canvas"), i + 1, true);
+    document.getElementById("d-close").focus();
+  }
+  function closeDossier() { dossier.hidden = true; stopViz && stopViz(); lastFocus && lastFocus.focus(); }
+  document.getElementById("d-close").onclick = closeDossier;
+  document.getElementById("d-back").onclick = closeDossier;
+  dossier.addEventListener("click", e => { if (e.target === dossier) closeDossier(); });
+  addEventListener("keydown", e => { if (e.key === "Escape" && !dossier.hidden) closeDossier(); });
+})();
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="assets/universe.js"></script>
 </body>

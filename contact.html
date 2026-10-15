@@ -4,14 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Contact XLUNA Studio</title>
-<meta name="description" content="Contact XLUNA Studio at contact@xlunastudio.com for support, partnerships and press.">
+<meta name="description" content="Reach XLUNA Studio at contact@xlunastudio.com for app ideas, support, partnerships and press.">
+<meta property="og:title" content="Contact XLUNA Studio">
+<meta property="og:description" content="Reach XLUNA Studio at contact@xlunastudio.com for app ideas, support, partnerships and press.">
+<meta property="og:image" content="https://xlunastudio.com/assets/logo/xluna-badge-1024.png">
 <meta name="theme-color" content="#04060c">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="assets/logo/xluna-mark-180.png">
+<link rel="icon" href="assets/logo/xluna-badge-32.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/logo/xluna-badge-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Sora:wght@300;600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Manrope:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body data-scene="contact">
@@ -19,7 +22,10 @@
 <div class="veil" aria-hidden="true"></div>
 
 <header class="site-head">
-  <a class="brand" href="index.html" aria-label="XLUNA Studio home"><img src="assets/logo/xluna-lockup.svg" alt="XLUNA" width="152" height="34"></a>
+  <a class="brand" href="index.html" aria-label="XLUNA Studio home">
+    <img class="badge" src="assets/logo/xluna-badge-192.png" alt="" width="38" height="38">
+    <img class="word" src="assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18">
+  </a>
   <nav class="site-nav" aria-label="Main">
     <a href="index.html">Home</a>
     <a href="store.html">Store</a>
@@ -30,15 +36,15 @@
 
 <main>
   <section class="hero short" aria-labelledby="contact-h">
-    <span class="eyebrow">Contact</span>
-    <h1 id="contact-h">Send a signal</h1>
-    <p class="lede">Questions, ideas for an app, partnerships or press. One address reaches the studio.</p>
+    <span class="eyebrow phase-line" data-moon-phase>Tonight's moon</span>
+    <h1 id="contact-h">Open a <em>channel</em></h1>
+    <p class="lede">An idea for an app, a question, a partnership or a press request. Every message lands with the studio.</p>
   </section>
 
   <section style="padding-top:10px" aria-label="Ways to reach XLUNA">
-    <div class="split">
+    <div class="split" style="align-items:start">
       <div class="panel">
-        <span class="eyebrow">Email</span>
+        <span class="eyebrow">Direct line</span>
         <span class="mail" id="addr">contact@xlunastudio.com</span>
         <div class="cta">
           <button class="btn primary" type="button" id="copy">Copy address</button>
@@ -47,12 +53,12 @@
         <p class="note" id="copy-note" aria-live="polite"></p>
       </div>
       <div class="panel">
-        <span class="eyebrow">Write a message</span>
+        <span class="eyebrow">Compose a transmission</span>
         <form id="msg" novalidate>
-          <label for="m-topic">Topic
+          <label for="m-topic">Subject
             <select id="m-topic">
-              <option>App idea</option>
-              <option>Support</option>
+              <option>An app idea</option>
+              <option>Help with an app</option>
               <option>Partnership</option>
               <option>Press</option>
               <option>Something else</option>
@@ -64,8 +70,8 @@
           <label for="m-body">Message
             <textarea id="m-body" required></textarea>
           </label>
-          <button class="btn primary" type="submit" style="justify-self:start">Continue in email</button>
-          <p class="note" id="m-note" aria-live="polite">Your message opens in your email app, ready to send.</p>
+          <button class="btn primary" type="submit" style="justify-self:start">Send via email</button>
+          <p class="note" id="m-note" aria-live="polite">Opens your email app with the message ready to send.</p>
         </form>
       </div>
     </div>
@@ -73,21 +79,20 @@
 </main>
 
 <footer class="site-foot">
-  <div style="display:grid;gap:8px">
-    <img src="assets/logo/xluna-lockup.svg" alt="XLUNA" width="140" height="32">
+  <div style="display:grid;gap:10px">
+    <a class="brand" href="index.html" aria-label="XLUNA Studio home"><img class="badge" src="assets/logo/xluna-badge-192.png" alt="" width="38" height="38"><img class="word" src="assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18"></a>
     <p>&copy; 2026 XLUNA Studio. Developed by Hasnain Butt Akhtar.</p>
-    <p>This site sets no cookies and runs no analytics.</p>
+    <p>No cookies. No analytics. Nothing tracked.</p>
   </div>
   <nav class="links" aria-label="Footer">
-    <a href="index.html">Home</a><a href="store.html">Store</a><a href="about.html">About</a>
+    <a href="index.html">Home</a><a href="store.html">Store</a><a href="about.html">About</a><a href="contact.html">Contact</a>
   </nav>
 </footer>
-
 <script>
 document.getElementById("copy").addEventListener("click", () => {
-  const note = document.getElementById("copy-note"), text = document.getElementById("addr").textContent;
-  navigator.clipboard.writeText(text).then(() => note.textContent = "Address copied.").catch(() => {
-    const r = document.createRange(); r.selectNodeContents(document.getElementById("addr"));
+  const note = document.getElementById("copy-note"), addr = document.getElementById("addr");
+  navigator.clipboard.writeText(addr.textContent).then(() => note.textContent = "Address copied.").catch(() => {
+    const r = document.createRange(); r.selectNodeContents(addr);
     const s = getSelection(); s.removeAllRanges(); s.addRange(r);
     note.textContent = "Press Ctrl+C to copy the selected address.";
   });
@@ -101,6 +106,7 @@ document.getElementById("msg").addEventListener("submit", e => {
   location.href = `mailto:contact@xlunastudio.com?subject=${encodeURIComponent("XLUNA: " + topic)}&body=${encodeURIComponent(text)}`;
 });
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="assets/universe.js"></script>
 </body>

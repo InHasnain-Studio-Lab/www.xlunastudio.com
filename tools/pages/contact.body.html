@@ -1,0 +1,41 @@
+  <section class="hero short" aria-labelledby="contact-h">
+    <span class="eyebrow phase-line" data-moon-phase>Tonight's moon</span>
+    <h1 id="contact-h">Open a <em>channel</em></h1>
+    <p class="lede">An idea for an app, a question, a partnership or a press request. Every message lands with the studio.</p>
+  </section>
+
+  <section style="padding-top:10px" aria-label="Ways to reach XLUNA">
+    <div class="split" style="align-items:start">
+      <div class="panel">
+        <span class="eyebrow">Direct line</span>
+        <span class="mail" id="addr">contact@xlunastudio.com</span>
+        <div class="cta">
+          <button class="btn primary" type="button" id="copy">Copy address</button>
+          <a class="btn ghost" href="mailto:contact@xlunastudio.com">Open email app</a>
+        </div>
+        <p class="note" id="copy-note" aria-live="polite"></p>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">Compose a transmission</span>
+        <form id="msg" novalidate>
+          <label for="m-topic">Subject
+            <select id="m-topic">
+              <option>An app idea</option>
+              <option>Help with an app</option>
+              <option>Partnership</option>
+              <option>Press</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label for="m-name">Your name
+            <input id="m-name" type="text" autocomplete="name">
+          </label>
+          <label for="m-body">Message
+            <textarea id="m-body" required></textarea>
+          </label>
+          <button class="btn primary" type="submit" style="justify-self:start">Send via email</button>
+          <p class="note" id="m-note" aria-live="polite">Opens your email app with the message ready to send.</p>
+        </form>
+      </div>
+    </div>
+  </section>

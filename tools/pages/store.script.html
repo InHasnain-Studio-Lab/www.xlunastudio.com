@@ -1,0 +1,123 @@
+<script>
+(function () {
+  const ORBITS = [
+    ["Create", "Studios for video, photo, sound and design that run on your own graphics card."],
+    ["Think", "Private AI for writing, research and study, with no cloud anywhere in the loop."],
+    ["Power", "Utilities that tune, protect and accelerate the machine you already own."],
+    ["Connect", "Your phone and computer acting as one device, without a middleman server."],
+    ["Play", "Games and playful experiments, built to be finished rather than farmed."],
+    ["Build", "Make your own apps, sites and games without renting a toolchain."],
+    ["Explore", "Worlds, maps and the night sky, rendered on your own desk."]
+  ];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const code = i => `XL-${String(i + 1).padStart(2, "0")}`;
+
+  // A small hologram: a particle sphere with its own orbit ring, varied per designation.
+  function hologram(canvas, seed, big) {
+    const g = canvas.getContext("2d");
+    const pts = [], n = big ? 900 : 360;
+    let s = seed * 9301 + 49297;
+    const rand = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    for (let i = 0; i < n; i++) {
+      const u = rand() * 2 - 1, t = rand() * Math.PI * 2, r = Math.sqrt(1 - u * u);
+      pts.push([r * Math.cos(t), u, r * Math.sin(t), rand() < 0.12]);
+    }
+    const tilt = 0.35 + seed * 0.07, ringN = big ? 260 : 120;
+    let raf = 0, visible = true, start = performance.now();
+    function draw(now) {
+      const w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(devicePixelRatio, 2);
+      if (canvas.width !== w * dpr) { canvas.width = w * dpr; canvas.height = h * dpr; }
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.clearRect(0, 0, w, h);
+      const t = (now - start) / 1000, R = Math.min(w * 0.22, h * 0.3), cx = w / 2, cy = h / 2;
+      const a = t * 0.4, ca = Math.cos(a), sa = Math.sin(a);
+      g.globalCompositeOperation = "lighter";
+      for (const [x, y, z, hot] of pts) {
+        const x2 = x * ca + z * sa, z2 = -x * sa + z * ca;
+        const depth = (z2 + 1.6) / 2.6;
+        g.fillStyle = hot ? `rgba(255,176,74,${0.5 * depth})` : `rgba(143,230,255,${0.55 * depth})`;
+        g.fillRect(cx + x2 * R, cy + y * R, big ? 1.8 : 1.4, big ? 1.8 : 1.4);
+      }
+      for (let i = 0; i < ringN; i++) {
+        const q = i / ringN * Math.PI * 2 + t * 0.6, rx = Math.cos(q) * R * 1.65, rz = Math.sin(q) * R * 1.65;
+        const ry = rz * Math.sin(tilt), front = rz > 0;
+        if (!front && Math.hypot(rx, ry) < R) continue;
+        g.fillStyle = `rgba(255,255,255,${front ? 0.85 : 0.3})`;
+        g.fillRect(cx + rx, cy + ry, 1.6, 1.6);
+      }
+      g.globalCompositeOperation = "source-over";
+      const scan = (t * 0.35 % 1) * h;
+      const grad = g.createLinearGradient(0, scan - 30, 0, scan);
+      grad.addColorStop(0, "rgba(143,230,255,0)"); grad.addColorStop(1, "rgba(143,230,255,0.12)");
+      g.fillStyle = grad; g.fillRect(0, scan - 30, w, 30);
+      if (!reduce && visible) raf = requestAnimationFrame(draw);
+    }
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      cancelAnimationFrame(raf);
+      if (visible) raf = requestAnimationFrame(draw);
+    });
+    io.observe(canvas);
+    requestAnimationFrame(draw);
+    return () => { visible = false; cancelAnimationFrame(raf); io.disconnect(); };
+  }
+
+  const bay = document.getElementById("bay"), rail = document.getElementById("rail");
+  let filter = "All";
+  function chip(name) {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = name; b.setAttribute("aria-pressed", name === filter);
+    b.onclick = () => { filter = name; [...rail.children].forEach(c => c.setAttribute("aria-pressed", c.textContent === name)); render(); };
+    rail.appendChild(b);
+  }
+  chip("All"); ORBITS.forEach(([n]) => chip(n));
+
+  function render() {
+    bay.innerHTML = "";
+    ORBITS.forEach(([name, brief], i) => {
+      if (filter !== "All" && filter !== name) return;
+      const slot = document.createElement("button");
+      slot.type = "button"; slot.className = "slot";
+      slot.setAttribute("aria-label", `${code(i)}, orbit ${name}, open dossier`);
+      slot.innerHTML = `<div class="slot-in">
+        <div class="top"><span class="code">${code(i)}</span><span class="status">In development</span></div>
+        <div class="holo"><canvas></canvas></div>
+        <div style="display:grid;gap:8px"><span class="orbit-name">Orbit · ${name}</span><span class="redact" aria-hidden="true"></span></div>
+        <p>${brief}</p>
+        <div class="specs"><div class="spec"><b>1&times;</b><span>Payment</span></div><div class="spec"><b>24h</b><span>Trial</span></div><div class="spec"><b>0</b><span>Accounts</span></div></div>
+      </div>`;
+      slot.addEventListener("pointermove", e => {
+        if (reduce) return;
+        const r = slot.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        slot.style.transform = `perspective(800px) rotateY(${x * 9}deg) rotateX(${-y * 9}deg) translateZ(4px)`;
+      });
+      slot.addEventListener("pointerleave", () => slot.style.transform = "");
+      slot.onclick = () => openDossier(i);
+      bay.appendChild(slot);
+      hologram(slot.querySelector("canvas"), i + 1, false);
+    });
+  }
+  render();
+
+  const dossier = document.getElementById("dossier");
+  let stopViz = null, lastFocus = null;
+  function openDossier(i) {
+    const [name, brief] = ORBITS[i];
+    lastFocus = document.activeElement;
+    document.getElementById("d-orbit").textContent = `Orbit ${["I","II","III","IV","V","VI","VII"][i]} · ${name}`;
+    document.getElementById("d-title").textContent = `Dossier ${code(i)}`;
+    document.getElementById("d-code").textContent = `${code(i)} · ${name.toUpperCase()}`;
+    document.getElementById("d-des").textContent = `${code(i)}, first app in the ${name} orbit`;
+    document.getElementById("d-brief").textContent = brief;
+    document.getElementById("d-alert").href = `mailto:contact@xlunastudio.com?subject=${encodeURIComponent(`Launch alert: ${code(i)} ${name}`)}&body=${encodeURIComponent(`Please tell me when ${code(i)} in the ${name} orbit launches.`)}`;
+    dossier.hidden = false;
+    stopViz = hologram(document.getElementById("d-canvas"), i + 1, true);
+    document.getElementById("d-close").focus();
+  }
+  function closeDossier() { dossier.hidden = true; stopViz && stopViz(); lastFocus && lastFocus.focus(); }
+  document.getElementById("d-close").onclick = closeDossier;
+  document.getElementById("d-back").onclick = closeDossier;
+  dossier.addEventListener("click", e => { if (e.target === dossier) closeDossier(); });
+  addEventListener("keydown", e => { if (e.key === "Escape" && !dossier.hidden) closeDossier(); });
+})();
+</script>

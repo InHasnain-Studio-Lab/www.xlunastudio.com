@@ -1,0 +1,18 @@
+<script>
+document.getElementById("copy").addEventListener("click", () => {
+  const note = document.getElementById("copy-note"), addr = document.getElementById("addr");
+  navigator.clipboard.writeText(addr.textContent).then(() => note.textContent = "Address copied.").catch(() => {
+    const r = document.createRange(); r.selectNodeContents(addr);
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    note.textContent = "Press Ctrl+C to copy the selected address.";
+  });
+});
+document.getElementById("msg").addEventListener("submit", e => {
+  e.preventDefault();
+  const body = document.getElementById("m-body").value.trim(), note = document.getElementById("m-note");
+  if (!body) { note.textContent = "Write a message first."; document.getElementById("m-body").focus(); return; }
+  const name = document.getElementById("m-name").value.trim(), topic = document.getElementById("m-topic").value;
+  const text = name ? `${body}\n\n${name}` : body;
+  location.href = `mailto:contact@xlunastudio.com?subject=${encodeURIComponent("XLUNA: " + topic)}&body=${encodeURIComponent(text)}`;
+});
+</script>
