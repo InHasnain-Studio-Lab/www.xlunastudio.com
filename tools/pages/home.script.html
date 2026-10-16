@@ -1,0 +1,28 @@
+<script>
+(function () {
+  const promo = document.getElementById("promo");
+  if (!promo) return;
+  const slides = [...promo.querySelectorAll(".promo-slide")], tabs = [...promo.querySelectorAll(".promo-nav button")];
+  const count = document.getElementById("promo-count"), dwell = 7000;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let at = 0, timer = 0, paused = false;
+  function show(i) {
+    at = (i + slides.length) % slides.length;
+    slides.forEach((s, k) => { s.classList.toggle("is-on", k === at); s.setAttribute("aria-hidden", k !== at); });
+    tabs.forEach((t, k) => { t.setAttribute("aria-selected", k === at); t.classList.remove("run"); });
+    count.textContent = `${String(at + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+    if (!reduce && !paused) { void tabs[at].offsetWidth; tabs[at].classList.add("run"); }
+  }
+  function start() { clearInterval(timer); if (!reduce) timer = setInterval(() => show(at + 1), dwell); }
+  tabs.forEach((t, k) => t.onclick = () => { show(k); start(); });
+  promo.addEventListener("mouseenter", () => { paused = true; clearInterval(timer); tabs[at].classList.remove("run"); });
+  promo.addEventListener("mouseleave", () => { paused = false; show(at); start(); });
+  promo.addEventListener("pointermove", e => {
+    if (reduce) return;
+    const r = promo.getBoundingClientRect();
+    promo.style.setProperty("--tx", ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+    promo.style.setProperty("--ty", ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+  });
+  show(0); start();
+})();
+</script>
