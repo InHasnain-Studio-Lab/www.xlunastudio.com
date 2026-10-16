@@ -10,7 +10,7 @@ SRC = os.path.join(ROOT, "tools", "pages")
 
 PAGES = [
     ("index.html", "Home", "XLUNA™ | Apps you own, AI on your device", "XLUNA™ builds apps that run on your own machine, need no account and are yours from the first purchase. Pay once, try free for 24 hours.", "home"),
-    ("store.html", "Store", "XLUNA™ Store | The launch bay", "The XLUNA launch bay: XLUNA OS and XFidelity Ultra, coming soon to the Microsoft Store. Pay once, try free for 24 hours.", "store"),
+    ("store.html", "Store", "XLUNA™ Store | The launch bay", "The XLUNA launch bay: XLUNA OS and XFidelity Ultra, available now on the Microsoft Store. Pay once, try free for 24 hours.", "store"),
     ("about.html", "About", "About XLUNA™ | Founder, story and concept", "XLUNA™ is an independent software studio founded by Hasnain Butt Akhtar in England, named for the new moon and the orbits around it.", "about"),
     ("contact.html", "Contact", "Contact XLUNA™", "Reach XLUNA™ at contact@xlunastudio.com for app ideas, support, partnerships and press.", "contact"),
     ("privacy.html", "Privacy", "XLUNA™ Privacy Policy", "How XLUNA™ handles information on xlunastudio.com and in its apps.", "privacy"),

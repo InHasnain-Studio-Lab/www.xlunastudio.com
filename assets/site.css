@@ -215,6 +215,8 @@ textarea { min-height: 140px; resize: vertical; }
 .launch-id h3 { margin: 2px 0 0; font: 700 26px / 1.1 var(--font-display); color: #fff; }
 .launch-id .soon { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font: 400 10.5px var(--font-data); letter-spacing: 0.12em; text-transform: uppercase; color: var(--corona); white-space: nowrap; }
 .launch-id .soon::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--corona); box-shadow: 0 0 10px var(--corona); animation: pulse 2.2s ease-in-out infinite; }
+.launch-id .soon.live { color: var(--ice); border-color: rgba(143,230,255,0.45); background: rgba(143,230,255,0.08); }
+.launch-id .soon.live::before { background: var(--ice); box-shadow: 0 0 10px var(--ice); }
 .launch-body .launch-tag { color: #fff; font: 600 16px var(--font-body); }
 .app-shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #03050a; }
 .frame.shot { border-style: solid; padding: 0; overflow: hidden; position: relative; display: block; }
@@ -263,7 +265,7 @@ textarea { min-height: 140px; resize: vertical; }
 .promo-line { margin: 0; color: var(--dust); font-size: 15px; max-width: 46ch; }
 .promo-chips { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .promo-chips li { font: 600 11px var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--regolith); padding: 6px 11px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.03); }
-.promo-chips li.hot { color: var(--corona); border-color: rgba(255,176,74,0.45); background: rgba(255,176,74,0.08); }
+.promo-chips li.hot { color: var(--ice); border-color: rgba(143,230,255,0.45); background: rgba(143,230,255,0.08); }
 .promo-screen { position: relative; display: block; border-radius: 18px; overflow: hidden; aspect-ratio: 16 / 9; border: 1px solid rgba(143,230,255,0.35);
   box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 60px rgba(143,230,255,0.18);
   transform: perspective(1400px) rotateY(calc(-9deg + var(--tx) * 8deg)) rotateX(calc(3deg - var(--ty) * 6deg)); transition: transform .4s ease-out; }

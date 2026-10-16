@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>XLUNA™ Store | The launch bay</title>
-<meta name="description" content="The XLUNA launch bay: XLUNA OS and XFidelity Ultra, coming soon to the Microsoft Store. Pay once, try free for 24 hours.">
+<meta name="description" content="The XLUNA launch bay: XLUNA OS and XFidelity Ultra, available now on the Microsoft Store. Pay once, try free for 24 hours.">
 <link rel="canonical" href="https://xlunastudio.com/store">
 <meta property="og:url" content="https://xlunastudio.com/store">
 <meta property="og:type" content="website">
@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-title" content="XLUNA">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="XLUNA™ Store | The launch bay">
-<meta property="og:description" content="The XLUNA launch bay: XLUNA OS and XFidelity Ultra, coming soon to the Microsoft Store. Pay once, try free for 24 hours.">
+<meta property="og:description" content="The XLUNA launch bay: XLUNA OS and XFidelity Ultra, available now on the Microsoft Store. Pay once, try free for 24 hours.">
 <meta property="og:image" content="https://xlunastudio.com/assets/logo/xluna-mark-1024.png">
 <meta name="theme-color" content="#04060c">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -45,9 +45,9 @@
   <section class="hero short" aria-labelledby="store-h">
     <span class="eyebrow phase-line" data-moon-phase>Tonight's moon</span>
     <h1 id="store-h">The XLUNA&trade; <em>launch bay</em></h1>
-    <p class="lede">The first two apps are cleared for countdown: XLUNA OS and XFidelity Ultra are coming soon to the Microsoft Store. Each one runs on your own PC, needs no account and costs you once.</p>
+    <p class="lede">The first two apps have launched: XLUNA OS and XFidelity Ultra are available now on the Microsoft Store. Each one runs on your own PC, needs no account and costs you once.</p>
     <dl class="bay-stats">
-      <div><dt>Coming soon</dt><dd>2</dd></div>
+      <div><dt>Available now</dt><dd>2</dd></div>
       <div><dt>Subscriptions</dt><dd>0</dd></div>
       <div><dt>Accounts</dt><dd>0</dd></div>
       <div><dt>Free trial</dt><dd>24h</dd></div>
@@ -55,9 +55,9 @@
   </section>
 
   <section aria-labelledby="soon-h" style="padding-top:10px">
-    <span class="eyebrow">Coming soon</span>
-    <h2 id="soon-h">First launches</h2>
-    <p class="note">Both apps are in Microsoft Store certification. Availability, price and the store link arrive on launch day.</p>
+    <span class="eyebrow">Available now</span>
+    <h2 id="soon-h">On the Microsoft Store</h2>
+    <p class="note">Install from the Microsoft Store and try every feature free for 24 hours. The Store shows the price in your local currency.</p>
     <div class="launches" id="launches"></div>
   </section>
 
@@ -79,11 +79,11 @@
           <div class="app-head">
             <div class="app-id">
               <img id="d-icon" src="/assets/logo/xluna-mark.svg" alt="" width="64" height="64">
-              <div><span class="eyebrow" id="d-kind"></span><h2 id="d-title"></h2><span class="coord">XLUNA&trade; · Coming soon to the Microsoft Store</span></div>
+              <div><span class="eyebrow" id="d-kind"></span><h2 id="d-title"></h2><span class="coord">XLUNA&trade; · Available on the Microsoft Store</span></div>
             </div>
             <p class="sub" id="d-brief"></p>
             <div class="app-badges"><span>Pay once</span><span>24h trial</span><span>No account</span><span>On-device</span></div>
-            <div class="cta"><a class="btn primary" id="d-alert">Alert me at launch</a><button class="btn ghost" type="button" id="d-close">Close</button></div>
+            <div class="cta"><a class="btn primary" id="d-get" target="_blank" rel="noopener">Get it on Microsoft Store</a><button class="btn ghost" type="button" id="d-close">Close</button></div>
           </div>
         </header>
         <nav class="app-tabs" role="tablist" aria-label="App details" id="d-tabs">
@@ -98,14 +98,14 @@
             <div class="preview-frames" aria-label="Screenshots" id="d-frames"></div>
           </div>
           <div role="tabpanel" data-panel="highlights" hidden>
-            <p class="note" style="margin-bottom:12px">What ships in version 1.0.</p>
+            <p class="note" style="margin-bottom:12px">What you get in version 1.0.</p>
             <ul class="highlights" id="d-highlights"></ul>
           </div>
           <div role="tabpanel" data-panel="specs" hidden>
             <dl class="ledger" style="margin:0">
               <div><dt>Designation</dt><dd id="d-des"></dd></div>
-              <div><dt>Status</dt><dd>Coming soon · in Microsoft Store certification</dd></div>
-              <div><dt>Pricing</dt><dd>Single purchase, lifetime licence · price announced at launch</dd></div>
+              <div><dt>Status</dt><dd>Available now on the Microsoft Store</dd></div>
+              <div><dt>Pricing</dt><dd>Single purchase, lifetime licence · the Store shows your local price</dd></div>
               <div><dt>Trial</dt><dd>24 hours with every feature</dd></div>
               <div><dt>Updates</dt><dd>Included</dd></div>
               <div><dt>Account</dt><dd>Not required</dd></div>
@@ -143,14 +143,14 @@
 (function () {
   // The first apps headed for the Microsoft Store. Every claim matches the app's own listing and privacy page.
   const APPS = [
-    { slug: "xluna-os", name: "XLUNA OS", kind: "Desktop shell", tagline: "Your desktop, lit by the moon.",
+    { slug: "xluna-os", store: "9MXJ3LXCT264", name: "XLUNA OS", kind: "Desktop shell", tagline: "Your desktop, lit by the moon.",
       brief: "A moonlit desktop for Windows: live 3D wallpapers that move with your PC, an App Hub for every app, a dock with live window previews and widgets that report the real numbers.",
       overview: "Want a desktop that feels alive instead of a flat picture, and to see what your PC is doing without opening a single tool? XLUNA OS turns your screen into a moonlit desk: live wallpapers that move with your processor, memory and network, a dock for every app and window, and widgets that report the real numbers.",
       tags: ["Desktop shell", "Live wallpapers", "App Hub", "Widgets"],
       highlights: ["Live 3D wallpapers, from a NASA-mapped Moon to Saturn, that move with your PC", "App Hub with every desktop and Microsoft Store app, pin any in a click", "A dock with pinned apps, every open window and live previews", "Clocks, system gauges, a 7-day forecast, media and notes", "Frosted Glass or Moonlight Glass in five luminous inks", "Command palette, focus countdown, Zen mode and screen capture"],
       shots: ["The XLUNA OS particle wallpaper with widgets and the dock", "The App Hub over a live wallpaper", "The 3D Moon wallpaper with the control centre", "About, with the licence and integrity badges"],
       net: "Two requests only: the Microsoft Store licence check and the weather forecast for the city you choose." },
-    { slug: "xfidelity-ultra", name: "XFidelity Ultra", kind: "Audio enhancer", tagline: "Make everything you play sound bigger.",
+    { slug: "xfidelity-ultra", store: "9P76NLF7K78F", name: "XFidelity Ultra", kind: "Audio enhancer", tagline: "Make everything you play sound bigger.",
       brief: "One power button and every app your PC plays sounds wider, deeper and clearer, from the speakers or headphones you already own.",
       overview: "Want cinema sound from your PC without buying new gear, or headphone audio that stops sitting flat inside your head? XFidelity Ultra answers both with one press of the power button: every app you play sounds wider, deeper and clearer, processed live on your own PC.",
       tags: ["Audio", "Surround", "8D", "Equalizer"],
@@ -159,6 +159,7 @@
       net: "One request only: the Microsoft Store licence check. Your audio is never recorded or sent anywhere." }
   ];
   const $ = id => document.getElementById(id);
+  const storeUrl = a => `https://apps.microsoft.com/detail/${a.store}`;
 
   const launches = $("launches");
   APPS.forEach((a, k) => {
@@ -166,14 +167,14 @@
     card.className = "launch";
     card.innerHTML = `<button type="button" class="launch-shot" aria-label="View ${a.name} details"><img src="/assets/apps/${a.slug}/hero.jpg" alt="${a.name} promotional artwork" loading="lazy" width="1920" height="1080"></button>
       <div class="launch-body">
-        <div class="launch-id"><img src="/assets/apps/${a.slug}/icon.png" alt="" width="56" height="56"><div><span class="eyebrow">${a.kind}</span><h3>${a.name}</h3></div><span class="soon">Coming soon</span></div>
+        <div class="launch-id"><img src="/assets/apps/${a.slug}/icon.png" alt="" width="56" height="56"><div><span class="eyebrow">${a.kind}</span><h3>${a.name}</h3></div><span class="soon live">Available now</span></div>
         <p class="launch-tag">${a.tagline}</p>
         <p>${a.brief}</p>
         <ul class="slot-tags">${a.tags.map(t => `<li>${t}</li>`).join("")}</ul>
-        <div class="cta"><button class="btn primary" type="button">View app details</button><a class="btn ghost" href="/privacy/${a.slug}">Privacy</a></div>
+        <div class="cta"><a class="btn primary" href="${storeUrl(a)}" target="_blank" rel="noopener">Get it on Microsoft Store</a><button class="btn ghost" type="button">View details</button></div>
       </div>`;
     card.querySelector(".launch-shot").onclick = () => openApp(k);
-    card.querySelector(".btn.primary").onclick = () => openApp(k);
+    card.querySelector("button.btn.ghost").onclick = () => openApp(k);
     launches.appendChild(card);
   });
 
@@ -202,7 +203,7 @@
     $("d-des").textContent = `${a.name}, ${a.kind.toLowerCase()} for Windows`;
     $("d-net").textContent = a.net;
     $("d-privnote").innerHTML = `Read the full <a href="/privacy/${a.slug}">${a.name} privacy policy</a>.`;
-    $("d-alert").href = `mailto:contact@xlunastudio.com?subject=${encodeURIComponent(`Launch alert: ${a.name}`)}&body=${encodeURIComponent(`Please tell me when ${a.name} launches on the Microsoft Store.`)}`;
+    $("d-get").href = storeUrl(a);
     selectTab("overview");
     dossier.hidden = false;
     $("d-close").focus();
