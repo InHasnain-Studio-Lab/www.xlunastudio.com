@@ -426,6 +426,8 @@
   }
   function closeDossier() { dossier.hidden = true; stopViz && stopViz(); lastFocus && lastFocus.focus(); }
   document.getElementById("d-close").onclick = closeDossier;
+  const linked = APPS.findIndex(a => `#${a.slug}` === location.hash);
+  if (linked >= 0) openApp(linked);
   dossier.addEventListener("click", e => { if (e.target === dossier) closeDossier(); });
   addEventListener("keydown", e => { if (e.key === "Escape" && !dossier.hidden) closeDossier(); });
 })();
