@@ -45,16 +45,23 @@
   <section class="hero short" aria-labelledby="store-h">
     <span class="eyebrow phase-line" data-moon-phase>Tonight's moon</span>
     <h1 id="store-h">The XLUNA&trade; <em>launch bay</em></h1>
-    <p class="lede">Seven orbits are charted and their first apps are in development. Explore each docking slot to see what it will do, how it will run and what it will cost you: once.</p>
+    <p class="lede">The first two apps are cleared for countdown: XLUNA OS and XFidelity Ultra are coming soon to the Microsoft Store. Seven orbits are charted behind them, each with its first app in development, and every one costs you once.</p>
     <dl class="bay-stats">
+      <div><dt>Coming soon</dt><dd>2</dd></div>
       <div><dt>Orbits charted</dt><dd>7</dd></div>
-      <div><dt>Apps in development</dt><dd>7</dd></div>
       <div><dt>Subscriptions</dt><dd>0</dd></div>
       <div><dt>Free trial</dt><dd>24h</dd></div>
     </dl>
   </section>
 
-  <section aria-labelledby="spot-h" style="padding-top:10px">
+  <section aria-labelledby="soon-h" style="padding-top:10px">
+    <span class="eyebrow">Coming soon</span>
+    <h2 id="soon-h">First launches</h2>
+    <p class="note">Both apps are in Microsoft Store certification. Availability, price and the store link arrive on launch day.</p>
+    <div class="launches" id="launches"></div>
+  </section>
+
+  <section aria-labelledby="spot-h">
     <span class="eyebrow">Spotlight</span>
     <h2 id="spot-h" class="visually-quiet">Featured docking slot</h2>
     <div class="spotlight" id="spotlight">
@@ -104,11 +111,11 @@
     <div class="dossier-card wide">
       <div class="app-page">
         <header class="app-hero">
-          <div class="app-viz"><canvas id="d-canvas" aria-hidden="true"></canvas></div>
+          <div class="app-viz"><canvas id="d-canvas" aria-hidden="true"></canvas><img id="d-hero" class="app-shot" alt="" hidden></div>
           <div class="app-head">
             <div class="app-id">
-              <img src="/assets/logo/xluna-mark.svg" alt="" width="64" height="64">
-              <div><span class="eyebrow" id="d-orbit"></span><h2 id="d-title"></h2><span class="coord">XLUNA&trade; · In development</span></div>
+              <img id="d-icon" src="/assets/logo/xluna-mark.svg" alt="" width="64" height="64">
+              <div><span class="eyebrow" id="d-orbit"></span><h2 id="d-title"></h2><span class="coord" id="d-coord">XLUNA&trade; · In development</span></div>
             </div>
             <p class="sub" id="d-brief"></p>
             <div class="app-badges"><span>Pay once</span><span>24h trial</span><span>No account</span><span>On-device</span></div>
@@ -124,25 +131,25 @@
         <div class="app-panels">
           <div role="tabpanel" data-panel="overview">
             <p id="d-overview"></p>
-            <div class="preview-frames" aria-label="Preview frames">
+            <div class="preview-frames" aria-label="Preview frames" id="d-frames">
               <div class="frame"><span class="coord">PREVIEW 01</span><b>Arrives at launch</b></div>
               <div class="frame"><span class="coord">PREVIEW 02</span><b>Arrives at launch</b></div>
               <div class="frame"><span class="coord">PREVIEW 03</span><b>Arrives at launch</b></div>
             </div>
           </div>
           <div role="tabpanel" data-panel="highlights" hidden>
-            <p class="note" style="margin-bottom:12px">Planned focus for this orbit. Final features are confirmed on launch day.</p>
+            <p class="note" style="margin-bottom:12px" id="d-hl-note">Planned focus for this orbit. Final features are confirmed on launch day.</p>
             <ul class="highlights" id="d-highlights"></ul>
           </div>
           <div role="tabpanel" data-panel="specs" hidden>
             <dl class="ledger" style="margin:0">
               <div><dt>Designation</dt><dd id="d-des"></dd></div>
-              <div><dt>Status</dt><dd>In development · details classified until launch</dd></div>
+              <div><dt>Status</dt><dd id="d-status">In development · details classified until launch</dd></div>
               <div><dt>Pricing</dt><dd>Single purchase, lifetime licence · price announced at launch</dd></div>
               <div><dt>Trial</dt><dd>24 hours with every feature</dd></div>
               <div><dt>Updates</dt><dd>Included</dd></div>
               <div><dt>Account</dt><dd>Not required</dd></div>
-              <div><dt>Platforms</dt><dd>Announced at launch</dd></div>
+              <div><dt>Platforms</dt><dd id="d-platforms">Announced at launch</dd></div>
               <div><dt>Developer</dt><dd>XLUNA&trade;</dd></div>
             </dl>
           </div>
@@ -151,9 +158,9 @@
               <div><b>Data collected</b><span>None. XLUNA apps carry no telemetry or analytics.</span></div>
               <div><b>Account</b><span>None. Nothing to sign up for or sign in to.</span></div>
               <div><b>Your files</b><span>Stay on your device. Processing happens locally.</span></div>
-              <div><b>Internet use</b><span>Listed per feature at launch, so you know exactly when an app goes online.</span></div>
+              <div><b>Internet use</b><span id="d-net">Listed per feature at launch, so you know exactly when an app goes online.</span></div>
             </div>
-            <p class="note" style="margin-top:12px">Each app will publish its own privacy page before release. See the <a href="/privacy">XLUNA privacy policy</a>.</p>
+            <p class="note" style="margin-top:12px" id="d-privnote">Each app will publish its own privacy page before release. See the <a href="/privacy">XLUNA privacy policy</a>.</p>
           </div>
         </div>
       </div>
@@ -204,6 +211,40 @@
       tags: ["3D", "Space", "Maps", "Learning"],
       highlights: ["Real-time 3D rendered locally", "Offline-ready data sets", "Built for learning and wonder", "Smooth on everyday hardware"] }
   ];
+  // The first apps headed for the Microsoft Store. Every claim matches the app's own listing and privacy page.
+  const APPS = [
+    { slug: "xluna-os", name: "XLUNA OS", kind: "Desktop shell", tagline: "Your desktop, lit by the moon.",
+      brief: "A moonlit desktop for Windows: live 3D wallpapers that move with your PC, an App Hub for every app, a dock with live window previews and widgets that report the real numbers.",
+      overview: "Want a desktop that feels alive instead of a flat picture, and to see what your PC is doing without opening a single tool? XLUNA OS turns your screen into a moonlit desk: live wallpapers that move with your processor, memory and network, a dock for every app and window, and widgets that report the real numbers.",
+      tags: ["Desktop shell", "Live wallpapers", "App Hub", "Widgets"],
+      highlights: ["Live 3D wallpapers, from a NASA-mapped Moon to Saturn, that move with your PC", "App Hub with every desktop and Microsoft Store app, pin any in a click", "A dock with pinned apps, every open window and live previews", "Clocks, system gauges, a 7-day forecast, media and notes", "Frosted Glass or Moonlight Glass in five luminous inks", "Command palette, focus countdown, Zen mode and screen capture"],
+      shots: ["The XLUNA OS particle wallpaper with widgets and the dock", "The App Hub over a live wallpaper", "The 3D Moon wallpaper with the control centre", "About, with the licence and integrity badges"],
+      net: "Two requests only: the Microsoft Store licence check and the weather forecast for the city you choose." },
+    { slug: "xfidelity-ultra", name: "XFidelity Ultra", kind: "Audio enhancer", tagline: "Make everything you play sound bigger.",
+      brief: "One power button and every app your PC plays sounds wider, deeper and clearer, from the speakers or headphones you already own.",
+      overview: "Want cinema sound from your PC without buying new gear, or headphone audio that stops sitting flat inside your head? XFidelity Ultra answers both with one press of the power button: every app you play sounds wider, deeper and clearer, processed live on your own PC.",
+      tags: ["Audio", "Surround", "8D", "Equalizer"],
+      highlights: ["Every app Windows plays is enhanced automatically", "Fifteen experiences: Cinema, Surround, Orbit 8D, Hyper 3D, Bass Titan and more", "Dialogue brought forward with Vocal Focus and Crystal Air", "Intensity, Bass, Width, Space and Clarity controls", "Ten band equalizer and an adjustable limiter", "Hear the original to compare at the same loudness"],
+      shots: ["The Surround experience with the live reactor and spectrum", "Settings, with output device, glass mode and inks", "Help and tips", "About, with the licence and integrity details"],
+      net: "One request only: the Microsoft Store licence check. Your audio is never recorded or sent anywhere." }
+  ];
+  const launches = document.getElementById("launches");
+  APPS.forEach((a, k) => {
+    const card = document.createElement("article");
+    card.className = "launch";
+    card.innerHTML = `<button type="button" class="launch-shot" aria-label="View ${a.name} details"><img src="/assets/apps/${a.slug}/hero.jpg" alt="${a.name} promotional artwork" loading="lazy" width="1920" height="1080"></button>
+      <div class="launch-body">
+        <div class="launch-id"><img src="/assets/apps/${a.slug}/icon.png" alt="" width="56" height="56"><div><span class="eyebrow">${a.kind}</span><h3>${a.name}</h3></div><span class="soon">Coming soon</span></div>
+        <p class="launch-tag">${a.tagline}</p>
+        <p>${a.brief}</p>
+        <ul class="slot-tags">${a.tags.map(t => `<li>${t}</li>`).join("")}</ul>
+        <div class="cta"><button class="btn primary" type="button">View app details</button><a class="btn ghost" href="/privacy/${a.slug}">Privacy</a></div>
+      </div>`;
+    card.querySelector(".launch-shot").onclick = () => openApp(k);
+    card.querySelector(".btn.primary").onclick = () => openApp(k);
+    launches.appendChild(card);
+  });
+
   const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII"];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const code = i => `XL-${String(i + 1).padStart(2, "0")}`;
@@ -327,6 +368,38 @@
 
   const dossier = document.getElementById("dossier");
   let stopViz = null, lastFocus = null;
+  const $ = id => document.getElementById(id);
+  const ORBIT_DEFAULTS = Object.fromEntries(["d-frames", "d-hl-note", "d-status", "d-platforms", "d-net", "d-privnote", "d-coord"].map(id => [id, $(id).innerHTML]));
+  function setOrbitMode() {
+    for (const [id, html] of Object.entries(ORBIT_DEFAULTS)) $(id).innerHTML = html;
+    $("d-icon").src = "/assets/logo/xluna-mark.svg";
+    $("d-hero").hidden = true; $("d-canvas").hidden = false;
+  }
+  function openApp(k) {
+    const a = APPS[k];
+    stopAuto();
+    lastFocus = document.activeElement;
+    $("d-icon").src = `/assets/apps/${a.slug}/icon.png`;
+    $("d-orbit").textContent = a.kind;
+    $("d-title").textContent = a.name;
+    $("d-coord").innerHTML = "XLUNA&trade; · Coming soon to the Microsoft Store";
+    $("d-brief").textContent = a.brief;
+    $("d-overview").textContent = a.overview;
+    $("d-frames").innerHTML = a.shots.map((cap, i) => `<a class="frame shot" href="/assets/apps/${a.slug}/shot-${i + 1}.jpg" target="_blank" rel="noopener"><img src="/assets/apps/${a.slug}/shot-${i + 1}.jpg" alt="${cap}" loading="lazy"><span class="coord">${cap}</span></a>`).join("");
+    $("d-hl-note").textContent = "What ships in version 1.0.";
+    $("d-highlights").innerHTML = a.highlights.map(h => `<li>${h}</li>`).join("");
+    $("d-des").textContent = `${a.name}, ${a.kind.toLowerCase()} for Windows`;
+    $("d-status").textContent = "Coming soon · in Microsoft Store certification";
+    $("d-platforms").textContent = "Windows 10 (version 2004 or later) and Windows 11, x64";
+    $("d-net").textContent = a.net;
+    $("d-privnote").innerHTML = `Read the full <a href="/privacy/${a.slug}">${a.name} privacy policy</a>.`;
+    $("d-alert").href = `mailto:contact@xlunastudio.com?subject=${encodeURIComponent(`Launch alert: ${a.name}`)}&body=${encodeURIComponent(`Please tell me when ${a.name} launches on the Microsoft Store.`)}`;
+    const hero = $("d-hero");
+    hero.src = `/assets/apps/${a.slug}/hero.jpg`; hero.alt = `${a.name} promotional artwork`; hero.hidden = false; $("d-canvas").hidden = true;
+    selectTab("overview");
+    dossier.hidden = false;
+    $("d-close").focus();
+  }
   function selectTab(name) {
     document.querySelectorAll("#d-tabs [role=tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === name));
     document.querySelectorAll("[data-panel]").forEach(p => p.hidden = p.dataset.panel !== name);
@@ -335,6 +408,7 @@
   function openDossier(i) {
     const o = ORBITS[i];
     stopAuto();
+    setOrbitMode();
     lastFocus = document.activeElement;
     document.getElementById("d-orbit").textContent = `Orbit ${ROMAN[i]} · ${o.name}`;
     document.getElementById("d-title").textContent = `${code(i)} · First ${o.name} app`;

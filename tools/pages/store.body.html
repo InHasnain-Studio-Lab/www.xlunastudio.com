@@ -1,16 +1,23 @@
   <section class="hero short" aria-labelledby="store-h">
     <span class="eyebrow phase-line" data-moon-phase>Tonight's moon</span>
     <h1 id="store-h">The XLUNA&trade; <em>launch bay</em></h1>
-    <p class="lede">Seven orbits are charted and their first apps are in development. Explore each docking slot to see what it will do, how it will run and what it will cost you: once.</p>
+    <p class="lede">The first two apps are cleared for countdown: XLUNA OS and XFidelity Ultra are coming soon to the Microsoft Store. Seven orbits are charted behind them, each with its first app in development, and every one costs you once.</p>
     <dl class="bay-stats">
+      <div><dt>Coming soon</dt><dd>2</dd></div>
       <div><dt>Orbits charted</dt><dd>7</dd></div>
-      <div><dt>Apps in development</dt><dd>7</dd></div>
       <div><dt>Subscriptions</dt><dd>0</dd></div>
       <div><dt>Free trial</dt><dd>24h</dd></div>
     </dl>
   </section>
 
-  <section aria-labelledby="spot-h" style="padding-top:10px">
+  <section aria-labelledby="soon-h" style="padding-top:10px">
+    <span class="eyebrow">Coming soon</span>
+    <h2 id="soon-h">First launches</h2>
+    <p class="note">Both apps are in Microsoft Store certification. Availability, price and the store link arrive on launch day.</p>
+    <div class="launches" id="launches"></div>
+  </section>
+
+  <section aria-labelledby="spot-h">
     <span class="eyebrow">Spotlight</span>
     <h2 id="spot-h" class="visually-quiet">Featured docking slot</h2>
     <div class="spotlight" id="spotlight">
@@ -60,11 +67,11 @@
     <div class="dossier-card wide">
       <div class="app-page">
         <header class="app-hero">
-          <div class="app-viz"><canvas id="d-canvas" aria-hidden="true"></canvas></div>
+          <div class="app-viz"><canvas id="d-canvas" aria-hidden="true"></canvas><img id="d-hero" class="app-shot" alt="" hidden></div>
           <div class="app-head">
             <div class="app-id">
-              <img src="/assets/logo/xluna-mark.svg" alt="" width="64" height="64">
-              <div><span class="eyebrow" id="d-orbit"></span><h2 id="d-title"></h2><span class="coord">XLUNA&trade; · In development</span></div>
+              <img id="d-icon" src="/assets/logo/xluna-mark.svg" alt="" width="64" height="64">
+              <div><span class="eyebrow" id="d-orbit"></span><h2 id="d-title"></h2><span class="coord" id="d-coord">XLUNA&trade; · In development</span></div>
             </div>
             <p class="sub" id="d-brief"></p>
             <div class="app-badges"><span>Pay once</span><span>24h trial</span><span>No account</span><span>On-device</span></div>
@@ -80,25 +87,25 @@
         <div class="app-panels">
           <div role="tabpanel" data-panel="overview">
             <p id="d-overview"></p>
-            <div class="preview-frames" aria-label="Preview frames">
+            <div class="preview-frames" aria-label="Preview frames" id="d-frames">
               <div class="frame"><span class="coord">PREVIEW 01</span><b>Arrives at launch</b></div>
               <div class="frame"><span class="coord">PREVIEW 02</span><b>Arrives at launch</b></div>
               <div class="frame"><span class="coord">PREVIEW 03</span><b>Arrives at launch</b></div>
             </div>
           </div>
           <div role="tabpanel" data-panel="highlights" hidden>
-            <p class="note" style="margin-bottom:12px">Planned focus for this orbit. Final features are confirmed on launch day.</p>
+            <p class="note" style="margin-bottom:12px" id="d-hl-note">Planned focus for this orbit. Final features are confirmed on launch day.</p>
             <ul class="highlights" id="d-highlights"></ul>
           </div>
           <div role="tabpanel" data-panel="specs" hidden>
             <dl class="ledger" style="margin:0">
               <div><dt>Designation</dt><dd id="d-des"></dd></div>
-              <div><dt>Status</dt><dd>In development · details classified until launch</dd></div>
+              <div><dt>Status</dt><dd id="d-status">In development · details classified until launch</dd></div>
               <div><dt>Pricing</dt><dd>Single purchase, lifetime licence · price announced at launch</dd></div>
               <div><dt>Trial</dt><dd>24 hours with every feature</dd></div>
               <div><dt>Updates</dt><dd>Included</dd></div>
               <div><dt>Account</dt><dd>Not required</dd></div>
-              <div><dt>Platforms</dt><dd>Announced at launch</dd></div>
+              <div><dt>Platforms</dt><dd id="d-platforms">Announced at launch</dd></div>
               <div><dt>Developer</dt><dd>XLUNA&trade;</dd></div>
             </dl>
           </div>
@@ -107,9 +114,9 @@
               <div><b>Data collected</b><span>None. XLUNA apps carry no telemetry or analytics.</span></div>
               <div><b>Account</b><span>None. Nothing to sign up for or sign in to.</span></div>
               <div><b>Your files</b><span>Stay on your device. Processing happens locally.</span></div>
-              <div><b>Internet use</b><span>Listed per feature at launch, so you know exactly when an app goes online.</span></div>
+              <div><b>Internet use</b><span id="d-net">Listed per feature at launch, so you know exactly when an app goes online.</span></div>
             </div>
-            <p class="note" style="margin-top:12px">Each app will publish its own privacy page before release. See the <a href="/privacy">XLUNA privacy policy</a>.</p>
+            <p class="note" style="margin-top:12px" id="d-privnote">Each app will publish its own privacy page before release. See the <a href="/privacy">XLUNA privacy policy</a>.</p>
           </div>
         </div>
       </div>
