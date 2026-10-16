@@ -186,6 +186,8 @@
   render();
 
   const dossier = document.getElementById("dossier");
+  // Lifted out of <main>, whose stacking layer sits under the sticky header, so the dialog covers the whole page.
+  document.body.appendChild(dossier);
   let stopViz = null, lastFocus = null;
   const $ = id => document.getElementById(id);
   const ORBIT_DEFAULTS = Object.fromEntries(["d-frames", "d-hl-note", "d-status", "d-platforms", "d-net", "d-privnote", "d-coord"].map(id => [id, $(id).innerHTML]));
