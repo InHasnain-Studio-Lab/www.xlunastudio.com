@@ -5,6 +5,8 @@ import json
 import os
 from datetime import date
 
+import apps
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SRC = os.path.join(ROOT, "tools", "pages")
 
@@ -27,7 +29,9 @@ JSONLD = '<script type="application/ld+json">' + json.dumps({
         {"@type": "WebSite", "@id": SITE + "#site", "name": "XLUNA", "alternateName": "XLUNA™", "url": SITE, "publisher": {"@id": SITE + "#org"}},
     ],
 }) + "</script>\n"
-CLEAN = {"index.html": "/", "store.html": "/store", "about.html": "/about", "contact.html": "/contact", "privacy.html": "/privacy", "privacy/xluna-os.html": "/privacy/xluna-os", "privacy/xfidelity-ultra.html": "/privacy/xfidelity-ultra"}
+PAGES += [(apps.page_file(a), "Store", a["title"], a["description"], "app:" + a["slug"]) for a in apps.APPS]
+APP_BY_SCENE = {"app:" + a["slug"]: a for a in apps.APPS}
+CLEAN = {**{apps.page_file(a): "/apps/" + a["slug"] for a in apps.APPS}, "index.html": "/", "store.html": "/store", "about.html": "/about", "contact.html": "/contact", "privacy.html": "/privacy", "privacy/xluna-os.html": "/privacy/xluna-os", "privacy/xfidelity-ultra.html": "/privacy/xfidelity-ultra"}
 NAV = ("index.html", "store.html", "about.html", "contact.html")
 
 HEAD = """<!doctype html>
@@ -37,7 +41,7 @@ HEAD = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="canonical" href="{canonical}">
+{robots}<link rel="canonical" href="{canonical}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="XLUNA">
@@ -46,7 +50,7 @@ HEAD = """<!doctype html>
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="https://xlunastudio.com/assets/logo/xluna-mark-1024.png">
+<meta property="og:image" content="{image}">
 <meta name="theme-color" content="#04060c">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/assets/logo/xluna-mark-32.png" type="image/png">
@@ -94,20 +98,36 @@ FOOT = """</main>
 """
 
 
+def noindex(file):
+    # Policies stay reachable from the footer, the apps and their Store listings, but are kept out of search.
+    return file.startswith("privacy")
+
+
 def build():
     for file, label, title, desc, scene in PAGES:
+        current = "store.html" if scene in APP_BY_SCENE else file
         nav = "\n".join(
-            f'    <a href="{CLEAN[f]}"' + (' aria-current="page"' if f == file else "") + f">{n}</a>" for f, n, *_ in PAGES if f in NAV
+            f'    <a href="{CLEAN[f]}"' + (' aria-current="page"' if f == current else "") + f">{n}</a>" for f, n, *_ in PAGES if f in NAV
         )
-        body = open(os.path.join(SRC, scene + ".body.html"), encoding="utf-8").read()
-        script_path = os.path.join(SRC, scene + ".script.html")
-        scripts = open(script_path, encoding="utf-8").read() if os.path.exists(script_path) else ""
+        image = "https://xlunastudio.com/assets/logo/xluna-mark-1024.png"
+        if scene in APP_BY_SCENE:
+            app = APP_BY_SCENE[scene]
+            body, scripts, jsonld = apps.body(app), "", apps.jsonld(app)
+            image = f"{SITE}assets/apps/{app['slug']}/hero.jpg"
+            scene = "store"
+        else:
+            body = open(os.path.join(SRC, scene + ".body.html"), encoding="utf-8").read()
+            body = body.replace("<!--APP_CARDS-->", "".join(apps.card(a) for a in apps.APPS))
+            script_path = os.path.join(SRC, scene + ".script.html")
+            scripts = open(script_path, encoding="utf-8").read() if os.path.exists(script_path) else ""
+            jsonld = JSONLD if file == "index.html" else ""
         canonical = SITE + CLEAN[file].lstrip("/")
-        jsonld = JSONLD if file == "index.html" else ""
-        html = HEAD.format(title=title, desc=desc, scene=scene, nav=nav, canonical=canonical, jsonld=jsonld) + body + FOOT.format(scripts=scripts)
+        robots = '<meta name="robots" content="noindex, follow">\n' if noindex(file) else ""
+        html = HEAD.format(title=title, desc=desc, scene=scene, nav=nav, canonical=canonical, jsonld=jsonld, robots=robots, image=image) + body + FOOT.format(scripts=scripts)
+        os.makedirs(os.path.dirname(os.path.join(ROOT, file)), exist_ok=True)
         open(os.path.join(ROOT, file), "w", encoding="utf-8", newline="\n").write(html)
         print("wrote", file)
-    urls = "\n".join(f"  <url><loc>{SITE + CLEAN[f].lstrip('/')}</loc><lastmod>{date.today().isoformat()}</lastmod></url>" for f, *_ in PAGES)
+    urls = "\n".join(f"  <url><loc>{SITE + CLEAN[f].lstrip('/')}</loc><lastmod>{date.today().isoformat()}</lastmod></url>" for f, *_ in PAGES if not noindex(f))
     sitemap = f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n'
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8", newline="\n").write(sitemap)
     open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8", newline="\n").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}sitemap.xml\n")
