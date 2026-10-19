@@ -35,6 +35,7 @@ JSONLD = '<script type="application/ld+json">' + json.dumps({
          "contactPoint": {"@type": "ContactPoint", "contactType": "customer support", "email": "contact@xlunastudio.com", "url": SITE + "contact"},
          "founder": {"@type": "Person", "name": "Hasnain Butt Akhtar", "url": "https://inhasnain.com", "sameAs": ["https://www.wikidata.org/wiki/Q141774488", "https://inhasnain.com/"]},
          "knowsAbout": ["Windows application development", "Desktop personalisation software", "Audio enhancement software", "Privacy-first software"],
+         "subOrganization": {"@type": "Organization", "@id": "https://hasnainstudiox.com/#organization", "name": "Hasnain Studio X", "url": "https://hasnainstudiox.com/", "sameAs": "https://www.wikidata.org/wiki/Q141501125"},
          "sameAs": ["https://www.wikidata.org/wiki/Q141774347", STORE_PUBLISHER] + [apps.store_url(a) for a in apps.APPS]},
         {"@type": "WebSite", "@id": SITE + "#site", "name": "XLUNA™", "alternateName": ["XLUNA Studio"], "url": SITE, "inLanguage": "en",
          "description": "Premium limited edition, privacy-first apps for Windows by XLUNA™ Studio. No accounts, no telemetry, no subscriptions.",
