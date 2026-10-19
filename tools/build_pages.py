@@ -12,8 +12,9 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SRC = os.path.join(ROOT, "tools", "pages")
 
 PAGES = [
-    ("index.html", "Home", "XLUNA™ Studio: Premium Limited Edition Apps for Windows", "Premium limited edition apps for Windows on the Microsoft Store. XLUNA OS and XFidelity Ultra run on your own PC: no accounts, no telemetry, pay once and try free for 24 hours.", "home"),
+    ("index.html", "Home", "XLUNA™ Studio: Premium Limited Edition, Privacy-First Apps", "Premium limited edition, privacy-first apps for Windows on the Microsoft Store. XLUNA OS and XFidelity Ultra run on your own PC: no accounts, no telemetry, pay once and try free for 24 hours.", "home"),
     ("store.html", "Store", "XLUNA™ Studio Store: Premium Limited Edition Apps", "XLUNA™ premium limited edition apps for Windows: XLUNA OS and XFidelity Ultra, available now on the Microsoft Store. Pay once, try free for 24 hours.", "store"),
+    ("privacy-first.html", "Privacy-first", "XLUNA™ Privacy-First Apps: no account, no telemetry, no ads", "Every XLUNA™ Studio app runs on your own PC with no account, no telemetry, no adverts and one payment. See exactly what each app sends online, and nothing else.", "privacy-first"),
     ("about.html", "About", "About XLUNA™ Studio | Founder, story and concept", "XLUNA™ Studio is an independent software studio founded by Hasnain Butt Akhtar in England, crafting premium limited edition apps for Windows.", "about"),
     ("contact.html", "Contact", "Contact XLUNA™", "Reach XLUNA™ at contact@xlunastudio.com for app ideas, support, partnerships and press.", "contact"),
     ("privacy.html", "Privacy", "XLUNA™ Privacy Policy", "How XLUNA™ handles information on xlunastudio.com and in its apps.", "privacy"),
@@ -26,17 +27,17 @@ JSONLD = '<script type="application/ld+json">' + json.dumps({
     "@context": "https://schema.org",
     "@graph": [
         {"@type": "Organization", "@id": SITE + "#org", "name": "XLUNA™", "alternateName": ["XLUNA Studio"],
-         "slogan": "Premium Limited Edition Apps",
-         "description": "Independent software studio founded by Hasnain Butt Akhtar, crafting premium limited edition apps for Windows that run on your own PC, with no accounts, no telemetry and one payment. Based in England, UK.",
+         "slogan": "Premium Limited Edition, Privacy-First Apps",
+         "description": "Independent software studio founded by Hasnain Butt Akhtar, crafting premium limited edition, privacy-first apps for Windows that run on your own PC, with no accounts, no telemetry, no adverts and one payment. Based in England, UK.",
          "url": SITE, "foundingDate": "2026", "foundingLocation": {"@type": "Place", "name": "England, United Kingdom"},
          "logo": {"@type": "ImageObject", "url": SITE + "assets/logo/xluna-mark-512.png", "width": 512, "height": 512},
          "email": "contact@xlunastudio.com",
          "contactPoint": {"@type": "ContactPoint", "contactType": "customer support", "email": "contact@xlunastudio.com", "url": SITE + "contact"},
          "founder": {"@type": "Person", "name": "Hasnain Butt Akhtar", "url": "https://inhasnain.com"},
-         "knowsAbout": ["Windows application development", "Desktop personalisation software", "Audio enhancement software", "Privacy-preserving software"],
+         "knowsAbout": ["Windows application development", "Desktop personalisation software", "Audio enhancement software", "Privacy-first software"],
          "sameAs": [STORE_PUBLISHER] + [apps.store_url(a) for a in apps.APPS]},
         {"@type": "WebSite", "@id": SITE + "#site", "name": "XLUNA™", "alternateName": ["XLUNA Studio"], "url": SITE, "inLanguage": "en",
-         "description": "Premium limited edition apps for Windows by XLUNA™ Studio. No accounts, no telemetry, no subscriptions.",
+         "description": "Premium limited edition, privacy-first apps for Windows by XLUNA™ Studio. No accounts, no telemetry, no subscriptions.",
          "publisher": {"@id": SITE + "#org"}},
         {"@type": "ItemList", "@id": SITE + "#apps", "name": "XLUNA™ premium limited edition apps",
          "itemListElement": [{"@type": "ListItem", "position": i, "url": apps.page_url(a), "name": a["name"]} for i, a in enumerate(apps.APPS, 1)]},
@@ -48,7 +49,7 @@ PAGES += [(guides.page_file(g), "Guides", g["title"] + " | XLUNA™", g["descrip
 GUIDE_BY_SCENE = {"guide:" + g["slug"]: g for g in guides.GUIDES}
 APP_BY_SCENE = {"app:" + a["slug"]: a for a in apps.APPS}
 APP_LINKS = "".join(f'<a href="/apps/{a["slug"]}">{a["name"]}</a>' for a in apps.APPS)
-CLEAN = {**{apps.page_file(a): "/apps/" + a["slug"] for a in apps.APPS}, **{guides.page_file(g): "/guides/" + g["slug"] for g in guides.GUIDES}, "guides.html": "/guides", "index.html": "/", "store.html": "/store", "about.html": "/about", "contact.html": "/contact", "privacy.html": "/privacy", "privacy/xluna-os.html": "/privacy/xluna-os", "privacy/xfidelity-ultra.html": "/privacy/xfidelity-ultra"}
+CLEAN = {**{apps.page_file(a): "/apps/" + a["slug"] for a in apps.APPS}, **{guides.page_file(g): "/guides/" + g["slug"] for g in guides.GUIDES}, "guides.html": "/guides", "privacy-first.html": "/privacy-first", "index.html": "/", "store.html": "/store", "about.html": "/about", "contact.html": "/contact", "privacy.html": "/privacy", "privacy/xluna-os.html": "/privacy/xluna-os", "privacy/xfidelity-ultra.html": "/privacy/xfidelity-ultra"}
 NAV = ("index.html", "store.html", "guides.html", "about.html", "contact.html")
 
 HEAD = """<!doctype html>
@@ -99,13 +100,13 @@ FOOT = """</main>
 <footer class="site-foot">
   <div style="display:grid;gap:10px">
     <a class="brand" href="/" aria-label="XLUNA home"><img class="badge" src="/assets/logo/xluna-mark.svg" alt="" width="38" height="38"><img class="word" src="/assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18"></a>
-    <p>XLUNA&trade; Studio · Premium Limited Edition Apps</p>
+    <p>XLUNA&trade; Studio · Premium Limited Edition, Privacy-First Apps</p>
     <p>&copy; 2026 XLUNA&trade;. Developed by Hasnain Butt Akhtar.</p>
     <p>XLUNA&trade; and Hasnain Studio X&trade; are trademarks of Hasnain Butt Akhtar.</p>
     <p>No cookies. No analytics. Nothing tracked.</p>
   </div>
   <nav class="links" aria-label="Footer">
-    <a href="/">Home</a><a href="/store">Store</a>{app_links}<a href="/guides">Guides</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a>
+    <a href="/">Home</a><a href="/store">Store</a>{app_links}<a href="/guides">Guides</a><a href="/privacy-first">Privacy-first</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a>
   </nav>
 </footer>
 {scripts}
@@ -118,7 +119,7 @@ FOOT = """</main>
 
 def noindex(file):
     # Policies stay reachable from the footer, the apps and their Store listings, but are kept out of search.
-    return file.startswith("privacy")
+    return file == "privacy.html" or file.startswith("privacy/")
 
 
 def build():
@@ -134,7 +135,10 @@ def build():
             image = f"{SITE}assets/apps/{app['slug']}/hero.jpg"
             scene = "store"
         elif scene in GUIDE_BY_SCENE:
-            body, scripts, jsonld = guides.body(GUIDE_BY_SCENE[scene]), "", guides.jsonld(GUIDE_BY_SCENE[scene])
+            guide = GUIDE_BY_SCENE[scene]
+            body, scripts, jsonld = guides.body(guide), "", guides.jsonld(guide)
+            if guide.get("apps"):
+                image = f"{SITE}assets/apps/{guide['apps'][0]}/hero.jpg"
             scene = "about"
         elif scene == "guides-index":
             body, scripts, jsonld = guides.index_body(), "", guides.index_jsonld()

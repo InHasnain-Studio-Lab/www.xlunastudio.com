@@ -38,6 +38,12 @@ APPS = [
             "About, with the licence and integrity badges",
         ],
         "net": "Two requests only: the Microsoft Store licence check and the weather forecast for the city you choose.",
+        "faq": [
+            ("Does XLUNA OS collect any data about me?", "No. XLUNA OS has no telemetry, no analytics and no advertising code. The processor, memory and network readings it shows are read on your PC to draw your widgets and wallpaper, and are never sent anywhere."),
+            ("Do I need an account?", "No. There is nothing to sign up for or sign in to. You install it from the Microsoft Store and it works."),
+            ("Does XLUNA OS work offline?", "Yes. Everything except the weather forecast works without a connection. The app goes online only for the Microsoft Store licence check and for the forecast for the city you choose."),
+            ("Where are my settings and notes kept?", "In the app's own folder on your PC. Screen captures go to your Pictures folder, only when you take one. Uninstalling the app removes its folder."),
+        ],
         "files": "Settings and notes stay in the app's own folder; screen captures go to your Pictures folder, only when you take one.",
     },
     {
@@ -71,6 +77,12 @@ APPS = [
             "About, with the licence and integrity details",
         ],
         "net": "One request only: the Microsoft Store licence check. Your audio is never recorded or sent anywhere.",
+        "faq": [
+            ("Does XFidelity Ultra record or upload my audio?", "No. Your sound is enhanced live in memory on your PC. It is never recorded, saved or sent anywhere."),
+            ("Do I need an account?", "No. There is nothing to sign up for or sign in to. You install it from the Microsoft Store and it works."),
+            ("Does XFidelity Ultra work offline?", "Yes. The only time it goes online is the Microsoft Store licence check that confirms your trial or purchase."),
+            ("Does it collect any data?", "No. XFidelity Ultra has no telemetry, no analytics and no advertising code. It keeps only its own settings, in its folder on your PC."),
+        ],
         "files": "Only the app's settings are kept, in its own folder on your PC.",
     },
 ]
@@ -108,6 +120,7 @@ def body(app):
     a = {k: escape(v) if isinstance(v, str) else v for k, v in app.items()}
     overview = "\n".join(f"      <p>{escape(p)}</p>" for p in app["overview"])
     highlights = "".join(f"<li>{escape(h)}</li>" for h in app["highlights"])
+    faq = "\n".join(f'      <details><summary>{escape(q)}</summary><p>{escape(ans)}</p></details>' for q, ans in app["faq"])
     shots = "\n".join(
         f'      <a class="frame shot" href="/assets/apps/{a["slug"]}/shot-{i}.jpg" target="_blank" rel="noopener"><img src="/assets/apps/{a["slug"]}/shot-{i}.jpg" alt="{escape(c)}" loading="lazy"><span class="coord">{escape(c)}</span></a>'
         for i, c in enumerate(app["shots"], 1))
@@ -116,7 +129,7 @@ def body(app):
   <section class="hero short app-top" aria-labelledby="app-h">
     <div class="app-id"><img src="/assets/apps/{a['slug']}/icon.png" alt="" width="64" height="64"><div><span class="eyebrow">{a['kind']} · Available now</span><h1 id="app-h">{a['name']}</h1></div></div>
     <p class="lede"><strong>{a['tagline']}</strong> {a['brief']}</p>
-    <div class="app-badges"><span>Pay once</span><span>24h free trial</span><span>No account</span><span>Windows 10 &amp; 11</span></div>
+    <div class="app-badges"><a class="badge-pf" href="/privacy-first">Privacy-first</a><span>Pay once</span><span>24h free trial</span><span>No account</span><span>Windows 10 &amp; 11</span></div>
     <div class="cta"><a class="btn primary" href="{store_url(app)}" target="_blank" rel="noopener">Get it on Microsoft Store</a><a class="btn ghost" href="/store">All apps</a></div>
   </section>
 
@@ -169,7 +182,15 @@ def body(app):
       <div><b>Your files</b><span>{a['files']}</span></div>
       <div><b>Internet use</b><span>{a['net']}</span></div>
     </div>
-    <p class="note" style="margin-top:12px">Read the full <a href="/privacy/{a['slug']}">{a['name']} privacy policy</a>.</p>
+    <p class="note" style="margin-top:12px">Read the full <a href="/privacy/{a['slug']}">{a['name']} privacy policy</a>, or the studio's <a href="/privacy-first">privacy-first promise</a>.</p>
+  </section>
+
+  <section aria-labelledby="faq-h">
+    <span class="eyebrow">Questions</span>
+    <h2 id="faq-h">{a['name']} and your privacy</h2>
+    <div class="faq">
+{faq}
+    </div>
   </section>
 """
 
@@ -191,6 +212,11 @@ def jsonld(app):
                 "installUrl": store_url(app),
                 "publisher": {"@type": "Organization", "name": "XLUNA", "url": SITE},
                 "author": {"@type": "Person", "name": "Hasnain Butt Akhtar"},
+            },
+            {
+                "@type": "FAQPage",
+                "@id": page_url(app) + "#faq",
+                "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in app["faq"]],
             },
             {
                 "@type": "BreadcrumbList",

@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Manrope:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "@id": "https://xlunastudio.com/apps/xluna-os#app", "name": "XLUNA OS", "description": "XLUNA OS turns Windows into a moonlit desk: live 3D wallpapers that move with your PC, an App Hub for every app, a dock with live previews and real-time widgets. Pay once, try free for 24 hours.", "url": "https://xlunastudio.com/apps/xluna-os", "applicationCategory": "DesktopEnhancementApplication", "operatingSystem": "Windows 10, Windows 11", "image": "https://xlunastudio.com/assets/apps/xluna-os/hero.jpg", "screenshot": ["https://xlunastudio.com/assets/apps/xluna-os/shot-1.jpg", "https://xlunastudio.com/assets/apps/xluna-os/shot-2.jpg", "https://xlunastudio.com/assets/apps/xluna-os/shot-3.jpg", "https://xlunastudio.com/assets/apps/xluna-os/shot-4.jpg"], "installUrl": "https://apps.microsoft.com/detail/9MXJ3LXCT264", "publisher": {"@type": "Organization", "name": "XLUNA", "url": "https://xlunastudio.com/"}, "author": {"@type": "Person", "name": "Hasnain Butt Akhtar"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xlunastudio.com/"}, {"@type": "ListItem", "position": 2, "name": "Store", "item": "https://xlunastudio.com/store"}, {"@type": "ListItem", "position": 3, "name": "XLUNA OS", "item": "https://xlunastudio.com/apps/xluna-os"}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "@id": "https://xlunastudio.com/apps/xluna-os#app", "name": "XLUNA OS", "description": "XLUNA OS turns Windows into a moonlit desk: live 3D wallpapers that move with your PC, an App Hub for every app, a dock with live previews and real-time widgets. Pay once, try free for 24 hours.", "url": "https://xlunastudio.com/apps/xluna-os", "applicationCategory": "DesktopEnhancementApplication", "operatingSystem": "Windows 10, Windows 11", "image": "https://xlunastudio.com/assets/apps/xluna-os/hero.jpg", "screenshot": ["https://xlunastudio.com/assets/apps/xluna-os/shot-1.jpg", "https://xlunastudio.com/assets/apps/xluna-os/shot-2.jpg", "https://xlunastudio.com/assets/apps/xluna-os/shot-3.jpg", "https://xlunastudio.com/assets/apps/xluna-os/shot-4.jpg"], "installUrl": "https://apps.microsoft.com/detail/9MXJ3LXCT264", "publisher": {"@type": "Organization", "name": "XLUNA", "url": "https://xlunastudio.com/"}, "author": {"@type": "Person", "name": "Hasnain Butt Akhtar"}}, {"@type": "FAQPage", "@id": "https://xlunastudio.com/apps/xluna-os#faq", "mainEntity": [{"@type": "Question", "name": "Does XLUNA OS collect any data about me?", "acceptedAnswer": {"@type": "Answer", "text": "No. XLUNA OS has no telemetry, no analytics and no advertising code. The processor, memory and network readings it shows are read on your PC to draw your widgets and wallpaper, and are never sent anywhere."}}, {"@type": "Question", "name": "Do I need an account?", "acceptedAnswer": {"@type": "Answer", "text": "No. There is nothing to sign up for or sign in to. You install it from the Microsoft Store and it works."}}, {"@type": "Question", "name": "Does XLUNA OS work offline?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Everything except the weather forecast works without a connection. The app goes online only for the Microsoft Store licence check and for the forecast for the city you choose."}}, {"@type": "Question", "name": "Where are my settings and notes kept?", "acceptedAnswer": {"@type": "Answer", "text": "In the app's own folder on your PC. Screen captures go to your Pictures folder, only when you take one. Uninstalling the app removes its folder."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xlunastudio.com/"}, {"@type": "ListItem", "position": 2, "name": "Store", "item": "https://xlunastudio.com/store"}, {"@type": "ListItem", "position": 3, "name": "XLUNA OS", "item": "https://xlunastudio.com/apps/xluna-os"}]}]}</script>
 </head>
 <body data-scene="store">
 <canvas id="universe" aria-hidden="true"></canvas>
@@ -49,7 +49,7 @@
   <section class="hero short app-top" aria-labelledby="app-h">
     <div class="app-id"><img src="/assets/apps/xluna-os/icon.png" alt="" width="64" height="64"><div><span class="eyebrow">Desktop shell · Available now</span><h1 id="app-h">XLUNA OS</h1></div></div>
     <p class="lede"><strong>Your desktop, lit by the moon.</strong> A moonlit desktop for Windows: live 3D wallpapers that move with your PC, an App Hub for every app, a dock with live window previews and widgets that report the real numbers.</p>
-    <div class="app-badges"><span>Pay once</span><span>24h free trial</span><span>No account</span><span>Windows 10 &amp; 11</span></div>
+    <div class="app-badges"><a class="badge-pf" href="/privacy-first">Privacy-first</a><span>Pay once</span><span>24h free trial</span><span>No account</span><span>Windows 10 &amp; 11</span></div>
     <div class="cta"><a class="btn primary" href="https://apps.microsoft.com/detail/9MXJ3LXCT264" target="_blank" rel="noopener">Get it on Microsoft Store</a><a class="btn ghost" href="/store">All apps</a></div>
   </section>
 
@@ -107,20 +107,31 @@
       <div><b>Your files</b><span>Settings and notes stay in the app&#x27;s own folder; screen captures go to your Pictures folder, only when you take one.</span></div>
       <div><b>Internet use</b><span>Two requests only: the Microsoft Store licence check and the weather forecast for the city you choose.</span></div>
     </div>
-    <p class="note" style="margin-top:12px">Read the full <a href="/privacy/xluna-os">XLUNA OS privacy policy</a>.</p>
+    <p class="note" style="margin-top:12px">Read the full <a href="/privacy/xluna-os">XLUNA OS privacy policy</a>, or the studio's <a href="/privacy-first">privacy-first promise</a>.</p>
+  </section>
+
+  <section aria-labelledby="faq-h">
+    <span class="eyebrow">Questions</span>
+    <h2 id="faq-h">XLUNA OS and your privacy</h2>
+    <div class="faq">
+      <details><summary>Does XLUNA OS collect any data about me?</summary><p>No. XLUNA OS has no telemetry, no analytics and no advertising code. The processor, memory and network readings it shows are read on your PC to draw your widgets and wallpaper, and are never sent anywhere.</p></details>
+      <details><summary>Do I need an account?</summary><p>No. There is nothing to sign up for or sign in to. You install it from the Microsoft Store and it works.</p></details>
+      <details><summary>Does XLUNA OS work offline?</summary><p>Yes. Everything except the weather forecast works without a connection. The app goes online only for the Microsoft Store licence check and for the forecast for the city you choose.</p></details>
+      <details><summary>Where are my settings and notes kept?</summary><p>In the app&#x27;s own folder on your PC. Screen captures go to your Pictures folder, only when you take one. Uninstalling the app removes its folder.</p></details>
+    </div>
   </section>
 </main>
 
 <footer class="site-foot">
   <div style="display:grid;gap:10px">
     <a class="brand" href="/" aria-label="XLUNA home"><img class="badge" src="/assets/logo/xluna-mark.svg" alt="" width="38" height="38"><img class="word" src="/assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18"></a>
-    <p>XLUNA&trade; Studio · Premium Limited Edition Apps</p>
+    <p>XLUNA&trade; Studio · Premium Limited Edition, Privacy-First Apps</p>
     <p>&copy; 2026 XLUNA&trade;. Developed by Hasnain Butt Akhtar.</p>
     <p>XLUNA&trade; and Hasnain Studio X&trade; are trademarks of Hasnain Butt Akhtar.</p>
     <p>No cookies. No analytics. Nothing tracked.</p>
   </div>
   <nav class="links" aria-label="Footer">
-    <a href="/">Home</a><a href="/store">Store</a><a href="/apps/xluna-os">XLUNA OS</a><a href="/apps/xfidelity-ultra">XFidelity Ultra</a><a href="/guides">Guides</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a>
+    <a href="/">Home</a><a href="/store">Store</a><a href="/apps/xluna-os">XLUNA OS</a><a href="/apps/xfidelity-ultra">XFidelity Ultra</a><a href="/guides">Guides</a><a href="/privacy-first">Privacy-first</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a>
   </nav>
 </footer>
 
