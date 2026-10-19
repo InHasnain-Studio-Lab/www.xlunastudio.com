@@ -14,7 +14,7 @@ SRC = os.path.join(ROOT, "tools", "pages")
 PAGES = [
     ("index.html", "Home", "XLUNA™ Studio: Premium Limited Edition, Privacy-First Apps", "Premium limited edition, privacy-first apps for Windows on the Microsoft Store. XLUNA OS and XFidelity Ultra run on your own PC: no accounts, no telemetry, pay once and try free for 24 hours.", "home"),
     ("store.html", "Store", "XLUNA™ Studio Store: Premium Limited Edition Apps", "XLUNA™ premium limited edition apps for Windows: XLUNA OS and XFidelity Ultra, available now on the Microsoft Store. Pay once, try free for 24 hours.", "store"),
-    ("privacy-first.html", "Privacy-first", "XLUNA™ Privacy-First Apps: no account, no telemetry, no ads", "Every XLUNA™ Studio app runs on your own PC with no account, no telemetry, no adverts and one payment. See exactly what each app sends online, and nothing else.", "privacy-first"),
+    ("privacy-first.html", "Privacy-first", "XLUNA™ Privacy-First Apps: no data collected, no account, no ads", "XLUNA™ Studio apps collect no data. Everything stays on your own PC, never on a server: no account, no telemetry, no adverts and one payment.", "privacy-first"),
     ("about.html", "About", "About XLUNA™ Studio | Founder, story and concept", "XLUNA™ Studio is an independent software studio founded by Hasnain Butt Akhtar in England, crafting premium limited edition apps for Windows.", "about"),
     ("contact.html", "Contact", "Contact XLUNA™", "Reach XLUNA™ at contact@xlunastudio.com for app ideas, support, partnerships and press.", "contact"),
     ("privacy.html", "Privacy", "XLUNA™ Privacy Policy", "How XLUNA™ handles information on xlunastudio.com and in its apps.", "privacy"),

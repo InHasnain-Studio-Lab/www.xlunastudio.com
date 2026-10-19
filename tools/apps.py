@@ -37,9 +37,10 @@ APPS = [
             "The 3D Moon wallpaper with the control centre",
             "About, with the licence and integrity badges",
         ],
-        "net": "Two requests only: the Microsoft Store licence check and the weather forecast for the city you choose.",
+        "net": "No data collected. Its only connections are the Microsoft Store licence check and the weather forecast for the city you choose.",
         "faq": [
             ("Does XLUNA OS collect any data about me?", "No. XLUNA OS has no telemetry, no analytics and no advertising code. The processor, memory and network readings it shows are read on your PC to draw your widgets and wallpaper, and are never sent anywhere."),
+            ("Is my data stored on a server?", "No. XLUNA collects no data and keeps nothing about you on any server. Your desk, notes and settings stay on your PC."),
             ("Do I need an account?", "No. There is nothing to sign up for or sign in to. You install it from the Microsoft Store and it works."),
             ("Does XLUNA OS work offline?", "Yes. Everything except the weather forecast works without a connection. The app goes online only for the Microsoft Store licence check and for the forecast for the city you choose."),
             ("Where are my settings and notes kept?", "In the app's own folder on your PC. Screen captures go to your Pictures folder, only when you take one. Uninstalling the app removes its folder."),
@@ -76,9 +77,10 @@ APPS = [
             "Help and tips",
             "About, with the licence and integrity details",
         ],
-        "net": "One request only: the Microsoft Store licence check. Your audio is never recorded or sent anywhere.",
+        "net": "No data collected. Its only connection is the Microsoft Store licence check. Your audio is never recorded or sent anywhere.",
         "faq": [
             ("Does XFidelity Ultra record or upload my audio?", "No. Your sound is enhanced live in memory on your PC. It is never recorded, saved or sent anywhere."),
+            ("Is my data stored on a server?", "No. XLUNA collects no data and keeps nothing about you on any server. Your settings stay on your PC."),
             ("Do I need an account?", "No. There is nothing to sign up for or sign in to. You install it from the Microsoft Store and it works."),
             ("Does XFidelity Ultra work offline?", "Yes. The only time it goes online is the Microsoft Store licence check that confirms your trial or purchase."),
             ("Does it collect any data?", "No. XFidelity Ultra has no telemetry, no analytics and no advertising code. It keeps only its own settings, in its folder on your PC."),
@@ -177,7 +179,7 @@ def body(app):
     <span class="eyebrow">Privacy</span>
     <h2 id="pv-h">Your data stays on your PC</h2>
     <div class="privacy-label" style="margin-top:20px">
-      <div><b>Data collected</b><span>None. No telemetry or analytics.</span></div>
+      <div><b>Data collected</b><span>None. Everything stays on your PC, never on a server.</span></div>
       <div><b>Account</b><span>None. Nothing to sign up for or sign in to.</span></div>
       <div><b>Your files</b><span>{a['files']}</span></div>
       <div><b>Internet use</b><span>{a['net']}</span></div>
