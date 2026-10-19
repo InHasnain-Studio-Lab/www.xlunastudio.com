@@ -1,0 +1,78 @@
+<!--XLUNA:GUIDE {
+  "title": "Live wallpapers on Windows 11: what they cost and how to choose",
+  "nav": "Live wallpapers on Windows 11",
+  "h1": "Live wallpapers on Windows 11: what they really cost your PC",
+  "standfirst": "How animated wallpapers work on Windows, what they do to your processor, graphics and battery, and the settings that keep a moving desktop smooth.",
+  "description": "How live and animated wallpapers work on Windows 11, what they cost in CPU, GPU and battery, and the frame rate and pause settings that keep a moving desktop smooth.",
+  "section": "Windows",
+  "published": "2026-10-19",
+  "keywords": ["live wallpaper Windows 11", "animated wallpaper Windows", "live wallpaper performance", "3D wallpaper Windows 11", "wallpaper engine alternative Microsoft Store"],
+  "apps": ["xluna-os"]
+}-->
+
+<p class="art-lead">Windows can show a slideshow or a daily photo on your desktop, but it has no built in way to play
+an animated wallpaper. Every live wallpaper you have seen on Windows 11 comes from an app that draws a window
+behind your desktop icons and keeps painting it. That is why some feel effortless and others make a laptop fan
+spin up: it all depends on how that app draws and when it stops.</p>
+
+<h2>Two kinds of live wallpaper</h2>
+
+<p>Almost every live wallpaper is one of two things, and they cost your PC in very different ways.</p>
+
+<ul>
+  <li><strong>A looping video.</strong> The app plays a video file behind your icons. Your graphics hardware has
+  a dedicated video decoder, so a well made video wallpaper is cheap to play. The cost grows with resolution:
+  a 4K loop on a 4K screen asks for far more than a 1080p loop.</li>
+  <li><strong>A scene drawn live.</strong> The app calculates every frame as it goes: particles, a turning planet,
+  shapes that react to the mouse or to your PC's activity. This can look far richer than a video and can respond
+  to what you do, but each frame is real work for the processor or graphics card.</li>
+</ul>
+
+<p>Neither kind is wrong. A video loop is the lighter choice for an older laptop; a live scene is the richer
+choice for a desktop with headroom. What matters most is whether the app is careful about when it draws.</p>
+
+<h2>What a moving desktop actually costs</h2>
+
+<p>Open Task Manager, go to Processes, and watch the CPU and GPU columns for the wallpaper app with your desktop
+showing. A well behaved live wallpaper sits in the low single digits on a modern PC. If it stays high, or keeps
+working while a game is running, it is drawing frames nobody can see.</p>
+
+<p>On a laptop the real cost is battery. A wallpaper that keeps the graphics chip busy stops it from dropping into
+its low power states, and that can cut noticeably into unplugged time. Heat and fan noise follow from the same
+thing.</p>
+
+<h2>The settings that matter</h2>
+
+<ol class="art-steps">
+  <li><strong>Frame rate.</strong> A wallpaper does not need to match your monitor's refresh rate. 30 frames per
+  second looks smooth for slow, drifting motion and halves the work of 60. Choose 60 when you want fast motion to
+  look silky and you have the headroom.</li>
+  <li><strong>Pause when covered.</strong> The single most important setting. When a full screen app, a game or a
+  maximised window covers the desktop, the wallpaper should stop drawing completely, not just slow down.</li>
+  <li><strong>Quality or detail.</strong> Lower detail settings draw fewer elements or at a lower internal
+  resolution. On a 4K screen this is often the difference between a light load and a heavy one.</li>
+  <li><strong>A calm or still mode.</strong> A slower motion mode, or a way to freeze the scene entirely, is useful
+  on battery, during calls, or when you want the look without the movement.</li>
+</ol>
+
+<h2>Laptops, 4K screens and several monitors</h2>
+
+<p>On a laptop, start at 30 frames per second with the calm mode on, and check battery life over a normal day
+before turning things up. On a 4K screen, prefer apps that render at the screen's real resolution rather than
+stretching a smaller image, because a stretched wallpaper looks soft however good the original is. With several
+monitors, each screen is drawn separately, so the cost adds up; it is worth checking Task Manager again after
+adding a second display.</p>
+
+<h2>Where to get them safely</h2>
+
+<p>Wallpaper packs and players passed around as downloads from unfamiliar sites are a common way to pick up
+unwanted software, because the installer runs with your permissions. Apps from the Microsoft Store are packaged,
+checked before release, install into their own space and remove cleanly when you uninstall them, which makes the
+Store the safer place to look.</p>
+
+<h2>How XLUNA OS handles this</h2>
+
+<p>XLUNA OS draws its 3D scenes live at your screen's own resolution, up to 4K, with a choice of 60 or 30 frames
+per second. Behind other windows it holds 30, and when your desktop is fully covered it stops drawing altogether.
+Calm and Off motion modes slow the scene or freeze it, and the detail setting trades richness for a lighter load
+on smaller machines.</p>

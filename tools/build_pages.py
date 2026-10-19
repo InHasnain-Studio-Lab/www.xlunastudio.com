@@ -6,14 +6,15 @@ import os
 from datetime import date
 
 import apps
+import guides
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SRC = os.path.join(ROOT, "tools", "pages")
 
 PAGES = [
-    ("index.html", "Home", "XLUNA™ | Windows apps studio: XLUNA OS and XFidelity Ultra", "XLUNA™ is an independent software studio making Windows apps you own outright: XLUNA OS, a moonlit 3D desktop, and XFidelity Ultra, a surround sound enhancer. Pay once, try free for 24 hours.", "home"),
-    ("store.html", "Store", "XLUNA™ Store | XLUNA OS and XFidelity Ultra for Windows", "The XLUNA launch bay: XLUNA OS and XFidelity Ultra, available now on the Microsoft Store. Pay once, try free for 24 hours.", "store"),
-    ("about.html", "About", "About XLUNA™ | Founder, story and concept", "XLUNA™ is an independent software studio founded by Hasnain Butt Akhtar in England, named for the new moon and the orbits around it.", "about"),
+    ("index.html", "Home", "XLUNA™ Studio: Premium Limited Edition Apps for Windows", "Premium limited edition apps for Windows on the Microsoft Store. XLUNA OS and XFidelity Ultra run on your own PC: no accounts, no telemetry, pay once and try free for 24 hours.", "home"),
+    ("store.html", "Store", "XLUNA™ Studio Store: Premium Limited Edition Apps", "XLUNA™ premium limited edition apps for Windows: XLUNA OS and XFidelity Ultra, available now on the Microsoft Store. Pay once, try free for 24 hours.", "store"),
+    ("about.html", "About", "About XLUNA™ Studio | Founder, story and concept", "XLUNA™ Studio is an independent software studio founded by Hasnain Butt Akhtar in England, crafting premium limited edition apps for Windows.", "about"),
     ("contact.html", "Contact", "Contact XLUNA™", "Reach XLUNA™ at contact@xlunastudio.com for app ideas, support, partnerships and press.", "contact"),
     ("privacy.html", "Privacy", "XLUNA™ Privacy Policy", "How XLUNA™ handles information on xlunastudio.com and in its apps.", "privacy"),
     ("privacy/xluna-os.html", "Privacy", "XLUNA OS Privacy Policy | XLUNA™", "How XLUNA OS keeps your desk, settings and readings on your own PC.", "privacy-xluna-os"),
@@ -24,24 +25,31 @@ STORE_PUBLISHER = "https://apps.microsoft.com/search/publisher?name=XLUNA"
 JSONLD = '<script type="application/ld+json">' + json.dumps({
     "@context": "https://schema.org",
     "@graph": [
-        {"@type": "Organization", "@id": SITE + "#org", "name": "XLUNA", "alternateName": ["XLUNA™", "XLUNA Studio", "xlunastudio"],
-         "description": "XLUNA is an independent software studio founded in England in 2026, making Windows apps that run on your own PC, need no account and are paid for once.",
+        {"@type": "Organization", "@id": SITE + "#org", "name": "XLUNA™", "alternateName": ["XLUNA Studio"],
+         "slogan": "Premium Limited Edition Apps",
+         "description": "Independent software studio founded by Hasnain Butt Akhtar, crafting premium limited edition apps for Windows that run on your own PC, with no accounts, no telemetry and one payment. Based in England, UK.",
          "url": SITE, "foundingDate": "2026", "foundingLocation": {"@type": "Place", "name": "England, United Kingdom"},
          "logo": {"@type": "ImageObject", "url": SITE + "assets/logo/xluna-mark-512.png", "width": 512, "height": 512},
          "email": "contact@xlunastudio.com",
          "contactPoint": {"@type": "ContactPoint", "contactType": "customer support", "email": "contact@xlunastudio.com", "url": SITE + "contact"},
-         "founder": {"@type": "Person", "name": "Hasnain Butt Akhtar"},
+         "founder": {"@type": "Person", "name": "Hasnain Butt Akhtar", "url": "https://inhasnain.com"},
+         "knowsAbout": ["Windows application development", "Desktop personalisation software", "Audio enhancement software", "Privacy-preserving software"],
          "sameAs": [STORE_PUBLISHER] + [apps.store_url(a) for a in apps.APPS]},
-        {"@type": "WebSite", "@id": SITE + "#site", "name": "XLUNA", "alternateName": ["XLUNA™", "XLUNA Studio"], "url": SITE, "inLanguage": "en", "publisher": {"@id": SITE + "#org"}},
-        {"@type": "ItemList", "@id": SITE + "#apps", "name": "XLUNA apps for Windows",
+        {"@type": "WebSite", "@id": SITE + "#site", "name": "XLUNA™", "alternateName": ["XLUNA Studio"], "url": SITE, "inLanguage": "en",
+         "description": "Premium limited edition apps for Windows by XLUNA™ Studio. No accounts, no telemetry, no subscriptions.",
+         "publisher": {"@id": SITE + "#org"}},
+        {"@type": "ItemList", "@id": SITE + "#apps", "name": "XLUNA™ premium limited edition apps",
          "itemListElement": [{"@type": "ListItem", "position": i, "url": apps.page_url(a), "name": a["name"]} for i, a in enumerate(apps.APPS, 1)]},
     ],
 }) + "</script>\n"
+PAGES.insert(2, ("guides.html", "Guides", "XLUNA™ Guides: Windows tips from XLUNA Studio", "Practical guides to getting more from your Windows PC, its sound, speed and desktop, from XLUNA™ Studio, makers of premium limited edition apps.", "guides-index"))
 PAGES += [(apps.page_file(a), "Store", a["title"], a["description"], "app:" + a["slug"]) for a in apps.APPS]
+PAGES += [(guides.page_file(g), "Guides", g["title"] + " | XLUNA™", g["description"], "guide:" + g["slug"]) for g in guides.GUIDES]
+GUIDE_BY_SCENE = {"guide:" + g["slug"]: g for g in guides.GUIDES}
 APP_BY_SCENE = {"app:" + a["slug"]: a for a in apps.APPS}
 APP_LINKS = "".join(f'<a href="/apps/{a["slug"]}">{a["name"]}</a>' for a in apps.APPS)
-CLEAN = {**{apps.page_file(a): "/apps/" + a["slug"] for a in apps.APPS}, "index.html": "/", "store.html": "/store", "about.html": "/about", "contact.html": "/contact", "privacy.html": "/privacy", "privacy/xluna-os.html": "/privacy/xluna-os", "privacy/xfidelity-ultra.html": "/privacy/xfidelity-ultra"}
-NAV = ("index.html", "store.html", "about.html", "contact.html")
+CLEAN = {**{apps.page_file(a): "/apps/" + a["slug"] for a in apps.APPS}, **{guides.page_file(g): "/guides/" + g["slug"] for g in guides.GUIDES}, "guides.html": "/guides", "index.html": "/", "store.html": "/store", "about.html": "/about", "contact.html": "/contact", "privacy.html": "/privacy", "privacy/xluna-os.html": "/privacy/xluna-os", "privacy/xfidelity-ultra.html": "/privacy/xfidelity-ultra"}
+NAV = ("index.html", "store.html", "guides.html", "about.html", "contact.html")
 
 HEAD = """<!doctype html>
 <html lang="en">
@@ -53,7 +61,7 @@ HEAD = """<!doctype html>
 {robots}<link rel="canonical" href="{canonical}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="XLUNA">
+<meta property="og:site_name" content="XLUNA™ Studio">
 <meta name="application-name" content="XLUNA">
 <meta name="apple-mobile-web-app-title" content="XLUNA">
 <meta name="twitter:card" content="summary_large_image">
@@ -91,12 +99,13 @@ FOOT = """</main>
 <footer class="site-foot">
   <div style="display:grid;gap:10px">
     <a class="brand" href="/" aria-label="XLUNA home"><img class="badge" src="/assets/logo/xluna-mark.svg" alt="" width="38" height="38"><img class="word" src="/assets/logo/xluna-wordmark.svg" alt="XLUNA" width="80" height="18"></a>
+    <p>XLUNA&trade; Studio · Premium Limited Edition Apps</p>
     <p>&copy; 2026 XLUNA&trade;. Developed by Hasnain Butt Akhtar.</p>
     <p>XLUNA&trade; and Hasnain Studio X&trade; are trademarks of Hasnain Butt Akhtar.</p>
     <p>No cookies. No analytics. Nothing tracked.</p>
   </div>
   <nav class="links" aria-label="Footer">
-    <a href="/">Home</a><a href="/store">Store</a>{app_links}<a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a>
+    <a href="/">Home</a><a href="/store">Store</a>{app_links}<a href="/guides">Guides</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a>
   </nav>
 </footer>
 {scripts}
@@ -114,7 +123,7 @@ def noindex(file):
 
 def build():
     for file, label, title, desc, scene in PAGES:
-        current = "store.html" if scene in APP_BY_SCENE else file
+        current = "store.html" if scene in APP_BY_SCENE else "guides.html" if scene in GUIDE_BY_SCENE else file
         nav = "\n".join(
             f'    <a href="{CLEAN[f]}"' + (' aria-current="page"' if f == current else "") + f">{n}</a>" for f, n, *_ in PAGES if f in NAV
         )
@@ -124,6 +133,12 @@ def build():
             body, scripts, jsonld = apps.body(app), "", apps.jsonld(app)
             image = f"{SITE}assets/apps/{app['slug']}/hero.jpg"
             scene = "store"
+        elif scene in GUIDE_BY_SCENE:
+            body, scripts, jsonld = guides.body(GUIDE_BY_SCENE[scene]), "", guides.jsonld(GUIDE_BY_SCENE[scene])
+            scene = "about"
+        elif scene == "guides-index":
+            body, scripts, jsonld = guides.index_body(), "", guides.index_jsonld()
+            scene = "about"
         else:
             body = open(os.path.join(SRC, scene + ".body.html"), encoding="utf-8").read()
             body = body.replace("<!--APP_CARDS-->", "".join(apps.card(a) for a in apps.APPS))
